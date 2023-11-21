@@ -1,0 +1,114 @@
+.market-data {
+    display: flex;
+    flex-wrap: wrap;
+   
+    .data{
+        padding: 0 1.5rem ;
+        h4{
+            font-size: 1.125rem;
+            font-weight: 600;
+			color:var(--secondary);
+            
+        }
+        span{
+            font-size: 0.813rem;
+            color: $danger;
+        }
+    }
+    .data:first-child{
+        padding-left: 0;
+    }
+    @include respond('phone'){
+        flex-wrap: wrap;
+		display:none;
+    }
+    
+    @include respond('phone-land'){
+        .data {
+            padding-left: 0;
+        }
+    }
+    
+}
+.dashboard-select{
+	&.nice-select{
+		&:after{
+			right: 3px;
+		}
+	}
+}
+.form-control{
+	.dropdown-toggle::after{
+		font-family: 'Font Awesome 6 Free';
+		font-weight: 900;
+		content: "\f078";
+		border:0;
+	}
+	&.custom-image-select-1{
+		width:auto!important;
+		img{
+			width: 1.625rem;
+			margin-right: 0.625rem;
+		}
+		.dropdown-toggle{
+			padding: 0.825rem 0.9rem 0.625rem 1rem;
+		}
+		.filter-option-inner-inner{
+			margin-right: 1.5625rem;
+			color: #000;
+		}
+		.dropdown-menu{
+			.dropdown-item{
+				padding: 0.625rem 0.9375rem 0.625rem 0.9375rem;				
+				text-align: left;
+			}
+		}
+		.form-control{
+			width:0!important;
+			.dropdown-toggle::after{
+				color:$secondary;
+			}
+		}
+		
+	}
+}	
+
+.slider-wrapper{
+	.progress-slider{
+		height: 7px;
+		background-color: var(--rgba-secondary-1);
+		border-radius: 7px;
+		margin-top: 40px;
+		cursor: pointer;
+		.thumb{
+			text-align: center;
+			padding: 4px;
+			height: 28px;
+			width: 28px;
+			background: var(--primary);
+			color: white;
+			border-radius: 50%;
+			top: -33px;
+			margin-left: 8px;
+		}
+		.track{
+			
+			&.track-0{
+				height: 100%;
+				background-color: var(--primary);
+				border-radius: 7px;
+			}
+			&.track-1{
+				top: -4px;
+				height: 0.9375rem;
+				width: 0.9375rem;
+				box-shadow: none;
+				border: none;
+				border: 2px solid var(--primary);
+				border-radius: 3.125rem;
+				margin-left: 15px !important;
+				background-color: #fff;
+			}
+		}
+	}
+}

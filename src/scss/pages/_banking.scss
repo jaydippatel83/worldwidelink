@@ -1,0 +1,333 @@
+
+// ----lastest_transaction----
+.trans-list{
+	display:flex;
+	align-items:center;
+	img{
+		width:40px;
+		height:40px;
+		border-radius:$radius;
+		object-fit: cover;
+	}
+	h4{
+		margin-bottom:0;
+		margin-left:14px;
+		font-size: 15px;
+	}
+	
+}
+.trans-td-list{
+	.doller{
+		font-size:15px;
+		font-weight:500;
+		color:#2A353A;
+	}
+	.date{
+		color:#666666;
+	}
+	.print{
+		height:40px;
+		width:40px;
+		background-color:rgba(42,53,58,0.1);
+		line-height: 40px;
+		border-radius:$radius;
+		text-align:center;
+		margin-right: 15px;
+	}
+	td{
+		padding: 1.0855rem 1.875rem;
+	}
+	@include respond ('phone'){
+		.pe-0{
+			padding-right:0.825rem!important;
+		}
+	}
+	
+	
+}
+.trans-table{
+	&.table.shadow-hover tbody tr:hover{
+		background-color: #F3F3F3;
+		box-shadow:none;
+	}
+}
+.table-pagenation{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 0.625rem;
+	padding: 0 20px;
+	
+    p{
+        margin-left: 0.475rem;
+		span{
+			color:var(--primary)!important;
+            margin: 0 0.2rem;
+		}
+    }
+    .pagination .page-item.page-indicator .page-link {
+        background-color: transparent;
+        border: none;
+        color: var(--primary);
+        &:hover{
+            background-color:var(--primary);;
+        }
+    }
+	@include respond ('phone'){
+        justify-content: center;
+    }
+}
+
+// -----Quick Payment----
+
+.quick-info{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.88rem 1.875rem;
+    background-color: #f3f3f3;
+    border: 1.5px solid $white;
+    border-width: 1px 0;
+    @include respond('laptop'){
+        padding: 1rem 1.175rem;
+    }
+    .quick-content{
+        display: flex;
+        align-items: center;
+       
+        @include respond('tab-land'){
+            flex-direction: row;
+        }
+        .quick_img{
+            display: block;
+            width: 3rem;
+            height: 3rem;
+            border-radius: $radius;
+            overflow: hidden;
+            margin-right: 0.625rem;
+            @include custommq($max:81.25rem){
+                margin-bottom: 0.625rem;
+            }
+            @include respond('tab-land'){
+                margin-bottom: 0;
+            }
+            img{
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+            }
+        }
+        .user-name{
+            h6{
+                font-size: 1rem;
+				margin-bottom: 0;
+            }
+            span{
+                font-size: 0.938rem;
+                font-weight: 400;
+            }
+        }
+    }
+}
+
+
+// --prim-card-
+.prim-card{
+    background-color:var(--primary);
+    overflow: hidden;
+    z-index: 1;
+	@include respond('tab-land'){
+		height:15.5rem;
+	}
+    .number{
+        font-size: 1.25rem;
+        font-weight: 400;
+        color: $white;
+		margin-bottom: 1rem;
+    }
+    h4{
+        margin-bottom: 0;
+    }
+    .prim-info{
+        color: $white;
+        h4{
+            font-size: 1.125rem;
+            color: $white;
+        }
+    }
+    .master-card{
+        text-align: center;
+        h4{
+            color: $white;
+        }
+    }
+    &::before{
+        content: '';
+        background-color: rgba(255, 255, 255, 0.9);
+        position: absolute;
+        top: 58%;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 23.063rem;
+        height: 23.063rem;
+        border-radius: 50%;
+        opacity: 0.14;
+     
+    }
+    &::after{
+        content: '';
+        position: absolute;
+		top: -27%;
+        left: 50%;
+        width: 23.063rem;
+        height: 23.063rem;
+        border-radius: 50%;
+        z-index: -1;
+    }
+}
+
+    // ------Recent Activity---
+.recent-activity{
+	overflow: hidden;
+}
+.recent-info{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding: 0.8rem 1.875rem;
+   
+	@include respond('tab-land'){
+		padding: 0.8rem 1.875rem;
+	}
+	.recent-content{
+		display: flex;
+		align-items: center;
+		.recent_icon{
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			width: 3.5rem;
+			height: 3.5rem;
+			border-radius: $radius;
+			margin-right: 0.625rem;
+			background-color: var(--primary);
+			img{
+				width: 100%;
+				height: 100%;
+				object-fit: cover;
+			}
+		}
+		.user-name{
+			h6{
+				font-size: 1rem;
+				margin-bottom: 0;
+			}
+			span{
+				font-size: 0.813rem;
+				font-weight: 400;
+			}
+		}
+	}
+	.count{
+		font-size: 0.938rem;
+		font-weight: 500;
+		color: var(--primary);
+	}
+}
+
+// ----Exchange----
+.exchange {
+    .balance{
+        padding: 1.8rem;
+        background-color:#eeee;
+        border-radius: $radius;
+        margin-top: 0.725rem;
+        .header-content{
+            display: flex;
+            justify-content: space-between;
+            h6{
+                font-size: 0.938rem;
+                font-weight: 500;
+            }
+            span{
+            }
+        }
+        .count{
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 0;
+        }
+    }
+   
+}
+.rec-design1{
+	border: 2px solid rgba(252, 252, 252, 0.5);
+    height: 114px;
+    width: 173px;
+    border-radius: 20px;
+    position: absolute;
+    top: -56px;
+    right: -66px;
+}
+
+
+.rec-design2{
+	border: 2px solid rgba(252, 252, 252, 0.5);
+    height: 114px;
+    width: 173px;
+    border-radius: 20px;
+    position: absolute;
+    top: -29px;
+    right: -98px;
+}
+.chart-num{
+	h2{
+		font-size:28px;
+		font-weight:600;
+	}
+	span{
+		font-size:20px;
+		font-weight:500;
+	}
+}
+
+
+.banking-dropdown{
+    border-radius: 5px;
+    border: solid 1px #e8e8e8;
+	font-size: 0.875rem;
+    padding-left: 18px;
+    padding-right: 15px;
+	font-weight: 500;
+    height: 42px;
+    line-height: 40px;
+	color: #bcb4c4;
+	cursor: pointer;
+	.banking-select{
+		i{
+			transition: all 0.5s;
+			font-size: 0.75rem;
+			color: var(--primary);	
+		}
+	}
+	.dropdown-menu{
+        inset: auto 22px -98px auto !important;
+		min-width: 4rem;
+		&:after{
+			content: none;
+		}
+		.dropdown-item{
+			padding: 0rem 1.45rem;
+            font-size: 14px;
+		}
+	}
+	&.show{
+        box-shadow: 0 0 0 1px rgba(68, 68, 68, 0.11);
+		.banking-select{
+			i{
+				transform: rotate(-180deg);
+			}
+		}	
+	}
+}

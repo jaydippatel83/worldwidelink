@@ -1,0 +1,82 @@
+.card-box{
+	overflow: hidden;
+	.chart-num-days{
+		p{
+			color:$white;
+			margin-bottom:0;
+		}
+	}
+}
+
+.volume-list{
+	display: flex;
+    justify-content: space-between;
+	flex-flow: wrap;
+	h5{
+		font-weight:500;
+		color: var(--secondary);
+		margin-bottom: 0;
+	}
+	div{
+		@include respond ('phone'){
+			margin-bottom:10px;
+		}
+	}
+}
+.activity-tbl{
+	thead{
+		tr{
+			th{
+				font-size:1rem;
+				color: var(--secondary);
+				padding: 0.7375rem 0.625rem;
+			}
+		}
+	}
+	tbody{
+		tr{
+			td{
+				border:0;
+				.label{
+					border-radius:0.2rem;
+				}
+				padding: 0.8750rem 0.625rem;
+			}
+		}
+	}
+}
+.buy-sell-table{
+	.table{
+		thead{
+			tr{
+				th{
+					font-size: 1rem;
+					color: var(--secondary);
+					padding: 0.7375rem 1.825rem;
+						@at-root [data-theme-version="dark"] & {
+						color: $white;
+					}
+				}
+			}
+		}
+		tbody{
+			tr{
+				td{
+					padding: 0.7375rem 1.825rem;
+					&:last-child{
+						text-align:center;
+					}
+					&:nth-child(2){
+						text-align:center;
+					}
+				}
+				&.bg-primary{
+					td{
+						color:$white;
+					}
+				}
+			}
+		}
+	}
+}
+

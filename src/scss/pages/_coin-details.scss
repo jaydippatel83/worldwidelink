@@ -1,0 +1,228 @@
+.coin-warpper{
+    padding: 0.225rem 0rem;
+    border-radius: 0.5rem;
+    border-radius: 0.5rem;
+	.nav{
+		.nav-item{
+			border-right: 0.0625rem solid #D7D7D7;
+			margin-top: 8px;
+			margin-bottom: 8px;
+			// &:last-child{
+				// @include respond ('laptop'){
+					// margin-left: 0;
+				// }
+			// }
+			.nav-link{
+				align-items: center;
+				display: flex;
+				svg{
+					margin-right: 0.450rem;
+				}	
+				padding: 0.5rem 0.7rem;
+    			margin: 0 0.75rem;
+				@at-root [data-theme-version="dark"] & {
+					color:$white;
+				}
+				&.active{
+					color: white;
+					background:var(--primary);
+					svg{
+						path{
+							fill:white;
+						}
+					}
+					&.bitcoin{
+						background:$warning;
+					}
+					&.etherum{
+						background:$info;
+					}
+					&.dash{
+						background:var(--secondary);
+					}
+					&.litcoin{
+						background:$blue;
+					}
+					&.ripple{
+						background:#23292F;
+						svg{
+							g{
+								path{
+									fill:0;
+								}
+							}
+						}
+					}
+				}
+				@include respond ('phone'){
+					padding: 0.2rem 0.4rem;
+					margin: 0 0.65rem;
+				}
+			}	
+			
+		}
+	}
+	.search-area{
+		.form-control{
+			border-color:white;
+		}
+		.input-group-text{
+			background:white;
+			border-color:white;
+		}
+	}
+	@include respond ('laptop'){
+		padding: 0.625rem 0.0625rem;
+	}
+	
+}
+	
+	@include respond ('laptop'){
+		.nav{
+			.nav-item{
+				// margin-bottom:0.875rem;
+			}
+		}
+	}
+	@include respond ('tab-land'){
+		 padding: 0.9375rem 0.625rem;
+	}
+	@include respond ('tab-port'){
+		.nav{
+			.nav-item{
+				.nav-link{
+					padding: 0.5rem 0.4rem;
+				}
+			}
+		}
+		.coin-details-search{
+			.input-group{
+				.form-control{
+					height: 2.5rem;
+				}
+				.input-group-text{
+					height: 2.5rem;
+				}
+			}
+		}
+	}
+	@include respond ('phone'){
+		.coin-warpper{
+			.nav{
+				.nav-item{
+					border:0;
+					.nav-link{
+						font-size: 0.75rem;
+						margin: 0 0.25rem;
+						padding: 0.3rem 0.4rem;
+						svg{
+							width:1.125rem;
+						}
+					}
+				}
+			}
+		}
+	}	
+.coin-content{
+	.guest-calendar{
+	    border: 0.0625rem solid #D7D7D7;
+		padding: 0.59375rem 0.875rem;
+	    border-radius: 0.5rem;
+	    span{
+	    	svg{
+	    		margin-right: 0.625rem;
+				width: 1rem;
+	    	}
+	    }
+	    .reportrange{
+	    	span{
+	    		font-size: 1rem;
+	    		font-weight: 400;
+	    		color:#1D1B23;
+	    	}
+	    }
+	}
+	.default-select{
+		// padding: 0.59375rem 1.25rem;
+		background-color: transparent;
+		border-radius: 0.5rem;
+		width: 12.5rem;
+		color: #1D1B23;
+		font-size: 1rem;
+		font-weight: 400;
+		
+	}
+	.price-content{
+		padding-right: 3.125rem;
+		h4{
+			font-size:1.25rem;
+		}
+	}
+	@include respond('laptop'){
+		.price-content{
+			margin-bottom:0.625rem;	
+		}
+	}
+}
+.digital-cash{
+	.media{
+		.media-content{
+			p{
+				color:#1D1B23;
+				line-height:1.5;
+				border-top: 0.0625rem solid #EEEEEE;
+				padding-top: 1.875rem;
+				width: 17.5rem;
+				@at-root [data-theme-version="dark"] & {
+					color:$white;
+				}
+			}
+		}
+		@include respond ('phone-land'){
+			svg{
+				width:4.375rem;
+			}
+		}
+	}
+	.card-footer{
+		.btn{
+			font-size:0.875rem;
+			font-weight:700;
+		}
+	}
+	@include custommq ($max:106.25rem){
+		.media{
+			.media-content{
+				p{
+					width:100%;
+				}
+			}
+		}
+	}
+}
+.form-wrapper{
+	&.trade-form{
+		.input-group{
+			.input-group-text{
+				font-size:1rem;
+				font-weight:600;
+				color:black;
+				border: 0;
+				@include respond ('phone-land'){
+					font-size:0.8125rem;
+					font-weight:400;
+				}
+				@at-root [data-theme-version="dark"] & {
+					background:var(--primary);
+				}
+			}
+			.form-control{
+				border-left:0;
+				&:focus{
+					border-color:$border;
+				}
+			}
+		}
+		
+	}
+}

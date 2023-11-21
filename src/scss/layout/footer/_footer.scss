@@ -1,0 +1,43 @@
+
+
+
+.footer {
+    padding-left:0rem;
+    font-size: 0.875rem;
+	background-color: #ffffff;
+    border-top-left-radius: 1.875rem;
+    border-top-right-radius: 1.875rem;
+    margin-top: 1rem;
+    .copyright {
+        padding: 0.9375rem;
+        p {
+            text-align: center;
+            margin: 0;
+			color:#918f8f;
+        }
+        a{
+            color: var(--primary)! important;
+        }
+    }
+}
+.out-footer{
+	width: calc(100% - 27.825rem);
+    margin-right: 7.375rem;
+    margin-left: auto;
+	@include respond('laptop'){
+		width: calc(100% - 26.225rem);
+	}
+	@include custommq($max:63.938rem){
+		width: calc(100% - 15.725rem);
+	}
+	// @include respond('tab-port'){
+		// width: calc(100% - 16.125rem);
+	// }
+	@include respond('phone-land'){
+		width: 100%;
+	}
+	
+	
+}
+
+

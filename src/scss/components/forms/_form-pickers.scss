@@ -1,0 +1,203 @@
+
+
+.asColorPicker-dropdown {
+    max-width: 26rem;
+}
+
+.asColorPicker-trigger {
+    border  : 0 none;
+    height  : 100%;
+    position: absolute;
+    right: 0;
+    top     : 0;
+    width   : 2.1875rem;
+	background: none;
+}
+.asColorPicker-trigger span{
+	border-radius: 0 0.5rem 0.5rem 0;
+}
+[direction="rtl"] .asColorPicker-trigger{
+	left: 0;
+	right: auto;
+}
+.asColorPicker-clear {
+    display        : none;
+    position       : absolute;
+    right          : 1rem;
+    text-decoration: none;
+    top            : .5rem;
+}
+
+
+
+.daterangepicker {
+    td.active {
+        background-color: var(--primary);
+
+        &:hover {
+            background-color: var(--primary);
+        }
+    }
+
+    button.applyBtn {
+        background-color: var(--primary);
+        border-color: var(--primary);
+    }
+}
+
+.datepicker {
+
+    &.datepicker-dropdown {
+        background: $l-bg;
+        border-radius: 0.0625rem;
+        border: 0.0625rem solid $gallery;
+
+        td.day, th.next, th.prev {
+            height: 1.875rem;
+            width: 1.875rem !important;
+            padding: 0;
+            text-align: center;
+            font-weight: 300;
+            border-radius: 3.125rem;
+
+            &:hover {
+                @extend %gradient-9;
+                box-shadow: 0rem 0rem 1.875rem 0.3125rem rgba(243,30,122,0.3);
+                color: $white;
+            }
+        }
+
+        th.datepicker-switch, th.next, th.prev {
+            font-weight: 300;
+            color: $heading;
+        }
+
+        th.dow {
+            font-weight: 300;
+        }
+    }
+    table {
+
+        
+
+        tr td.selected, tr td.active.active {
+            @extend %gradient-9;
+            box-shadow: 0rem 0rem 1.875rem 0.3125rem rgba(243,30,122,0.3);
+            border: 0;
+        }
+
+        tr {
+            td.today {
+                @extend %gradient-9;
+                box-shadow: 0rem 0rem 1.875rem 0.3125rem rgba(243,30,122,0.3);
+                color     : #ffffff;
+
+                &:hover {
+                    @extend %gradient-9;
+                    box-shadow: 0rem 0rem 1.875rem 0.3125rem rgba(243,30,122,0.3);
+                    color     : #ffffff;
+                }
+            }
+
+            td.today.disabled {
+                @extend %gradient-9;
+                box-shadow: 0rem 0rem 1.875rem 0.3125rem rgba(243,30,122,0.3);
+                color     : #ffffff;
+
+                &:hover {
+                    @extend %gradient-9;
+                    box-shadow: 0rem 0rem 1.875rem 0.3125rem rgba(243,30,122,0.3);
+                    color     : #ffffff;
+                }
+            }
+        }
+    }
+}
+
+
+.picker {
+    &__select--month, &__select--year {
+        height: 2.5em;
+    }
+
+    &__input {
+        background-color: transparent !important;
+
+        @at-root [data-theme-version="dark"] & {
+            background-color: transparent !important;
+            border: 0.0625rem solid $d-border;
+        }
+    }
+}
+
+.asColorPicker-wrap{
+	.form-control{
+		border-top-right-radius: 0;
+		border-bottom-right-radius: 0;
+	}
+}
+
+.picker-data{
+	.color-time-picker{
+		.react-time-picker{
+			width:100%;
+		}
+		.react-time-picker__wrapper{
+			color:#7e7e7e;
+			border:0;
+			.react-time-picker__clear-button{
+				display:none;
+			}
+			.react-time-picker__inputGroup{
+				border: 0.0625rem solid $border;
+				padding: 0rem 1.25rem;
+				height: 3.5rem;
+				border-radius: 1rem 0 0 1rem;
+			}
+			.react-time-picker__inputGroup__input{
+				color:#7e7e7e;
+			}
+			.react-time-picker__inputGroup__amPm{
+				color:#7e7e7e;
+				appearance: none;
+			}
+			.react-time-picker__clock-button{
+				background:$primary;
+				color: #b7b7b7;
+				padding: .532rem .75rem;
+				border-radius: 0 0.75rem 0.75rem 0;
+				min-width: 50px;
+				text-align: center;
+				line-height: 1;
+				svg{
+					stroke: #fff;
+					display:inline-block;
+				}
+			} 
+		}
+		.react-clock__face{
+			background: #ededed;
+			padding: 10px 10px;	
+			border: 10px solid #ededed;
+		}
+		.react-clock__hand__body{
+			background-color: $primary;
+		}
+		.react-time-picker__clock{
+			box-shadow: 0px 11px 15px -7px rgba(0,0,0,0.2),0px 24px 38px 3px rgba(0,0,0,0.14),0px 9px 46px 8px rgba(0,0,0,0.12);
+			border-radius:4px;
+			border: 0 !important;
+		}
+		&.style-1{
+			.react-time-picker__wrapper{
+				.react-time-picker__clock-button{
+					display: none;
+					
+				} 
+				.react-time-picker__inputGroup{
+					border-radius: 1rem;
+				}
+			}
+		}
+	}
+}

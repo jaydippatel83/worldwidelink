@@ -18,6 +18,12 @@ export const MenuList = [
         to: 'transfer',
     },
     {
+        title: 'On / Off Ramp',
+        classsChange: 'mm-collapse',
+        iconStyle: <i className="material-icons">monetization_on</i>,
+        to: 'onramp',
+    },
+    {
         title: 'SOS Alert',
         classsChange: 'mm-collapse',
         iconStyle: <i className="material-icons">warning</i>,

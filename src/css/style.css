@@ -2297,7 +2297,9 @@ textarea.form-control-lg {
 .form-check-inline .form-check-input ~ .invalid-feedback {
   margin-left: .5em; }
 
+
 .btn {
+  justify-content: center;
   display: inline-block;
   font-weight: 400;
   line-height: 1.5;

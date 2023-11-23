@@ -11,6 +11,19 @@ import { Button, Col, Row } from 'react-bootstrap';
 
 
 export default function Agreements() {
+
+    const [title, setTitle] = useState('');
+    const [serviceProviderAddress, setServiceProviderAddress] = useState();
+    const [arbitratorAddress, setArbotratorAddress] = useState();
+    const [clientAddress, setClientAddress] = useState();
+    const [loading, setLoading] = useState(false);
+    const [everyAgreementAsClient, setEveryAgreementAsClient] = useState([]);
+    const [amount, setAmount] = useState(0);
+    let [fund, setFund] = useState(0);
+    const [totalNumOfAgreement, setTotalNumOfAgreements] = useState(0);
+    const [fundsReleased, setFundsReleased] = useState(false);
+    const [walletConnected, setWalletConnected] = useState(false);
+
     function CustomToggle({ children, eventKey }) {
         const decoratedOnClick = useAccordionButton(eventKey, () =>
             console.log('totally custom!'),
@@ -25,6 +38,9 @@ export default function Agreements() {
             </button>
         );
     }
+
+
+
 
     return (
         <>
@@ -88,40 +104,40 @@ export default function Agreements() {
                             </div>
                             <Row className="d-flex align-items-center">
                                 <Col xl="4" className="mx-auto">
-                                    <Card className="text-white bg-primary" style={{ maxWidth: '300px' }}>
+                                    <Card className="bg-light" style={{ maxWidth: '300px' }}>
                                         <Card.Header>
-                                            <Card.Title className="text-white">Buyer Information</Card.Title>
+                                            <Card.Title >Buyer Information</Card.Title>
                                         </Card.Header>
                                         <Card.Body className=" mb-0">
 
-                                            <p className="text-white"> Address:  7545934598349</p>
-                                            <p className="text-white">
+                                            <p className='text-black'> Address:  7545934598349</p>
+                                            <p className='text-black'>
                                                 Staked Amount : 0.02 CCIP
                                             </p>
 
                                         </Card.Body>
                                         <Card.Footer className=" bg-transparent border-0 text-white">
-                                            <h4 className="text-white">Fund Release : ✅</h4>
+                                            <h4 >Fund Release : ✅</h4>
                                         </Card.Footer>
                                     </Card>
                                 </Col>
                                 <Col xl="4" className="mx-auto">
-                                    <Card className="text-white bg-primary" style={{ maxWidth: '300px' }}>
+                                    <Card className="bg-light" style={{ maxWidth: '300px' }}>
                                         <Card.Header>
-                                            <Card.Title className="text-white">Seller Information</Card.Title>
+                                            <Card.Title >Seller Information</Card.Title>
                                         </Card.Header>
                                         <Card.Body className=" mb-0">
 
-                                            <p className="text-white"> Address:  7545934598349</p>
-                                            <p className="text-white">
+                                            <p className='text-black'> Address:  7545934598349</p>
+                                            <p className='text-black'>
                                                 Staked Amount : 0.02 CCIP
                                             </p>
 
                                         </Card.Body>
                                         <Card.Footer className=" bg-transparent border-0 text-white">
-                                            <h4 className="text-white">Work status : ✅</h4>
+                                            <h4 >Work status : ✅</h4>
 
-                                            <h4 className="text-white">  Fund Recieved : ❌</h4>
+                                            <h4 >  Fund Recieved : ❌</h4>
 
                                         </Card.Footer>
                                     </Card>

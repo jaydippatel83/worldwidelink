@@ -3,10 +3,14 @@ import { Dropdown, Tab, Nav } from "react-bootstrap";
 import Select from "react-select";
 import { Formik } from "formik";
 import * as Yup from "yup";
+import { networks } from "../../../network";
+
+//Import
+import { LtcIcon, BtcIcon, XtzIcon, EthIcon } from "../Dashboard/SvgIcon";
 
 const chains = [
-  { value: "1", label: "Sepolia testnet" },
-  { value: "2", label: "Mumbai testnet" },
+  { value: "sepolia", label: "Sepolia testnet" },
+  { value: "mumbai", label: "Mumbai testnet" },
 ];
 
 const protocols = [
@@ -26,6 +30,11 @@ const tokens = [
     address: "0x466D489b6d36E7E3b824ef491C225F5830E81cC1",
     label: "CCIP-LnM",
   },
+  {
+    value: "3",
+    address: "",
+    label: "USDC",
+  },
 ];
 
 const supplySchema = Yup.object().shape({
@@ -37,15 +46,77 @@ const supplySchema = Yup.object().shape({
 });
 
 const borrowSchema = Yup.object().shape({
-  from: Yup.object().required("Please select from Chain!"),
-  protocol: Yup.string().required("Please select Protocol!"),
+  to: Yup.object().required("Please select from Chain!"),
+  protocol: Yup.object().required("Please select Protocol!"),
   amount: Yup.number().required("Please enter Amount!"),
-  token: Yup.string().required("Please select Token!"),
+  token: Yup.object().required("Please select Token!"),
 });
 
 const Landing = () => {
   return (
     <div className="container">
+      {/* <div className="row">
+        <div className="col-xl-6 col-lg-6">
+          <div className="card">
+            <div className="card-header border-0 pb-0">
+              <div>
+                <h2 className="heading">Market Previews</h2>
+              </div>
+            </div>
+            <div className="card-body pt-0 px-0">
+              {marketBlog.map((data, ind) => (
+                <div className="previews-info-list" key={ind}>
+                  <div className="pre-icon">
+                    <span className={`icon-box icon-box-sm ${data.classBg}`}>
+                      {data.icon}
+                    </span>
+                    <div className="ms-2">
+                      <h6>{data.Name}/Year</h6>
+                      <span>March</span>
+                    </div>
+                  </div>
+                  <div className="count">
+                    <h6>120.45</h6>
+                    <span className={ind % 2 == 0 ? "text-success" : ""}>
+                      1,24%
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+        <div className="col-xl-6 col-lg-6">
+          <div className="card">
+            <div className="card-header border-0 pb-0">
+              <div>
+                <h2 className="heading">Market Previews</h2>
+              </div>
+            </div>
+            <div className="card-body pt-0 px-0">
+              {marketBlog.map((data, ind) => (
+                <div className="previews-info-list" key={ind}>
+                  <div className="pre-icon">
+                    <span className={`icon-box icon-box-sm ${data.classBg}`}>
+                      {data.icon}
+                    </span>
+                    <div className="ms-2">
+                      <h6>{data.Name}/Year</h6>
+                      <span>March</span>
+                    </div>
+                  </div>
+                  <div className="count">
+                    <h6>120.45</h6>
+                    <span className={ind % 2 == 0 ? "text-success" : ""}>
+                      1,24%
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </div> */}
       <div className="row">
         <div className="col-xl-6">
           <div className="card">
@@ -137,12 +208,11 @@ const Landing = () => {
                           </div>
                         </div>
 
-                        <div className="input-group">
+                        <div className="input-group" style={{ zIndex: "0" }}>
                           <input
                             id="amount"
                             className="form-control"
                             onChange={handleChange}
-                            onBlur={handleBlur}
                             value={values.amount}
                           />
                           <button
@@ -258,7 +328,7 @@ const Landing = () => {
                   amount: "",
                   token: tokens[0],
                 }}
-                validationSchema={supplySchema}
+                validationSchema={borrowSchema}
                 onSubmit={(values, { setSubmitting }) => {
                   console.log(values);
                   setTimeout(() => {
@@ -279,7 +349,7 @@ const Landing = () => {
                   <form onSubmit={handleSubmit}>
                     <div className="row g-3 mb-3">
                       <div className="col-xl-12">
-                        <label className="form-label">From</label>
+                        <label className="form-label">To</label>
 
                         <div className="form-group  mb-3">
                           <Select
@@ -425,7 +495,7 @@ const Landing = () => {
                       className="btn flex-fill btn-success py-2 fs-5 text-uppercase px-5"
                       disabled={isSubmitting}
                     >
-                      Supply
+                      Borrow
                     </button>
                   </form>
                 )}

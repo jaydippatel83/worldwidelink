@@ -141,6 +141,7 @@ import Borrowing from "./components/Landing/Borrowing";
 import Trnasfer from "./components/Transfer";
 import SosAlert from "./components/Sos";
 import Escrow from "./components/Escrow";
+import OnRamp from "./components/onRamp/OnRamp";
 
 
 
@@ -150,6 +151,7 @@ const Markup = () => {
     { url: "transfer", component: <Trnasfer /> },
     { url: "sos", component: <SosAlert /> },
     { url: "escrow", component: <Escrow /> },
+    { url: "onramp", component: <OnRamp /> },
     { url: "landing", component: <Landing /> },
     { url: "borrow", component: <Borrowing /> },
     /// Dashboard

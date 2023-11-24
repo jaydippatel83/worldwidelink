@@ -1,7 +1,8 @@
-import React,{useState, useEffect} from "react";
+import React,{useState, useEffect, useContext} from "react";
 import { Dropdown } from "react-bootstrap";
 import PerfectScrollbar from "react-perfect-scrollbar";
 import { Link } from "react-router-dom";
+import { Web3Context } from "../../../context/Web3Context";
 /// Scroll
 //import PerfectScrollbar from "react-perfect-scrollbar";
 
@@ -21,6 +22,7 @@ import profile from "../../../images/profile/pic1.jpg";
 
 
 const NotificationBlog =({classChange}) =>{
+
 	return(
 		<>
 			<li>
@@ -57,6 +59,15 @@ const NotificationBlog =({classChange}) =>{
 }
 
 const Header = ({ onNote }) => {
+	
+	const { connectWallet, address, disconnectWallet } = useContext(Web3Context);
+	const handleDisconnect = () => {
+		disconnectWallet();
+	  };
+	  const renderShortenedAddress = (address) => {
+		// Display only the first 6 and last 3 characters of the address
+		return address ? `${address.slice(0, 6)}...${address.slice(-3)}` : "";
+	  };
 	const [rightSelect, setRightSelect] = useState('Eng');
 	//For fix header
 	const [headerFix, setheaderFix] = useState(false);
@@ -118,7 +129,26 @@ const Header = ({ onNote }) => {
 							</svg>
 							</Link></span>
 						<input type="text" className="form-control" placeholder="Search here..." />  
-					</div>					
+					
+					</div>	
+					{address ? (
+        <div>
+          <p style={{ color: 'black', fontSize: '12px'}}>{renderShortenedAddress(address)}</p>
+          <button
+            className="btn btn-danger py-2 fs-5 px-5 text-uppercase"
+            onClick={handleDisconnect}
+          >
+            Disconnect
+          </button>
+        </div>
+      ) : (
+        <button
+          className="btn btn-success py-2 fs-5 px-5 text-uppercase"
+          onClick={connectWallet}
+        >
+          Connect
+        </button>
+      )}
 				</div>
 				<div className="dz-side-menu">
 					<div className="search-coundry d-flex align-items-center">

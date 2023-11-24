@@ -12,18 +12,7 @@ import { Button, Col, Row } from 'react-bootstrap';
 
 export default function Agreements() {
 
-    const [title, setTitle] = useState('');
-    const [serviceProviderAddress, setServiceProviderAddress] = useState();
-    const [arbitratorAddress, setArbotratorAddress] = useState();
-    const [clientAddress, setClientAddress] = useState();
-    const [loading, setLoading] = useState(false);
-    const [everyAgreementAsClient, setEveryAgreementAsClient] = useState([]);
-    const [amount, setAmount] = useState(0);
-    let [fund, setFund] = useState(0);
-    const [totalNumOfAgreement, setTotalNumOfAgreements] = useState(0);
-    const [fundsReleased, setFundsReleased] = useState(false);
-    const [walletConnected, setWalletConnected] = useState(false);
-
+   
     function CustomToggle({ children, eventKey }) {
         const decoratedOnClick = useAccordionButton(eventKey, () =>
             console.log('totally custom!'),
@@ -44,10 +33,7 @@ export default function Agreements() {
 
     return (
         <>
-
-            {/* <Card> */}
             <Table >
-
                 <thead>
                     <tr >
                         <th>Id</th>
@@ -55,18 +41,14 @@ export default function Agreements() {
                         <th>Address</th>
                         <th>Amount</th>
                         <th>Status</th>
-
                     </tr>
                 </thead>
-
             </Table>
-            {/* </Card> */}
             <Accordion defaultActiveKey="0">
                 <Card>
                     <Card.Header>
                         <CustomToggle eventKey="0">
                             <Table borderless>
-
                                 <tbody>
                                     <tr>
                                         <td>1</td>
@@ -87,19 +69,16 @@ export default function Agreements() {
                                     </tr>
                                 </tbody>
                             </Table>
-
                         </CustomToggle>
                     </Card.Header>
                     <Accordion.Collapse eventKey="0">
                         <Card.Body>
-
                             <div className='mb-5' style={{ textAlign: "center", borderBottom: "1px solid #eeee" }} >
                                 <h3>
                                     Agreement Home's Details
                                 </h3>
                                 <h5>
                                     Agreement amount: <span style={{ color: "red" }}>0.01CCIP</span>
-
                                 </h5>
                             </div>
                             <Row className="d-flex align-items-center">
@@ -109,12 +88,10 @@ export default function Agreements() {
                                             <Card.Title >Buyer Information</Card.Title>
                                         </Card.Header>
                                         <Card.Body className=" mb-0">
-
                                             <p className='text-black'> Address:  7545934598349</p>
                                             <p className='text-black'>
                                                 Staked Amount : 0.02 CCIP
                                             </p>
-
                                         </Card.Body>
                                         <Card.Footer className=" bg-transparent border-0 text-white">
                                             <h4 >Fund Release : ✅</h4>
@@ -127,33 +104,22 @@ export default function Agreements() {
                                             <Card.Title >Seller Information</Card.Title>
                                         </Card.Header>
                                         <Card.Body className=" mb-0">
-
                                             <p className='text-black'> Address:  7545934598349</p>
                                             <p className='text-black'>
                                                 Staked Amount : 0.02 CCIP
                                             </p>
-
                                         </Card.Body>
                                         <Card.Footer className=" bg-transparent border-0 text-white">
                                             <h4 >Work status : ✅</h4>
-
                                             <h4 >  Fund Recieved : ❌</h4>
-
                                         </Card.Footer>
                                     </Card>
                                 </Col>
                             </Row>
                         </Card.Body>
-
-
                     </Accordion.Collapse>
                 </Card>
-
             </Accordion>
-
-
-            {/* </Table> */}
-
         </>
     )
 }

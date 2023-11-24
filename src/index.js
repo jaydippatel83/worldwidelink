@@ -7,6 +7,8 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store } from './store/store';
 import ThemeContext from "./context/ThemeContext";
+import { EscrowContextProvider } from './jsx/components/EscrowContext/EscrowContext';
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -14,7 +16,9 @@ root.render(
     <Provider store={store}>
       <BrowserRouter basename='/'>
         <ThemeContext>
-          <App />
+          <EscrowContextProvider>
+            <App />
+          </EscrowContextProvider>
         </ThemeContext>
       </BrowserRouter>
     </Provider>

@@ -182,10 +182,66 @@ const bull = (
     const Popper = styled(BasePopper)`
       z-index: 1;
   `
-  
+  const Input = styled('input')(
+    ({ theme }) => `
+      background-color: transparent; // or use the same color as the Typography
+      border: none; // Remove the border
+      height: 100%;
+      width: 30%; // Adjust the width as needed
+      font-size: 16px;
+      padding-left: 8px;
+      color: ${theme.palette.mode === 'dark' ? grey[300] : grey[900]}; // Match the text color
+    `
+  );
   const Trnasfer = () => {
-    const { connect } = useContext(Web3Context);
+    const { connectWallet, address, disconnectWallet } = useContext(Web3Context);
+    const connect = () => {
+   return(
+        <Typography
+        sx={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+          fontSize: '16px',
+          //backgroundColor: 'rgba(0, 0, 0, 0.2)', // Light black background
+          backgroundColor: '#d1e7dd',
+          //backdropFilter: 'blur(5px)', // Blurred effect
+          padding: '5px',
+          paddingLeft : '8px',
+          paddingRight : '8px',
+          height: '20%',
+          width : '100%',
+          //borderRadius: '8px', // You can adjust the borderRadius as needed
+         //mb: '15px',
+          color: '#00A389',
+          fontWeight: 'bold',
+          fontFamily: 'sans-serif',
+          letterSpacing: '1px'
+        }}
+      >
+        { !address ? (
+          <>
 
+                    <Typography sx = {{ fontWeight: 'bold', fontSize:'18px', fontFamily: 'sans-serif'}}>Connect wallet to continue</Typography>
+
+ <button
+ className="btn btn-success py-2 fs-5 px-5 text-uppercase"
+ onClick={connectWallet}
+>
+ Connect
+</button>
+</>
+        ) : (
+          <Typography>{address}</Typography>
+        )
+      }
+  
+ 
+                    </Typography>
+        
+          
+   )
+        }
       return (
           <div className='container'>
               <div className="row">
@@ -195,7 +251,7 @@ const bull = (
         <Typography fontWeight = 'bold' m={1}>
       FROM
   </Typography>
-  <Select defaultValue={20} sx= {{ width : '100%'}}>
+  <Select defaultValue={20} sx= {{ width : '100%', fontSize: '16px'}}>
         <Option value={10}>Ethereum</Option>
         <Option value={20}>Sapholia testnet</Option>
         <Option value={30}>Mumbai Testnet</Option>
@@ -205,81 +261,93 @@ const bull = (
       </Select>
         </CardContent>
         <CardActions>
-        <Typography
-        sx={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-          fontSize: '16px',
-          backgroundColor: 'rgba(0, 0, 0, 0.2)', // Light black background
-        //   backdropFilter: 'blur(5px)', // Blurred effect
-          padding: '5px',
-          paddingLeft : '8px',
-          paddingRight : '8px',
-          height: '20%',
-          width : '100%',
-          borderRadius: '8px', // You can adjust the borderRadius as needed
-        }}
-      >
-        Connect wallet to continue
-        {/* <Button size="large" sx = {{ textTransform: 'capitalize',  backgroundColor:'white',
-        color: 'white',
-        fontWeight:'20px',
-        marginLeft:'10px',
-        borderRadius:'5%',
-        backgroundColor: 'blue',
-        width: '140px',
-        height: '37px',
-        fontSize: '16px'
-        }}>Connect</Button> */}
-  <button
-                      className="btn btn-success py-2 fs-5 px-5 text-uppercase"
-                      onClick={connect}
-                    >
-                      Connect
-                    </button>
-            </Typography>
+        {connect()}
         </CardActions>
         <CardActions
         sx={{
           display: 'flex',
           justifyContent: 'center',
-          marginTop: '10px', // Adjust the spacing as needed
+          marginTop: '2px'
         }}
       >
         <SwapVerticalCircleIcon sx={{ fontSize : '40px'}} />
       </CardActions>
-      <Typography fontWeight = 'bold' ml={2.4} >
+      <CardContent>
+      <Typography fontWeight = 'bold' m={1} >
       TO
   </Typography>
-  <CardActions>
-  <Typography
-        sx={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-          fontSize: '16px',
-          backgroundColor: 'rgba(0, 0, 0, 0.2)', // Light black background
-        //   backdropFilter: 'blur(5px)', // Blurred effect
-          padding: '5px',
-          paddingLeft : '8px',
-          paddingRight : '8px',
-          height: '20%',
-          width : '100%',
-          borderRadius: '8px', // You can adjust the borderRadius as needed
-          mb: '15px'
-        }}
-      >
-        Connect wallet to continue
-  
-  <button
-                      className="btn btn-success py-2 fs-5 px-5 text-uppercase"
-                      onClick={connect}
-                    >
-                      Connect
-                    </button>
-                    </Typography>
-  </CardActions>
+
+        <Select defaultValue={20} sx= {{ width : '100%', fontSize: '16px'}}>
+        <Option value={10}>Ethereum</Option>
+        <Option value={20}>Sapholia testnet</Option>
+        <Option value={30}>Mumbai Testnet</Option>
+        <Option value={40}>Fuji Testnet</Option>
+        <Option value={50}>BNB Chain Testnet</Option>
+        <Option value={60}>Base goerli Testnet</Option>
+      </Select>
+      </CardContent>
+      
+  <CardActions 
+   sx={{
+    display: 'flex',
+    flexDirection: 'column', // Display items vertically
+      // Center items horizontally
+  }}>
+    {connect()}
+    </CardActions>
+
+{ address ? (
+  <>
+  <CardContent>
+
+<Typography fontWeight='bold' m={1}>
+                ENTER AMOUNT
+              </Typography>
+
+<Typography sx = {{ 
+        fontSize: '16px',
+        //backgroundColor: 'rgba(0, 0, 0, 0.2)', // Light black background
+        backgroundColor: '#d1e7dd',
+        //backdropFilter: 'blur(5px)', // Blurred effect
+        // padding: '5px',
+        // paddingLeft : '8px',
+        // paddingRight : '8px',
+        height: '70px',
+        // width : '100%',
+        //borderRadius: '8px', // You can adjust the borderRadius as needed
+        mb: '15px',
+        color: '#00A389',
+        fontWeight: 'bold',
+        fontFamily: 'sans-serif',
+    letterSpacing: '1px'
+    }}>
+              
+              <Input
+                type="number"
+                step="0.01"
+                placeholder="0.00"
+              />
+            </Typography>
+
+
+            </CardContent>
+            <CardActions 
+ sx={{
+  display: 'flex',
+  flexDirection: 'column', // Display items vertically
+  alignContent: 'center',
+  alignItems: 'center'
+}}>
+<button
+className="btn btn-success py-2 fs-5 px-5 text-uppercase"
+>
+Transfer
+</button>
+</CardActions>
+</>
+
+) : ''}
+
       </Card>          
   
                   </div>

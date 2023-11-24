@@ -5,9 +5,6 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import { networks } from "../../../network";
 
-//Import
-import { LtcIcon, BtcIcon, XtzIcon, EthIcon } from "../Dashboard/SvgIcon";
-
 const chains = [
   { value: "sepolia", label: "Sepolia testnet" },
   { value: "mumbai", label: "Mumbai testnet" },
@@ -19,7 +16,7 @@ const protocols = [
   { value: "3", label: "Aave" },
 ];
 
-const tokens = [
+const supplyToken = [
   {
     value: "1",
     address: "0xFd57b4ddBf88a4e07fF4e34C487b99af2Fe82a05",
@@ -30,29 +27,38 @@ const tokens = [
     address: "0x466D489b6d36E7E3b824ef491C225F5830E81cC1",
     label: "CCIP-LnM",
   },
+];
+
+const borrowToken = [
   {
-    value: "3",
-    address: "",
-    label: "USDC",
+    value: "1",
+    label: "WUSDC",
+    ratio: "70%"
+  },
+  {
+    value: "2",
+    label: "WDAI",
+    ratio: "80%"
   },
 ];
 
 const supplySchema = Yup.object().shape({
   from: Yup.object().required("Please select from Chain!"),
-
+  to: Yup.object().required("Please select to Chain!"),
   protocol: Yup.object().required("Please select Protocol!"),
   amount: Yup.number().required("Please enter Amount!"),
   token: Yup.object().required("Please select Token!"),
 });
 
 const borrowSchema = Yup.object().shape({
-  to: Yup.object().required("Please select from Chain!"),
-  protocol: Yup.object().required("Please select Protocol!"),
   amount: Yup.number().required("Please enter Amount!"),
   token: Yup.object().required("Please select Token!"),
 });
 
 const Landing = () => {
+  const [toVal, setTo] = useState(chains[0]);
+  const [protocolVal, setProtocol] = useState(protocols[0]);
+
   return (
     <div className="container">
       {/* <div className="row">
@@ -127,17 +133,21 @@ const Landing = () => {
               <Formik
                 initialValues={{
                   from: chains[0],
+                  to: chains[0],
                   protocol: protocols[0],
                   amount: "",
-                  token: tokens[0],
+                  token: supplyToken[0],
                 }}
                 validationSchema={supplySchema}
                 onSubmit={(values, { setSubmitting }) => {
-                  console.log(values);
-                  setTimeout(() => {
-                    alert(JSON.stringify(values, null, 2));
-                    setSubmitting(false);
-                  }, 400);
+                  const params = {
+                    sender: networks[values.from.value].sender,
+                    protocol: networks[values.to.value].protocol,
+                    destChainSelector: networks[values.to.value].chainSelector,
+                    amount: values.amount,
+                    token: values.token,
+                  };
+                  console.log(params, "params");
                 }}
               >
                 {({
@@ -161,7 +171,9 @@ const Landing = () => {
                             isSearchable={false}
                             id="from"
                             value={values.from}
-                            onChange={(value) => setFieldValue("from", value)}
+                            onChange={(value) => {
+                              setFieldValue("from", value);
+                            }}
                             options={chains}
                             onBlur={handleBlur}
                           />
@@ -175,6 +187,32 @@ const Landing = () => {
                         </div>
                       </div>
                       <div className="col-xl-12">
+                        <label className="form-label">To</label>
+
+                        <div className="form-group  mb-3">
+                          <Select
+                            className="custom-react-select"
+                            defaultValue={chains[0]}
+                            isSearchable={false}
+                            id="to"
+                            value={values.to}
+                            onChange={(value) => {
+                              setFieldValue("to", value);
+                              setTo(value);
+                            }}
+                            options={chains}
+                            onBlur={handleBlur}
+                          />
+                          <div
+                            id="val-username1-error"
+                            className="invalid-feedback animated fadeInUp"
+                            style={{ display: "block" }}
+                          >
+                            {errors.to && errors.to}
+                          </div>
+                        </div>
+                      </div>
+                      <div className="col-xl-12">
                         <label className="form-label">Protocol</label>
                         <div className="form-group  mb-3">
                           <Select
@@ -182,9 +220,10 @@ const Landing = () => {
                             className="custom-react-select"
                             defaultValue={protocols[0]}
                             isSearchable={false}
-                            onChange={(value) =>
-                              setFieldValue("protocol", value)
-                            }
+                            onChange={(value) => {
+                              setFieldValue("protocol", value);
+                              setProtocol(value);
+                            }}
                             onBlur={handleBlur}
                             value={values.protocol}
                           />
@@ -252,7 +291,7 @@ const Landing = () => {
 
                           <Dropdown
                             onSelect={(eventKey) => {
-                              const selectedToken = tokens.find(
+                              const selectedToken = supplyToken.find(
                                 (token) => token.value === eventKey
                               );
                               setFieldValue("token", selectedToken);
@@ -264,7 +303,7 @@ const Landing = () => {
                             </Dropdown.Toggle>
 
                             <Dropdown.Menu align="end">
-                              {tokens.map((token) => {
+                              {supplyToken.map((token) => {
                                 return (
                                   <Dropdown.Item eventKey={token.value}>
                                     {token.label}
@@ -323,10 +362,10 @@ const Landing = () => {
             <div className="card-body pt-4">
               <Formik
                 initialValues={{
-                  from: chains[0],
-                  protocol: protocols[0],
+                  to: toVal,
+                  protocol: protocolVal,
                   amount: "",
-                  token: tokens[0],
+                  token: borrowToken[0],
                 }}
                 validationSchema={borrowSchema}
                 onSubmit={(values, { setSubmitting }) => {
@@ -354,44 +393,26 @@ const Landing = () => {
                         <div className="form-group  mb-3">
                           <Select
                             className="custom-react-select"
-                            defaultValue={chains[0]}
+                            defaultValue={toVal}
                             isSearchable={false}
-                            id="from"
-                            value={values.from}
-                            onChange={(value) => setFieldValue("from", value)}
+                            id="to"
+                            value={toVal}
                             options={chains}
-                            onBlur={handleBlur}
+                            isDisabled={true}
                           />
-                          <div
-                            id="val-username1-error"
-                            className="invalid-feedback animated fadeInUp"
-                            style={{ display: "block" }}
-                          >
-                            {errors.from && errors.from}
-                          </div>
                         </div>
                       </div>
                       <div className="col-xl-12">
                         <label className="form-label">Protocol</label>
                         <div className="form-group  mb-3">
                           <Select
-                            options={protocols}
+                            options={protocolVal}
                             className="custom-react-select"
                             defaultValue={protocols[0]}
                             isSearchable={false}
-                            onChange={(value) =>
-                              setFieldValue("protocol", value)
-                            }
-                            onBlur={handleBlur}
-                            value={values.protocol}
+                            value={protocolVal}
+                            isDisabled={true}
                           />
-                          <div
-                            id="val-username1-error"
-                            className="invalid-feedback animated fadeInUp"
-                            style={{ display: "block" }}
-                          >
-                            {errors.protocol && errors.protocol}
-                          </div>
                         </div>
                       </div>
                       <div className="sell-blance col-xl-6">
@@ -440,7 +461,7 @@ const Landing = () => {
 
                           <Dropdown
                             onSelect={(eventKey) => {
-                              const selectedToken = tokens.find(
+                              const selectedToken = borrowToken.find(
                                 (token) => token.value === eventKey
                               );
                               setFieldValue("token", selectedToken);
@@ -452,7 +473,7 @@ const Landing = () => {
                             </Dropdown.Toggle>
 
                             <Dropdown.Menu align="end">
-                              {tokens.map((token) => {
+                              {borrowToken.map((token) => {
                                 return (
                                   <Dropdown.Item eventKey={token.value}>
                                     {token.label}
@@ -474,7 +495,7 @@ const Landing = () => {
                       <div className="col-xl-12">
                         <div className="d-flex flex-wrap justify-content-between mb-1">
                           <div>Collateral Value</div>
-                          <div className="text-muted"> 0</div>
+                          <div className="text-muted">{values.token.ratio}</div>
                         </div>
                         <div className="d-flex flex-wrap justify-content-between">
                           <div>Liquidation Point</div>

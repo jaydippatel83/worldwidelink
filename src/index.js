@@ -8,6 +8,7 @@ import { Provider } from 'react-redux';
 import { store } from './store/store';
 import ThemeContext from "./context/ThemeContext";
 import "./polyfill";
+import Web3Context from './context/Web3Context';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -15,7 +16,11 @@ root.render(
     <Provider store={store}>
       <BrowserRouter basename='/'>
         <ThemeContext>
+          <Web3Context>
+
           <App />
+          </Web3Context>
+
         </ThemeContext>
       </BrowserRouter>
     </Provider>

@@ -274,6 +274,7 @@ const bull = (
   
   <button
                       className="btn btn-success py-2 fs-5 px-5 text-uppercase"
+                      onClick={connect}
                     >
                       Connect
                     </button>

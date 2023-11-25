@@ -14,7 +14,9 @@
     "@fullcalendar/timegrid": "^5.11.3",
     "@loadable/component": "^5.15.2",
     "@material-ui/core": "^4.12.4",
+    "@mui/icons-material": "^5.14.18",
     "@mui/material": "^5.14.18",
+    "@mui/styled-engine-sc": "^6.0.0-alpha.6",
     "@n8tb1t/use-scroll-position": "^2.0.3",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
@@ -55,6 +57,7 @@
     "recharts": "^2.1.16",
     "redux": "^4.2.0",
     "redux-thunk": "^2.4.2",
+    "styled-components": "^6.1.1",
     "sweetalert": "^2.1.2",
     "sweetalert2": "^11.6.15",
     "swiper": "^8.4.5",
@@ -85,5 +88,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "hardhat": "^2.19.1"
   }
 }

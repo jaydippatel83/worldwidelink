@@ -10,6 +10,7 @@ import ThemeContext from "./context/ThemeContext";
 import { EscrowContextProvider } from './jsx/components/EscrowContext/EscrowContext';
 
 
+import Web3Context from './context/Web3Context';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
@@ -17,7 +18,9 @@ root.render(
       <BrowserRouter basename='/'>
         <ThemeContext>
           <EscrowContextProvider>
-            <App />
+            <Web3Context>
+              <App />
+            </Web3Context>
           </EscrowContextProvider>
         </ThemeContext>
       </BrowserRouter>

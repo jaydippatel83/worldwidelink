@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { EscrowContext } from '../EscrowContext/EscrowContext'
 import { destinationChainContractAddress, CCIP_TOKEN_ABI, CCIP_TOKEN_ADDRESS_SEPOLIA, ESCROW_CONTRACT_ADDRESS, ESCROW_ABI } from '../../../constants';
 import Web3Modal from "web3modal";
@@ -7,12 +7,13 @@ import { ethers, Contract, providers, Signer } from 'ethers';
 
 export default function CreateAgreement() {
     const escrowContext = React.useContext(EscrowContext);
-    const web3ModalRef = useRef();
+    const web3ModalRef = useRef(null);
+
 
     const [title, setTitle] = useState('');
     const [serviceProviderAddress, setServiceProviderAddress] = useState();
     const [arbitratorAddress, setArbitratorAddress] = useState();
-    const [clientAddress, setClientAddress] = useState();
+    const [clientAddress, setClientAddress] = useState(localStorage.getItem('userAddress'));
     const [loading, setLoading] = useState(false);
     const [everyAgreementAsClient, setEveryAgreementAsClient] = useState([]);
     const [amount, setAmount] = useState(0);
@@ -26,11 +27,7 @@ export default function CreateAgreement() {
 
 
     const createAgreement = async () => {
-        let receiverContract = "0x11433c4eb1ff81a49a257644ceff2ad09a204160";
-        if (title == null || clientAddress == null || serviceProviderAddress == null || arbitratorAddress == null || amount == null) {
-            alert('Please enter all required fields.');
-            return;
-        }
+        let receiverContract = "0x5DE0a65ae50E45d5FC4652707f4953F91Dd0415d";
 
         const signer = await getProviderOrSigner(true);
 
@@ -66,17 +63,9 @@ export default function CreateAgreement() {
     }
 
     const getProviderOrSigner = async (needSigner = false) => {
-        const provider = await web3ModalRef.current.connect();
 
-        const web3Provider = new providers.Web3Provider(provider);
-        const signerForUserAddress = await web3Provider.getSigner();
-        const clientAddress = await signerForUserAddress.getAddress();
-        setClientAddress(clientAddress);
-        const { chainId } = await web3Provider.getNetwork();
-        // if (chainId !== 471100) {
-        //     window.alert("Please switch to the patex-sepolia network!");
-        //     throw new Error("Please switch to the patex-sepolia network");
-        // }
+
+        const web3Provider = new ethers.providers.Web3Provider(window.ethereum);
 
         if (needSigner) {
             const signer = web3Provider.getSigner();
@@ -148,14 +137,6 @@ export default function CreateAgreement() {
                                                         {key}
                                                     </option>
                                                 ))}
-
-
-                                                {/* <option>Sepolia testnet</option>
-                                                <option>Optimism Goerli testnet</option>
-                                                <option>Mumbai testnet</option>
-                                                <option>Fuji testnet</option>
-                                                <option>BNB Chain testnet</option>
-                                                <option> Base Goerli testnet</option> */}
 
                                             </select>
                                         </div>

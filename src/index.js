@@ -8,6 +8,8 @@ import { Provider } from 'react-redux';
 import { store } from './store/store';
 import ThemeContext from "./context/ThemeContext";
 import { EscrowContextProvider } from './jsx/components/EscrowContext/EscrowContext';
+
+
 import Web3Context from './context/Web3Context';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

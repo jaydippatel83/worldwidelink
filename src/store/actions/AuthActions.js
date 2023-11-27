@@ -21,60 +21,59 @@ export const LOGOUT_ACTION = '[Logout action] logout action';
 
 
 export function signupAction(email, password, navigate) {
-	
+
     return (dispatch) => {
         signUp(email, password)
-        .then((response) => {
-            saveTokenInLocalStorage(response.data);
-            runLogoutTimer(
-                dispatch,
-                response.data.expiresIn * 1000,
-                //history,
-            );
-            dispatch(confirmedSignupAction(response.data));
-            navigate('/dashboard');
-			//history.push('/dashboard');
-        })
-        .catch((error) => {
-            const errorMessage = formatError(error.response.data);
-            dispatch(signupFailedAction(errorMessage));
-        });
+            .then((response) => {
+                saveTokenInLocalStorage(response.data);
+                runLogoutTimer(
+                    dispatch,
+                    response.data.expiresIn * 1000,
+                    //history,
+                );
+                dispatch(confirmedSignupAction(response.data));
+                navigate('/dashboard');
+                //history.push('/dashboard');
+            })
+            .catch((error) => {
+                const errorMessage = formatError(error.response.data);
+                dispatch(signupFailedAction(errorMessage));
+            });
     };
 }
 
 export function Logout(navigate) {
-	localStorage.removeItem('userDetails');
-    navigate('/login');
-	//history.push('/login');
-    
-	return {
+    localStorage.removeItem('userDetails');
+    navigate('/home');
+
+    return {
         type: LOGOUT_ACTION,
     };
 }
 
 export function loginAction(email, password, navigate) {
     return (dispatch) => {
-         login(email, password)
-            .then((response) => { 
+        login(email, password)
+            .then((response) => {
                 saveTokenInLocalStorage(response.data);
                 runLogoutTimer(
                     dispatch,
                     response.data.expiresIn * 1000,
                     navigate,
                 );
-               dispatch(loginConfirmedAction(response.data));
-			   //console.log('kk------1');
-			   //console.log(kk);
-			   //console.log(response.data);
-			   //console.log('kk------2');
-			   //return response.data;
-				//return 'success';
-				//history.push('/dashboard');                
-				navigate('/dashboard');                
+                dispatch(loginConfirmedAction(response.data));
+                //console.log('kk------1');
+                //console.log(kk);
+                //console.log(response.data);
+                //console.log('kk------2');
+                //return response.data;
+                //return 'success';
+                //history.push('/dashboard');                
+                navigate('/dashboard');
             })
             .catch((error) => {
-				//console.log('error');
-				//console.log(error);
+                //console.log('error');
+                //console.log(error);
                 const errorMessage = formatError(error.response.data);
                 dispatch(loginFailedAction(errorMessage));
             });

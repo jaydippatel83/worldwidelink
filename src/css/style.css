@@ -13283,14 +13283,14 @@ label {
   background: var(--headerbg);
   z-index: 3;
   padding-left: 18.563rem;
-  padding-right: 100px;
+  padding-right: 10px;
   padding-top: 0rem;
   transition: all .2s ease;
 }
 
 @media only screen and (max-width: 100rem) {
   .header {
-    padding-right: 90px;
+    padding-right: 10px;
   }
 }
 
@@ -17740,7 +17740,7 @@ html[dir="rtl"] [direction="rtl"][data-sidebar-style="compact"]:not([data-layout
   margin-left: 18.563rem;
   z-index: 0;
   transition: all .2s ease;
-  padding-right: 5.425rem;
+  /* padding-right: 5.425rem; */
 }
 
 @media only screen and (max-width: 87.5rem) {

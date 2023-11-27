@@ -1,55 +1,18 @@
-import { lazy, Suspense, useEffect } from 'react';
-
-/// Components
+import { Suspense, useContext, useEffect } from 'react';
 import Index from "./jsx";
-import { connect, useDispatch } from 'react-redux';
-import { Route, Routes, useLocation, useNavigate, useParams } from 'react-router-dom';
-// action
-import { checkAutoLogin } from './services/AuthService';
-import { isAuthenticated } from './store/selectors/AuthSelectors';
-/// Style
+import { Route, Routes, useLocation } from 'react-router-dom';
+
 import "./vendor/bootstrap-select/dist/css/bootstrap-select.min.css";
 // import "./css/style.css";
 import Landing from './landing/Landing';
-
-
-const SignUp = lazy(() => import('./jsx/pages/Registration'));
-const ForgotPassword = lazy(() => import('./jsx/pages/ForgotPassword'));
-
-const Login = lazy(() => {
-  return new Promise(resolve => {
-    setTimeout(() => resolve(import('./jsx/pages/Login')), 500);
-  });
-});
-
-function withRouter(Component) {
-  function ComponentWithRouterProp(props) {
-    let location = useLocation();
-    let navigate = useNavigate();
-    let params = useParams();
-
-    return (
-      <Component
-        {...props}
-        router={{ location, navigate, params }}
-      />
-    );
-  }
-
-  return ComponentWithRouterProp;
-}
-
+import { Web3Context } from './context/Web3Context';
 
 
 function App(props) {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    checkAutoLogin(dispatch, navigate);
-  }, []);
+  const { address } = useContext(Web3Context);
 
   let location = useLocation();
+
   useEffect(() => {
     const loadCss = async () => {
       if (location.pathname !== '/home') {
@@ -67,19 +30,13 @@ function App(props) {
     loadCss();
   }, [location]);
 
-
-
-
   let routeblog = (
 
     <Routes>
       <Route path='/home' element={<Landing />} />
-      <Route path='/login' element={<Login />} />
-      <Route path='/page-register' element={<SignUp />} />
-      <Route path='/page-forgot-password' element={<ForgotPassword />} />
     </Routes>
   );
-  if (props.isAuthenticated) {
+  if (address) {
     return (
       <>
         <Suspense fallback={
@@ -118,12 +75,6 @@ function App(props) {
 };
 
 
-const mapStateToProps = (state) => {
-  return {
-    isAuthenticated: isAuthenticated(state),
-  };
-};
 
-//export default connect((mapStateToProps)(App)); 
-export default withRouter(connect(mapStateToProps)(App));
+export default App;
 

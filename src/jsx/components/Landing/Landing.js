@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Landing = () => {
+const LandingComponent = () => {
     return (
         <div className='container'>
             <div className="row">
@@ -12,4 +12,4 @@ const Landing = () => {
     );
 };
 
-export default Landing;
+export default LandingComponent;

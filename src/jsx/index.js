@@ -136,23 +136,24 @@ import Error404 from "./pages/Error404";
 import Error500 from "./pages/Error500";
 import Error503 from "./pages/Error503";
 import { ThemeContext } from "../context/ThemeContext";
-import Landing from "./components/Landing/Landing";
 import Borrowing from "./components/Landing/Borrowing";
 import Trnasfer from "./components/Transfer";
 import SosAlert from "./components/Sos";
 import Escrow from "./components/Escrow";
 import OnRamp from "./components/onRamp/OnRamp";
+import LandingComponent from "./components/Landing/Landing";
+import Landing from "../landing/Landing";
 
 
 
 const Markup = () => {
   const allroutes = [
-    /// Landing
+    { url: "home", component: <Landing /> },
     { url: "transfer", component: <Trnasfer /> },
     { url: "sos", component: <SosAlert /> },
     { url: "escrow", component: <Escrow /> },
     { url: "onramp", component: <OnRamp /> },
-    { url: "landing", component: <Landing /> },
+    { url: "landing", component: <LandingComponent /> },
     { url: "borrow", component: <Borrowing /> },
     /// Dashboard
     { url: "", component: <Home /> },
@@ -276,16 +277,12 @@ const Markup = () => {
     //{ url: "page-error-500", component: <Error500 /> },
     //{ url: "page-error-503", component: <Error503 /> },
   ];
-  //let path = window.location.pathname;
-  //path = path.split("/");
-  //path = path[path.length - 1];
 
-  //let pagePath = path.split("-").includes("page");
-  //const { menuToggle } = useContext(ThemeContext);
 
   return (
     <>
       <Routes>
+        <Route path='/home' element={<Landing />} />
         <Route path='page-lock-screen' element={<LockScreen />} />
         <Route path='page-error-400' element={<Error400 />} />
         <Route path='page-error-403' element={<Error403 />} />
@@ -304,7 +301,6 @@ const Markup = () => {
         </Route>
       </Routes>
       <ScrollToTop />
-
     </>
   );
 };

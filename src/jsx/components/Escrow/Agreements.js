@@ -5,14 +5,14 @@ import { useAccordionButton } from 'react-bootstrap/AccordionButton';
 import { useTable, useSortBy } from 'react-table';
 import PageTitle from '../../layouts/PageTitle';
 import Table from 'react-bootstrap/Table';
-import { Button, Col, Row } from 'react-bootstrap';
+import { Badge, Button, Col, Row } from 'react-bootstrap';
 // import MOCK_DATA from './MOCK_DATA_3.json';
 // import { COLUMNS } from './Columns';
 
 
 export default function Agreements() {
 
-   
+
     function CustomToggle({ children, eventKey }) {
         const decoratedOnClick = useAccordionButton(eventKey, () =>
             console.log('totally custom!'),
@@ -83,7 +83,11 @@ export default function Agreements() {
                             </div>
                             <Row className="d-flex align-items-center">
                                 <Col xl="4" className="mx-auto">
-                                    <Card className="bg-light" style={{ maxWidth: '300px' }}>
+                                    <Card style={{
+                                        maxWidth: '300px',
+                                        backgroundColor: "#f4effe"
+                                        // backgroundColor:"#e1daee"
+                                    }}>
                                         <Card.Header>
                                             <Card.Title >Buyer Information</Card.Title>
                                         </Card.Header>
@@ -94,12 +98,14 @@ export default function Agreements() {
                                             </p>
                                         </Card.Body>
                                         <Card.Footer className=" bg-transparent border-0 text-white">
-                                            <h4 >Fund Release : ✅</h4>
+                                            <h4 >Fund Release  <span className="badge light badge-success">Successful</span></h4>
                                         </Card.Footer>
                                     </Card>
                                 </Col>
                                 <Col xl="4" className="mx-auto">
-                                    <Card className="bg-light" style={{ maxWidth: '300px' }}>
+                                    <Card
+                                        //  className="bg-light"
+                                        style={{ maxWidth: '300px', backgroundColor: "#f4effe" }}>
                                         <Card.Header>
                                             <Card.Title >Seller Information</Card.Title>
                                         </Card.Header>
@@ -110,8 +116,11 @@ export default function Agreements() {
                                             </p>
                                         </Card.Body>
                                         <Card.Footer className=" bg-transparent border-0 text-white">
-                                            <h4 >Work status : ✅</h4>
-                                            <h4 >  Fund Recieved : ❌</h4>
+                                            <h4>Work status   <span className="badge light badge-success">Done</span></h4>
+                                            <h4>  Fund Recieved {" "}
+                                                <Badge bg="" className="light badge-danger">NO</Badge>
+
+                                            </h4>
                                         </Card.Footer>
                                     </Card>
                                 </Col>

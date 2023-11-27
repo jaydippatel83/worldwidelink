@@ -135,7 +135,7 @@ export default function CreateAgreement() {
                                         <button type="button" class="btn btn-primary"
                                             onClick={createAgreement}
 
-                                        >Create</button>
+                                        >Create escrow</button>
                                     </div>
                                 </form>
                             </div>

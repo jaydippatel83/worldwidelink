@@ -135,7 +135,7 @@ export const Web3ContextProvider = (props) => {
 
 
   const disconnectWallet = () => {
-    navigate("/home");
+    navigate("/");
     window.localStorage.removeItem("address");
     setUpdate(!update);
     window.location.reload();

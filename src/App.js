@@ -15,7 +15,7 @@ function App(props) {
 
   useEffect(() => {
     const loadCss = async () => {
-      if (location.pathname !== '/home') {
+      if (location.pathname !== '/') {
         try {
           const module = await import('./css/style.css');
           module.default && module.default.use && module.default.use();
@@ -33,7 +33,7 @@ function App(props) {
   let routeblog = (
 
     <Routes>
-      <Route path='/home' element={<Landing />} />
+      <Route path='/' element={<Landing />} />
     </Routes>
   );
   if (address) {

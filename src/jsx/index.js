@@ -282,7 +282,7 @@ const Markup = () => {
   return (
     <>
       <Routes>
-        <Route path='/home' element={<Landing />} />
+        <Route path='/' element={<Landing />} />
         <Route path='page-lock-screen' element={<LockScreen />} />
         <Route path='page-error-400' element={<Error400 />} />
         <Route path='page-error-403' element={<Error403 />} />

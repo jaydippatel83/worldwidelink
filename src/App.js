@@ -1,4 +1,4 @@
-import { Suspense, useContext, useEffect } from 'react';
+import { Suspense, useContext, useEffect, useState } from 'react';
 import Index from "./jsx";
 import { Route, Routes, useLocation } from 'react-router-dom';
 
@@ -6,11 +6,11 @@ import "./vendor/bootstrap-select/dist/css/bootstrap-select.min.css";
 // import "./css/style.css";
 import Landing from './landing/Landing';
 import { Web3Context } from './context/Web3Context';
+import "./App.css";
 
 
 function App(props) {
   const { address } = useContext(Web3Context);
-
   let location = useLocation();
 
   useEffect(() => {

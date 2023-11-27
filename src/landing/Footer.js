@@ -20,7 +20,7 @@ function Footer() {
                                     <div className="footer-logo logo-white">
                                         <Link to={"/"}><img src={logowhite} alt="" /></Link>
                                     </div>
-                                    <p>CryptoZone is a Crypto & Crypto Website by DexignZone lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et</p>
+                                    <p>World Wide Link is a Crypto & Crypto Website by DexignZone lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et</p>
                                     <div className="dz-social-icon transparent space-10">
                                         <ul>
                                             <li><a target="_blank" className="fab fa-facebook-f" href="https://www.facebook.com/"></a></li>{" "}

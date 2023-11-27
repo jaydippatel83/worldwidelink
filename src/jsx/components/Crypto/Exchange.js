@@ -1,7 +1,7 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Select from 'react-select'
-import {Dropdown} from 'react-bootstrap';
+import { Dropdown } from 'react-bootstrap';
 
 import ExchangeLineChart from './Exchange/ExchangeLineChart';
 import ExchangeLineChart2 from './Exchange/ExchangeLineChart2';
@@ -20,59 +20,59 @@ const options = [
     { value: '8', label: 'Stellar' },
     { value: '9', label: 'EOS' },
     { value: '10', label: 'NEM' }
-] 
+]
 
 const options2 = [
-    {value:'1', label:'INR'},
-    {value:'2', label:'POUND'},
-    {value:'3', label:'USD'},
-    {value:'4', label:'EURO'},
+    { value: '1', label: 'INR' },
+    { value: '2', label: 'POUND' },
+    { value: '3', label: 'USD' },
+    { value: '4', label: 'EURO' },
 ];
 
 const chartGroup = [
-    {title:'Bitcoin Sold', number:'123k', icon:'up', chartstatus:<ExchangeLineChart />},
-    {title:'Amount Refund', number:'82k', icon:'down', chartstatus:<ExchangeLineChart2 />},
-    {title:'Litecoin Sold', number:'259k', icon:'up', chartstatus: <LitecoinBarChart />},
+    { title: 'Bitcoin Sold', number: '123k', icon: 'up', chartstatus: <ExchangeLineChart /> },
+    { title: 'Amount Refund', number: '82k', icon: 'down', chartstatus: <ExchangeLineChart2 /> },
+    { title: 'Litecoin Sold', number: '259k', icon: 'up', chartstatus: <LitecoinBarChart /> },
 ];
 
 const tableData = [
-    {tabid:'#TCK-01-12344', maintitle:'BTC',  title:'Samanta William', mailid:'samantha@mail.com', price:'$75,00', status:'Paid'},
-    {tabid:'#TCK-01-12345', maintitle:'XRP', title:'Tony Soap', mailid:'demo@mail.com', price:'$80,00', status:'Unpaid'},
-    {tabid:'#TCK-01-12346', maintitle:'DOT', title:'Nela Vita', mailid:'nela@mail.com', price:'$84,00', status:'Pending'},
-    {tabid:'#TCK-01-12347', maintitle:'ETH', title:'Nadia Edja', mailid:'edja@mail.com', price:'$90,00', status:'Paid'},
+    { tabid: '#TCK-01-12344', maintitle: 'BTC', title: 'Samanta William', mailid: 'samantha@mail.com', price: '$75,00', status: 'Paid' },
+    { tabid: '#TCK-01-12345', maintitle: 'XRP', title: 'Tony Soap', mailid: 'demo@mail.com', price: '$80,00', status: 'Unpaid' },
+    { tabid: '#TCK-01-12346', maintitle: 'DOT', title: 'Nela Vita', mailid: 'nela@mail.com', price: '$84,00', status: 'Pending' },
+    { tabid: '#TCK-01-12347', maintitle: 'ETH', title: 'Nadia Edja', mailid: 'edja@mail.com', price: '$90,00', status: 'Paid' },
 ];
 
-const Exchange = () =>{
+const Exchange = () => {
     const checkboxFun = (type) => {
-		setTimeout(() => {
-			const checkbox = document.querySelectorAll('.exchange-history input');
-			const motherCheckBox = document.querySelector('.sorting_select input');
-			for (let i = 0; i < checkbox.length; i++) {
-			    const element = checkbox[i]
-				if (type === 'all') {
-					if (motherCheckBox.checked) {
-						element.checked = true
-					} else {
-						element.checked = false
-					}
-				} else {
-					if (!element.checked) {
-						motherCheckBox.checked = false
-						break
-					} else {
-						motherCheckBox.checked = true
-					}
-				}
-			}
-		},200);
-	}
-    return(
+        setTimeout(() => {
+            const checkbox = document.querySelectorAll('.exchange-history input');
+            const motherCheckBox = document.querySelector('.sorting_select input');
+            for (let i = 0; i < checkbox.length; i++) {
+                const element = checkbox[i]
+                if (type === 'all') {
+                    if (motherCheckBox.checked) {
+                        element.checked = true
+                    } else {
+                        element.checked = false
+                    }
+                } else {
+                    if (!element.checked) {
+                        motherCheckBox.checked = false
+                        break
+                    } else {
+                        motherCheckBox.checked = true
+                    }
+                }
+            }
+        }, 200);
+    }
+    return (
         <>
             <div className="row">
                 <div className="col-xl-12">
                     <div className="card">
                         <div className="card-body pb-2">
-                            <h1 className="text-center no-border font-w600 fs-60 mt-2"><span className="text-warning">Buy</span> and <span className="text-danger">Sell</span> Coins at the<br/> CryptoZone with no additional charges</h1>
+                            <h1 className="text-center no-border font-w600 fs-60 mt-2"><span className="text-warning">Buy</span> and <span className="text-danger">Sell</span> Coins at the<br /> World Wide Link with no additional charges</h1>
                             <h4 className="text-center ">Trusted by millions user with over $1 Trillion in crypto transactions.</h4>
                             <div className="row">
                                 <div className="col-xl-12">
@@ -83,8 +83,8 @@ const Exchange = () =>{
                                                     <input type="text" className="form-control mb-3" name="value" placeholder="" defaultValue="18.1548" />
                                                 </div>
                                                 <div className="col-xl-6">
-                                                    <Select 
-                                                        className="custom-react-select mb-xl-0 mb-3" 
+                                                    <Select
+                                                        className="custom-react-select mb-xl-0 mb-3"
                                                         options={options}
                                                         defaultValue={options[0]}
                                                         isSearchable={false}
@@ -94,7 +94,7 @@ const Exchange = () =>{
                                         </div>
                                         <div className=" col-xl-1">
                                             <div className="equalto">
-                                                = 
+                                                =
                                             </div>
                                         </div>
                                         <div className="col-xl-5">
@@ -102,9 +102,9 @@ const Exchange = () =>{
                                                 <div className="col-xl-6">
                                                     <input type="text" className="form-control mb-3" name="value" placeholder="" defaultValue="264.158" />
                                                 </div>
-                                                <div className="col-xl-6">                                                  
-                                                    <Select 
-                                                        className="custom-react-select mb-xl-0 mb-3" 
+                                                <div className="col-xl-6">
+                                                    <Select
+                                                        className="custom-react-select mb-xl-0 mb-3"
                                                         options={options2}
                                                         defaultValue={options2[0]}
                                                         isSearchable={false}
@@ -123,7 +123,7 @@ const Exchange = () =>{
                 </div>
                 <div className="col-xl-12">
                     <div className="row">
-                        {chartGroup.map((item, i)=>(
+                        {chartGroup.map((item, i) => (
                             <div className="col-lg-6 col-xl-3 col-md-6" key={i}>
                                 <div className="card overflow-hidden">
                                     <div className="card-body py-0 pt-4">
@@ -131,17 +131,17 @@ const Exchange = () =>{
                                             <h4 className="fs-18 font-w400 mb-0">{item.title}</h4>
                                             <div className="d-flex align-items-center">
                                                 <h2 className="count-num">{item.number}</h2>
-                                                <span className={`fs-16 font-w500  ps-2 ${i===1 ? "text-danger" : "text-success"}`}>
+                                                <span className={`fs-16 font-w500  ps-2 ${i === 1 ? "text-danger" : "text-success"}`}>
                                                     <i className={`bi pe-2 bi-caret-${item.icon}-fill`}></i>
                                                 </span>
                                             </div>
                                         </div>
-                                        
-                                            {item.chartstatus}
+
+                                        {item.chartstatus}
                                     </div>
                                 </div>
                             </div>
-                        ))}                        
+                        ))}
                         <div className="col-lg-6 col-xl-3 col-md-6">
                             <div className="card overflow-hidden">
                                 <div className="card-body py-0">
@@ -153,8 +153,8 @@ const Exchange = () =>{
                                         {/* <div id="ticketSold"></div> */}
                                         <TicketSoldChart />
                                     </div>
-                                    <div className="progress mb-2" style={{height:"10px"}}>
-                                        <div className="progress-bar bg-warning progress-animated" style={{width: "30%", height:"10px" }} >
+                                    <div className="progress mb-2" style={{ height: "10px" }}>
+                                        <div className="progress-bar bg-warning progress-animated" style={{ width: "30%", height: "10px" }} >
                                         </div>
                                     </div>
                                     <p>30% than last month</p>
@@ -176,7 +176,7 @@ const Exchange = () =>{
                                             <thead>
                                                 <tr>
                                                     <th className="border-0 sorting_select">
-                                                        <input type="checkbox" className="form-check-input" id="checkAll" required="" 
+                                                        <input type="checkbox" className="form-check-input" id="checkAll" required=""
                                                             onClick={() => checkboxFun('all')}
                                                         />
                                                     </th>
@@ -188,19 +188,19 @@ const Exchange = () =>{
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {tableData.map((data, ind)=>(                                                    
+                                                {tableData.map((data, ind) => (
                                                     <tr key={ind}>
                                                         <td>
                                                             <div className="checkbox me-0 align-self-center">
                                                                 <div className="custom-control custom-checkbox ">
-                                                                    <input type="checkbox" className="form-check-input" id={`checkid${ind+1}`} required="" 
+                                                                    <input type="checkbox" className="form-check-input" id={`checkid${ind + 1}`} required=""
                                                                         onClick={() => checkboxFun()}
                                                                     />
-                                                                    <label className="custom-control-label" htmlFor={`checkid${ind+1}`}></label>
+                                                                    <label className="custom-control-label" htmlFor={`checkid${ind + 1}`}></label>
                                                                 </div>
                                                             </div>
                                                         </td>
-                                                        <td className="ps-0"> 
+                                                        <td className="ps-0">
                                                             <span className="font-w600 fs-14"> {data.tabid} </span>
                                                             <h5 className="mb-0">{data.maintitle}</h5>
                                                         </td>
@@ -208,9 +208,9 @@ const Exchange = () =>{
                                                         <td>
                                                             <div className="d-flex align-items-center">
                                                                 <Link to={"/email-inbox"}>
-                                                                    <div className="icon-box icon-box-sm bg-primary"> 
+                                                                    <div className="icon-box icon-box-sm bg-primary">
                                                                         <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                                                            <path d="M19 4H5C4.20435 4 3.44129 4.31607 2.87868 4.87868C2.31607 5.44129 2 6.20435 2 7V17C2 17.7956 2.31607 18.5587 2.87868 19.1213C3.44129 19.6839 4.20435 20 5 20H19C19.7956 20 20.5587 19.6839 21.1213 19.1213C21.6839 18.5587 22 17.7956 22 17V7C22 6.20435 21.6839 5.44129 21.1213 4.87868C20.5587 4.31607 19.7956 4 19 4ZM18.427 6L12.6 10.8C12.4335 10.9267 12.2312 10.9976 12.022 11.0026C11.8129 11.0077 11.6074 10.9465 11.435 10.828L5.573 6H18.427ZM19 18H5C4.73478 18 4.48043 17.8946 4.29289 17.7071C4.10536 17.5196 4 17.2652 4 17V7.3L10.2 12.4C10.7159 12.7863 11.3435 12.9944 11.988 12.993C12.6551 12.992 13.3037 12.774 13.836 12.372L20 7.3V17C20 17.2652 19.8946 17.5196 19.7071 17.7071C19.5196 17.8946 19.2652 18 19 18Z" fill="white"/>
+                                                                            <path d="M19 4H5C4.20435 4 3.44129 4.31607 2.87868 4.87868C2.31607 5.44129 2 6.20435 2 7V17C2 17.7956 2.31607 18.5587 2.87868 19.1213C3.44129 19.6839 4.20435 20 5 20H19C19.7956 20 20.5587 19.6839 21.1213 19.1213C21.6839 18.5587 22 17.7956 22 17V7C22 6.20435 21.6839 5.44129 21.1213 4.87868C20.5587 4.31607 19.7956 4 19 4ZM18.427 6L12.6 10.8C12.4335 10.9267 12.2312 10.9976 12.022 11.0026C11.8129 11.0077 11.6074 10.9465 11.435 10.828L5.573 6H18.427ZM19 18H5C4.73478 18 4.48043 17.8946 4.29289 17.7071C4.10536 17.5196 4 17.2652 4 17V7.3L10.2 12.4C10.7159 12.7863 11.3435 12.9944 11.988 12.993C12.6551 12.992 13.3037 12.774 13.836 12.372L20 7.3V17C20 17.2652 19.8946 17.5196 19.7071 17.7071C19.5196 17.8946 19.2652 18 19 18Z" fill="white" />
                                                                         </svg>
                                                                     </div>
                                                                 </Link>
@@ -218,12 +218,12 @@ const Exchange = () =>{
                                                                     <h5 className="mb-0"><Link className="text-secondary" to={"/app-profile"}>{data.title}</Link></h5>
                                                                     <span className="fs-14 text-muted">{data.mailid}</span>
                                                                 </div>
-                                                            </div>	
+                                                            </div>
                                                         </td>
                                                         <td>{data.price}</td>
                                                         <td className="text-end">
-                                                            <span 
-                                                                className={`font-w600 fs-14 text-white label ${ind===0 ? "label-success" : ind===1 ? "label-danger" : ind===2 ? "label-warning" : 'label-success'}`}>
+                                                            <span
+                                                                className={`font-w600 fs-14 text-white label ${ind === 0 ? "label-success" : ind === 1 ? "label-danger" : ind === 2 ? "label-warning" : 'label-success'}`}>
                                                                 {data.status}
                                                             </span>
                                                         </td>
@@ -275,8 +275,8 @@ const Exchange = () =>{
                                             <span className="input-group-text">Size</span>
                                             <input type="text" className="form-control" />
                                             <Dropdown>
-                                                <Dropdown.Toggle  className="btn btn-primary btn-outline-primary left-radius">USDT</Dropdown.Toggle>
-                                                <Dropdown.Menu align="end"> 
+                                                <Dropdown.Toggle className="btn btn-primary btn-outline-primary left-radius">USDT</Dropdown.Toggle>
+                                                <Dropdown.Menu align="end">
                                                     <Dropdown.Item>USDT</Dropdown.Item>
                                                     <Dropdown.Item>BTC</Dropdown.Item>
                                                 </Dropdown.Menu>
@@ -285,20 +285,20 @@ const Exchange = () =>{
                                         <div className="mb-3 mt-4">
                                             <label className="form-label">TP/SL</label>
                                             <div className="input-group mb-3">
-                                                <input type="text" className="form-control" placeholder="Take Profit" />                                               
+                                                <input type="text" className="form-control" placeholder="Take Profit" />
                                                 <Dropdown>
-                                                    <Dropdown.Toggle  className="btn-outline-primary left-radius">Mark</Dropdown.Toggle>
-                                                    <Dropdown.Menu align="end"> 
+                                                    <Dropdown.Toggle className="btn-outline-primary left-radius">Mark</Dropdown.Toggle>
+                                                    <Dropdown.Menu align="end">
                                                         <Dropdown.Item>Last</Dropdown.Item>
                                                         <Dropdown.Item>Mark</Dropdown.Item>
                                                     </Dropdown.Menu>
                                                 </Dropdown>
                                             </div>
                                             <div className="input-group mb-3">
-                                                <input type="text" className="form-control" placeholder="Stop Loss" />                                                
+                                                <input type="text" className="form-control" placeholder="Stop Loss" />
                                                 <Dropdown>
-                                                    <Dropdown.Toggle  className=" btn-outline-primary left-radius">Mark</Dropdown.Toggle>
-                                                    <Dropdown.Menu align="end"> 
+                                                    <Dropdown.Toggle className=" btn-outline-primary left-radius">Mark</Dropdown.Toggle>
+                                                    <Dropdown.Menu align="end">
                                                         <Dropdown.Item>Last</Dropdown.Item>
                                                         <Dropdown.Item>Mark</Dropdown.Item>
                                                     </Dropdown.Menu>
@@ -307,10 +307,10 @@ const Exchange = () =>{
                                         </div>
                                         <div className="input-group mb-3">
                                             <span className="input-group-text">Stop Price</span>
-                                            <input type="text" className="form-control" />                                            
+                                            <input type="text" className="form-control" />
                                             <Dropdown>
-                                                <Dropdown.Toggle as="div"  className="btn btn-primary btn-outline-primary left-radius">Mark</Dropdown.Toggle>
-                                                <Dropdown.Menu align="end"> 
+                                                <Dropdown.Toggle as="div" className="btn btn-primary btn-outline-primary left-radius">Mark</Dropdown.Toggle>
+                                                <Dropdown.Menu align="end">
                                                     <Dropdown.Item>Limit</Dropdown.Item>
                                                     <Dropdown.Item>Mark</Dropdown.Item>
                                                 </Dropdown.Menu>

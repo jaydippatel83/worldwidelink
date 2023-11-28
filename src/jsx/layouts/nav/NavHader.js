@@ -7,7 +7,7 @@ import { ThemeContext } from "../../../context/ThemeContext";
 import logo1 from './../../../images/logo/wwl.png';
 import logotext1 from './../../../images/logo/wwl_text.png';
 import logoColor from './../../../images/logo/wwl_p.png';
-import logoColorText from './../../../images/logo/logo-text-color.png';
+import logoColorText from './../../../images/logo/p_logo.png';
 
 export function NavMenuToggle() {
   setTimeout(() => {

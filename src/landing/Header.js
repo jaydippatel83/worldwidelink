@@ -47,8 +47,8 @@ function Header() {
                                     }
                                     {
                                         address && <ul>
-                                            <Dropdown as="li" className="nav-item dropdown header-profile">
-                                                <Dropdown.Toggle variant="" as="a" className="nav-link i-false c-pointer">
+                                            <Dropdown as="li" className="nav-item dropdown header-profile" >
+                                                <Dropdown.Toggle variant="" as="a" className="nav-link i-false c-pointer" style={{ borderRadius: '50%', padding: '2px' }}>
                                                     <img src={profile} width={35} height={35} alt="User" />
                                                 </Dropdown.Toggle>
                                                 <Dropdown.Menu align="right" className="dropdown-menu dropdown-menu-end">

@@ -137,7 +137,7 @@ import Error500 from "./pages/Error500";
 import Error503 from "./pages/Error503";
 import { ThemeContext } from "../context/ThemeContext";
 import Borrowing from "./components/Landing/Borrowing";
-import Trnasfer from "./components/Transfer";
+import Transfer from "./components/Transfer";
 import SosAlert from "./components/Sos";
 import Escrow from "./components/Escrow";
 import OnRamp from "./components/onRamp/OnRamp";
@@ -149,7 +149,7 @@ import Landing from "../landing/Landing";
 const Markup = () => {
   const allroutes = [
     { url: "home", component: <Landing /> },
-    { url: "transfer", component: <Trnasfer /> },
+    { url: "transfer", component: <Transfer /> },
     { url: "sos", component: <SosAlert /> },
     { url: "escrow", component: <Escrow /> },
     { url: "onramp", component: <OnRamp /> },

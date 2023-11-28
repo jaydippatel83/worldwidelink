@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { NavLink, Link, useNavigate } from 'react-router-dom';
 
-import Logo from './../assets/images/logo.png';
+import Logo from '../images/logo/p_logo.png';
 import profile from './../assets/images/avatar/avatar2.jpg';
-import LogoWhite from './../assets/images/logo-white.png';
+import LogoWhite from '../images/logo/white_logo.png';
 import { Web3Context } from '../context/Web3Context';
 import { Dropdown } from "react-bootstrap";
 

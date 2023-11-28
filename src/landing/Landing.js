@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { Dropdown } from 'react-bootstrap';
+import { Button, Dropdown } from 'react-bootstrap';
 
 //components
 import BannerCard from './sections/BannerCard';
@@ -8,6 +8,7 @@ import OneStop from './sections/OneStop';
 import RecentNews from './sections/RecentNews';
 
 //images
+import bannerBg from '../images/background/bg.png'
 import baner1 from './../assets/images/home-banner/img1.png';
 import baner2 from './../assets/images/home-banner/img2.png';
 import Shape1 from './../assets/images/home-banner/shape1.png';
@@ -24,6 +25,7 @@ import avatar3 from './../assets/images/avatar/avatar3.jpg';
 // import '../assets/css/style.css'
 import Header from './Header';
 import Footer from './Footer';
+import { Web3Context } from '../context/Web3Context';
 
 
 const trustBlog = [
@@ -37,10 +39,13 @@ function Landing() {
         e.preventDefault();
         nav("/contact-us");
     };
-
+    const { connectWallet,
+        address } = useContext(Web3Context);
     const [isCssLoaded, setIsCssLoaded] = useState(false);
     const [selecttext, setSelectText] = useState([coin4, 'Bitcoin']);
-
+    const handleNavigate = () => {
+        nav('/dashboard');
+    }
 
     let location = useLocation();
     useEffect(() => {
@@ -79,11 +84,12 @@ function Landing() {
                                         <div className="col-12 text-center">
                                             <h1 className="" >Your Globel OTC desk for <br />Cryptocurrencies</h1>
                                             <p className="text text-primary " >Transfer USD, EUR, or Crypto and start trading today!</p>
-                                            <Link to={"/about-us"} className="btn space-lg btn-gradient btn-shadow btn-primary " >Get Started</Link>
-                                            <ul className="image-before">
+                                            <button onClick={address ? handleNavigate : connectWallet} className="btn space-lg  btn-shadow btn-primary " >Launch App</button>
+
+                                            {/* <ul className="image-before">
                                                 <li className="left-img"><img src={baner1} alt="" /></li>
                                                 <li className="right-img"><img src={baner2} alt="" /></li>
-                                            </ul>
+                                            </ul> */}
                                         </div>
                                     </div>
                                 </div>
@@ -96,7 +102,10 @@ function Landing() {
                                 <div className="container">
                                     <div className="currancy-wrapper">
                                         <div className="row justify-content-center">
-                                            <BannerCard />
+                                            {/* <BannerCard /> */}
+                                            <div className="col">
+                                                <img src={bannerBg} alt="" height="300" />
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

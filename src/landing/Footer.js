@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 //images
 import shape1 from './../assets/images/home-banner/shape1.png';
 import bgimage from './../assets/images/background/bg1.jpg';
-import logowhite from './../assets/images/logo-white.png';
+import logowhite from './../images/logo/white_logo.png';
 import flags from './../assets/images/footer/world-map-with-flags1.png';
 
 function Footer() {
@@ -20,7 +20,7 @@ function Footer() {
                                     <div className="footer-logo logo-white">
                                         <Link to={"/"}><img src={logowhite} alt="" /></Link>
                                     </div>
-                                    <p>World Wide Link is a Crypto & Crypto Website by DexignZone lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et</p>
+                                    <p>World Wide Link is a Crypto & Crypto Website by World Wide Link lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et</p>
                                     <div className="dz-social-icon transparent space-10">
                                         <ul>
                                             <li><a target="_blank" className="fab fa-facebook-f" href="https://www.facebook.com/"></a></li>{" "}
@@ -67,8 +67,8 @@ function Footer() {
                                 <div className="widget widget_locations">
                                     <h4 className="widget-title">Locations</h4>
                                     <div className="clearfix">
-                                        <h6 className="title">Washington</h6>
-                                        <p>1559 Alabama Ave SE, DC 20032, Washington, USA</p>
+                                        <h6 className="title">Ahmedabad</h6>
+                                        <p>338, iscon emporio, Ahmedabad  </p>
                                         <img src={flags} alt="" />
                                     </div>
                                 </div>
@@ -79,7 +79,7 @@ function Footer() {
                 </div>
                 <div className="footer-bottom text-center">
                     <div className="container">
-                        <span className="copyright-text">Copyright © 2023 <a href="https://dexignzone.com/" target="_blank">DexignZone</a>. All rights reserved.</span>
+                        <span className="copyright-text">Copyright © 2023 <a href="https://worldwidelink.vercel.app" target="_blank">WWL</a>. All rights reserved.</span>
                     </div>
                 </div>
             </footer>

@@ -41,7 +41,7 @@ function Header() {
                             <div className="extra-nav d-flex">
                                 <div className="extra-cell">
                                     {
-                                        !address && <button className="btn btn-outline-primary text-white" onClick={connectWallet} >Connect Wallet</button>
+                                        !address && <button className="btn btn-outline-primary text-white" onClick={connectWallet} >Connect</button>
                                     }
                                     {
                                         address && <button className="btn btn-outline-primary text-white" onClick={navigateToDash} >Launch App</button>

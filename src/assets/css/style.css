@@ -25027,7 +25027,7 @@ ul a.rsswidget:hover {
 }
 
 .currancy-wrapper:after {
-  content: "";
+  /* content: "";
   height: 58px;
   width: 100%;
   position: absolute;
@@ -25035,7 +25035,7 @@ ul a.rsswidget:hover {
   bottom: 70px;
   background-color: #9467FE;
   border-radius: 20px 20px 0 0;
-  z-index: -1;
+  z-index: -1; */
 }
 
 @media only screen and (max-width: 1280px) {
@@ -25053,7 +25053,7 @@ ul a.rsswidget:hover {
 @media only screen and (max-width: 991px) {
   .currancy-wrapper {
     padding: 0;
-    margin-top: 50px;
+    /* margin-top: 50px; */
   }
 
   .currancy-wrapper:after {

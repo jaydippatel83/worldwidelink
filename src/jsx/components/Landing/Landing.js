@@ -555,6 +555,12 @@ const Landing = () => {
                           <div>Collateral Value required</div>
                           <div className="text-muted">{collateralValue}</div>
                         </div>
+                        <div className="d-flex flex-wrap justify-content-between">
+                          <div>Tokens</div>
+                          <div className="text-muted">
+                            {toVal.value == "mumbai" ? "MATIC/USD" : "ETH/USD"}
+                          </div>
+                        </div>
                       </div>
                     </div>
                     <button

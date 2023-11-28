@@ -137,7 +137,6 @@ import Error500 from "./pages/Error500";
 import Error503 from "./pages/Error503";
 import { ThemeContext } from "../context/ThemeContext";
 import Landing from "./components/Landing/Landing";
-import Borrowing from "./components/Landing/Borrowing";
 import Trnasfer from "./components/Transfer";
 import SosAlert from "./components/Sos";
 import Escrow from "./components/Escrow";
@@ -153,7 +152,6 @@ const Markup = () => {
     { url: "escrow", component: <Escrow /> },
     { url: "onramp", component: <OnRamp /> },
     { url: "landing", component: <Landing /> },
-    { url: "borrow", component: <Borrowing /> },
     /// Dashboard
     { url: "", component: <Home /> },
     { url: "dashboard", component: <Home /> },

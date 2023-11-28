@@ -1,9 +1,12 @@
-import React, { useEffect, useState, useRef } from "react";
-import { Dropdown, Tab, Nav } from "react-bootstrap";
+import React, { useEffect, useState, useRef, useContext } from "react";
+import { Dropdown, Tab, Nav, Alert } from "react-bootstrap";
 import Select from "react-select";
 import { Formik } from "formik";
 import * as Yup from "yup";
-import { networks } from "../../../network";
+import { Web3Context } from "../../../context/Web3Context";
+import { ToastContainer } from "react-toastify";
+import { Listing } from "./Listing";
+import { Link } from "react-router-dom";
 
 const chains = [
   { value: "sepolia", label: "Sepolia testnet" },
@@ -18,27 +21,25 @@ const protocols = [
 
 const supplyToken = [
   {
-    value: "1",
-    address: "0xFd57b4ddBf88a4e07fF4e34C487b99af2Fe82a05",
+    value: "bnmToken",
     label: "CCIP-BnM",
   },
   {
-    value: "2",
-    address: "0x466D489b6d36E7E3b824ef491C225F5830E81cC1",
+    value: "lnmToken",
     label: "CCIP-LnM",
   },
 ];
 
-const borrowToken = [
+const borrowTokens = [
   {
     value: "1",
     label: "WUSDC",
-    ratio: "70%"
+    ratio: "70%",
   },
   {
     value: "2",
     label: "WDAI",
-    ratio: "80%"
+    ratio: "80%",
   },
 ];
 
@@ -59,8 +60,23 @@ const Landing = () => {
   const [toVal, setTo] = useState(chains[0]);
   const [protocolVal, setProtocol] = useState(protocols[0]);
 
+  const {
+    supplyAsset,
+    latestMessageId,
+    borrowToken,
+    collateralValue,
+    getDepositsData,
+    getBorrowData,
+  } = useContext(Web3Context);
+
+  useEffect(() => {
+    getDepositsData();
+    getBorrowData();
+  }, []);
+
   return (
     <div className="container">
+      <ToastContainer />
       {/* <div className="row">
         <div className="col-xl-6 col-lg-6">
           <div className="card">
@@ -139,15 +155,17 @@ const Landing = () => {
                   token: supplyToken[0],
                 }}
                 validationSchema={supplySchema}
-                onSubmit={(values, { setSubmitting }) => {
-                  const params = {
-                    sender: networks[values.from.value].sender,
-                    protocol: networks[values.to.value].protocol,
-                    destChainSelector: networks[values.to.value].chainSelector,
+                onSubmit={async (values, { setSubmitting }) => {
+                  setSubmitting(true);
+                  const formValues = {
+                    from: values.from,
+                    to: values.to,
                     amount: values.amount,
                     token: values.token,
                   };
-                  console.log(params, "params");
+                  // console.log(params, "params");
+                  await supplyAsset(formValues);
+                  setSubmitting(false);
                 }}
               >
                 {({
@@ -276,7 +294,7 @@ const Landing = () => {
                           <input
                             type="text"
                             className="form-control"
-                            value={values.token.label}
+                            value={values.token?.label}
                           />
                           {/* <button className="btn btn-primary btn-outline-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">BTC</button>
                                                 <ul className="dropdown-menu dropdown-menu-end">
@@ -323,22 +341,17 @@ const Landing = () => {
                       </div>
 
                       <div className="col-xl-12">
-                        <div className="d-flex flex-wrap justify-content-between mb-1">
-                          <div>Collateral Value</div>
-                          <div className="text-muted"> 0</div>
-                        </div>
-                        <div className="d-flex flex-wrap justify-content-between">
-                          <div>Liquidation Point</div>
-                          <div className="text-muted"> 0</div>
-                        </div>
-                        <div className="d-flex flex-wrap justify-content-between">
-                          <div>Borrow Capacity</div>
-                          <div className="text-muted"> 0</div>
-                        </div>
-                        <div className="d-flex flex-wrap justify-content-between">
-                          <div>Available to Borrow</div>
-                          <div className="text-muted">0</div>
-                        </div>
+                        {latestMessageId && (
+                          <div className="d-flex flex-wrap justify-content-between mb-1">
+                            <div>Message Id:</div>
+                            <Link
+                              style={{ overflowX: "scroll" }}
+                              to={`https://ccip.chain.link/msg/${latestMessageId}`}
+                            >
+                              {`https://ccip.chain.link/msg/${latestMessageId}`}
+                            </Link>
+                          </div>
+                        )}
                       </div>
                     </div>
                     <button
@@ -346,7 +359,7 @@ const Landing = () => {
                       className="btn flex-fill btn-success py-2 fs-5 text-uppercase px-5"
                       disabled={isSubmitting}
                     >
-                      Supply
+                      {isSubmitting ? "Supply...." : " Supply"}
                     </button>
                   </form>
                 )}
@@ -365,15 +378,18 @@ const Landing = () => {
                   to: toVal,
                   protocol: protocolVal,
                   amount: "",
-                  token: borrowToken[0],
+                  token: borrowTokens[0],
                 }}
                 validationSchema={borrowSchema}
-                onSubmit={(values, { setSubmitting }) => {
-                  console.log(values);
-                  setTimeout(() => {
-                    alert(JSON.stringify(values, null, 2));
-                    setSubmitting(false);
-                  }, 400);
+                onSubmit={async (values, { setSubmitting }) => {
+                  setSubmitting(true);
+                  const formData = {
+                    to: toVal,
+                    amount: values.amount,
+                    token: values.token,
+                  };
+                  await borrowToken(formData);
+                  setSubmitting(false);
                 }}
               >
                 {({
@@ -398,7 +414,9 @@ const Landing = () => {
                             id="to"
                             value={toVal}
                             options={chains}
-                            isDisabled={true}
+                            onChange={(value) => {
+                              setTo(value);
+                            }}
                           />
                         </div>
                       </div>
@@ -461,7 +479,7 @@ const Landing = () => {
 
                           <Dropdown
                             onSelect={(eventKey) => {
-                              const selectedToken = borrowToken.find(
+                              const selectedToken = borrowTokens.find(
                                 (token) => token.value === eventKey
                               );
                               setFieldValue("token", selectedToken);
@@ -473,7 +491,7 @@ const Landing = () => {
                             </Dropdown.Toggle>
 
                             <Dropdown.Menu align="end">
-                              {borrowToken.map((token) => {
+                              {borrowTokens.map((token) => {
                                 return (
                                   <Dropdown.Item eventKey={token.value}>
                                     {token.label}
@@ -494,20 +512,12 @@ const Landing = () => {
 
                       <div className="col-xl-12">
                         <div className="d-flex flex-wrap justify-content-between mb-1">
-                          <div>Collateral Value</div>
+                          <div>Collateral Percentage</div>
                           <div className="text-muted">{values.token.ratio}</div>
                         </div>
                         <div className="d-flex flex-wrap justify-content-between">
-                          <div>Liquidation Point</div>
-                          <div className="text-muted"> 0</div>
-                        </div>
-                        <div className="d-flex flex-wrap justify-content-between">
-                          <div>Borrow Capacity</div>
-                          <div className="text-muted"> 0</div>
-                        </div>
-                        <div className="d-flex flex-wrap justify-content-between">
-                          <div>Available to Borrow</div>
-                          <div className="text-muted">0</div>
+                          <div>Collateral Value required</div>
+                          <div className="text-muted">{collateralValue}</div>
                         </div>
                       </div>
                     </div>
@@ -525,6 +535,7 @@ const Landing = () => {
           </div>
         </div>
       </div>
+      <Listing />
     </div>
   );
 };

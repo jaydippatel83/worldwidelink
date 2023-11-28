@@ -11,7 +11,7 @@
 const DEFAULT_VERIFICATION_BLOCK_CONFIRMATIONS = 2;
 
 const PRIVATE_KEY = process.env.REACT_APP_PRIVATE_KEY;
-const networks = {
+export const networks = {
   sepolia: {
     url: process.env.REACT_APP_SEPOLIA_RPC_URL || "THIS HAS NOT BEEN SET",
     gasPrice: undefined,
@@ -25,8 +25,11 @@ const networks = {
     linkToken: "0x779877A7B0D9E8603169DdbD7836e478b4624789",
     bnmToken: "0xFd57b4ddBf88a4e07fF4e34C487b99af2Fe82a05",
     lnmToken: "0x466D489b6d36E7E3b824ef491C225F5830E81cC1",
-    sender: "0x6a4debE95DfE9486111Be1ac8efD6A8A2264f82e",
-    protocol: "0xAff26709AAFb3723eDBfe179CB459D7313026d86",
+    usdcPriceFeed: "0x5fb1616F78dA7aFC9FF79e0371741a747D2a7F22", // ETH/USD
+    daiPriceFeed: "0x1b44F3514812d835EB1BDB0acB33d3fA3351Ee43", // BTC/USD
+    //Contract Addresses
+    sender: "0x53cc33bCb8f54BD041210Be871b7b3FAF3884ac2",
+    protocol: "0x67179faFCB5Fbf8F106DaFFA3fb70e1369c1Fc3f",
   },
   mumbai: {
     url: process.env.REACT_APP_MUMBAI_RPC_URL || "THIS HAS NOT BEEN SET",
@@ -41,11 +44,19 @@ const networks = {
     linkToken: "0x326C977E6efc84E512bB9C30f76E30c160eD06FB",
     bnmToken: "0xf1E3A5842EeEF51F2967b3F05D45DD4f4205FF40",
     lnmToken: "0xc1c76a8c5bfde1be034bbcd930c668726e7c1987",
-    sender: "0x69Dc94D10B8e5C856F9aebA1D434253848bb4a6d",
-    protocol: "0xc24991718c9cd134Ce9Dd8fF7dd1AC1923d0B131",
+    usdcPriceFeed: "0xd0D5e3DB44DE05E9F294BB0a3bEEaF030DE24Ada", // MATIC/USD
+    daiPriceFeed: "0x007A22900a3B98143368Bd5906f8E17e9867581b", // BTC/USD
+    //Contract Addresses
+    sender: "0x3Db45de715929b76E0570d01815F20eEe576B9E7",
+    protocol: "0x9c29a12d441757AcF45aa106A3905E85C008dFA2",
   },
 };
 
-module.exports = {
-  networks,
+export const chains = {
+  11155111: "sepolia",
+  80001: "mumbai",
 };
+
+// module.exports = {
+//   networks,
+// };

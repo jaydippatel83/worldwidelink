@@ -29,7 +29,6 @@ const Markup = () => {
     { url: "onramp", component: <OnRamp /> },
     { url: "landing", component: <LandingComponent /> },
     { url: "borrow", component: <Borrowing /> },
-    /// Dashboard
     { url: "", component: <Home /> },
     { url: "dashboard", component: <Home /> }
   ];

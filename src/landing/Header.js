@@ -21,7 +21,6 @@ function Header() {
     }, []);
 
     const [sidebarOpen, setSidebarOpen] = useState(false);
-    const [showMenu, setShowMenu] = useState(false);
 
     const navigateToDash = () => {
         navigate('/dashboard');
@@ -74,8 +73,6 @@ function Header() {
                                     }
                                 </div>
                             </div>
-
-
 
                             <div className={`header-nav navbar-collapse collapse justify-content-end ${sidebarOpen ? "show" : ""}`} id="navbarNavDropdown" >
                                 <div className="logo-header mostion">

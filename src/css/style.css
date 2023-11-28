@@ -12902,7 +12902,7 @@ label {
   height: 100vh;
   z-index: 999999;
   overflow: visible;
-  background: var(--rgba-primary-1) url(../images/loader.gif) no-repeat center center;
+  background: var(--rgba-primary-1)  no-repeat center center;
 }
 
 @media only screen and (max-width: 61.9375rem) {

@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 /// React router dom
 import { Routes, Route, Outlet } from "react-router-dom";
@@ -308,9 +308,22 @@ const Markup = () => {
 
 function MainLayout() {
   const { menuToggle } = useContext(ThemeContext);
+  const [loader, setLoader] = useState(true);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoader(false);
+    }, 1000)
+  }, [])
+
   return (
     <div id="main-wrapper" className={`show ${menuToggle ? "menu-toggle" : ""}`}>
-      <Nav />
+      {
+        loader ? <div className="loader-wrapper">
+          <div className="loader"></div>
+        </div>
+          : <Nav />
+      }
       <div className="content-body" style={{ minHeight: window.screen.height - 45 }}>
         <div className="container-fluid">
           <Outlet />

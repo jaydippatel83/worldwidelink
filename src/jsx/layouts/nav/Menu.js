@@ -1,5 +1,11 @@
 export const MenuList = [
     {
+        title: 'Dashboard',
+        classsChange: 'mm-collapse',
+        iconStyle: <i className="material-icons">grid_view</i>,
+        to: 'dashboard',
+    },
+    {
         title: 'Escrow',
         classsChange: 'mm-collapse',
         iconStyle: <i className="material-icons">next_week</i>,
@@ -29,10 +35,5 @@ export const MenuList = [
         iconStyle: <i className="material-icons">warning</i>,
         to: 'sos',
     },
-    {
-        title: 'Dashboard',
-        classsChange: 'mm-collapse',
-        iconStyle: <i className="material-icons">grid_view</i>,
-        to: 'dashboard',
-    }
+
 ]

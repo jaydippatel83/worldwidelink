@@ -5,7 +5,7 @@ import { Web3Context } from "../../../context/Web3Context";
 
 
 import LogoutPage from './Logout';
-import profile from "../../../images/profile/pic1.jpg";
+import profile from "../../../images/avatar/user.png";
 
 
 const Header = ({ onNote }) => {

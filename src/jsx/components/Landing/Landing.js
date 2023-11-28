@@ -7,6 +7,11 @@ import { Web3Context } from "../../../context/Web3Context";
 import { ToastContainer } from "react-toastify";
 import { Listing } from "./Listing";
 import { Link } from "react-router-dom";
+import { ethers } from "ethers";
+
+import ccipBnMAbi from "../../../abis/CCIPBnM.json";
+import ccipLnMAbi from "../../../abis/CCIPLnM.json";
+import { networks } from "../../../network";
 
 const chains = [
   { value: "sepolia", label: "Sepolia testnet" },
@@ -58,7 +63,10 @@ const borrowSchema = Yup.object().shape({
 
 const Landing = () => {
   const [toVal, setTo] = useState(chains[0]);
+  const [fromVal, setFrom] = useState(chains[0]);
   const [protocolVal, setProtocol] = useState(protocols[0]);
+  const [balance, setBalance] = useState(0);
+  const [token, setToken] = useState(supplyToken[0]);
 
   const {
     supplyAsset,
@@ -73,6 +81,29 @@ const Landing = () => {
     getDepositsData();
     getBorrowData();
   }, []);
+
+  useEffect(() => {
+    getBalance();
+  }, [token, fromVal]);
+
+  const getBalance = async () => {
+    const { ethereum } = window;
+    const provider = new ethers.providers.Web3Provider(window.ethereum);
+    const signer = provider.getSigner();
+    const tokenContract = new ethers.Contract(
+      networks[fromVal.value][token.value],
+      token.value == "bnmToken" ? ccipBnMAbi : ccipLnMAbi,
+      signer
+    );
+
+    const accounts = await ethereum.request({
+      method: "eth_requestAccounts",
+    });
+    const balance = await tokenContract.balanceOf(accounts[0]);
+    const decimals = await tokenContract.decimals();
+    console.log(ethers.utils.formatUnits(balance, decimals), "token");
+    setBalance(ethers.utils.formatUnits(balance, decimals));
+  };
 
   return (
     <div className="container">
@@ -191,6 +222,7 @@ const Landing = () => {
                             value={values.from}
                             onChange={(value) => {
                               setFieldValue("from", value);
+                              setFrom(value);
                             }}
                             options={chains}
                             onBlur={handleBlur}
@@ -261,7 +293,7 @@ const Landing = () => {
                           </label>
                           <div className="form-label blance d-flex">
                             <span>Balance:&nbsp;</span>
-                            <span>$3,123.9</span>
+                            <span>{balance}</span>
                           </div>
                         </div>
 
@@ -275,6 +307,9 @@ const Landing = () => {
                           <button
                             className="btn btn-outline-primary btn-outline-primary "
                             type="button"
+                            onClick={() => {
+                              setFieldValue("amount", balance);
+                            }}
                           >
                             Max
                           </button>
@@ -313,6 +348,7 @@ const Landing = () => {
                                 (token) => token.value === eventKey
                               );
                               setFieldValue("token", selectedToken);
+                              setToken(selectedToken);
                             }}
                             onBlur={handleBlur}
                           >

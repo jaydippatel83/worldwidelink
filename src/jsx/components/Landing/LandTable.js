@@ -25,7 +25,7 @@ export const LandTable = () => {
               <tr key={ind}>
                 <td>{deposit.token}</td>
                 <td>{address}</td>
-                <td>{ethers.utils.formatEther(deposit.amount)}</td>
+                <td>{(ethers.utils.formatEther(deposit.amount))}</td>
               </tr>
             ))}
           </tbody>

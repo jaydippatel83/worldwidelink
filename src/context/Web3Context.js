@@ -70,7 +70,6 @@ const Web3ContextProvider = (props) => {
   };
 
   const calculateColletralValue = async (data) => {
-    console.log(data, "data");
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
     const protocolContract = new ethers.Contract(
@@ -81,19 +80,16 @@ const Web3ContextProvider = (props) => {
     var price;
     var decimal;
     if ((data.token = "1")) {
-      // let p = await protocolContract.getPrice(data.network.usdcPriceFeed);
-      // price = p.toNumber();
-
       let priceFeed = await protocolContract.getPriceAndDecimal(
         data.network.usdcPriceFeed
       );
-      price = priceFeed.price.toNumber();
+      price = priceFeed.price;
       decimal = priceFeed.decimal;
     } else {
       let priceFeed = await protocolContract.getPriceAndDecimal(
         data.network.daiPriceFeed
       );
-      price = priceFeed.price.toNumber();
+      price = priceFeed.price;
       decimal = priceFeed.decimal;
     }
 
@@ -158,6 +154,11 @@ const Web3ContextProvider = (props) => {
             let txd = await txdepositCCIP.wait();
             setLatestMessageId(messageId);
             toast.success("Congratulation! You supplied asset successfully!");
+            setTimeout(() => {
+              toast.success(
+                "Hang on tight :)! This transaction might take approx 10 to 15 minutes to get completed!"
+              );
+            }, "10000");
           }
         );
       }
@@ -205,7 +206,7 @@ const Web3ContextProvider = (props) => {
       toast.success("Congratulation! You borrowed asset successfully!");
     } catch (error) {
       console.log(error);
-      toast.error("Oops! Something went wrong!");
+      toast.error("Oops! execution reverted: Caller has already borrowed USDC");
     }
   };
 
@@ -246,7 +247,6 @@ const Web3ContextProvider = (props) => {
       method: "eth_requestAccounts",
     });
     var deposits = await protocolContract.getDeposits(accounts[0]);
-    console.log(deposits, "deposits");
 
     setDeposits(deposits);
   };

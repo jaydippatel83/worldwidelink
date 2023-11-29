@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Box, Card, Typography, CardActions, CardContent, Divider} from '@mui/material';
 import PropTypes from 'prop-types';
 import { Select as BaseSelect, selectClasses } from '@mui/base/Select';
@@ -8,7 +8,9 @@ import { styled } from '@mui/system';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import SwapVerticalCircleIcon from '@mui/icons-material/SwapVerticalCircle';
 import { Web3Context } from '../../../context/Web3Context';
-
+import TokenTransferorABI from './TokenTransferor.json';
+import {TokenTransferorContract} from './config';
+const ethers = require("ethers");
 const bull = (
   <Box
     component="span"
@@ -197,7 +199,37 @@ const Transfer = () => {
   const [fromChain, setFromChain] = useState(20);
   const [toChain, setToChain] = useState(30);
   const [isSwapped, setIsSwapped] = useState(false);
+  const [amount, setAmount] = useState('0');
 
+  useEffect(() => {
+    const allowDestinationChain = async () => {
+      try {
+        if (window.ethereum) {
+          const accounts = await window.ethereum.request({
+            method: "eth_requestAccounts",
+          });
+          const address = accounts[0];
+          const provider = new ethers.BrowserProvider(window.ethereum);
+          const signer = await provider.getSigner();
+          const transferorContract = new ethers.Contract(
+            TokenTransferorContract,
+            TokenTransferorABI.abi,
+            signer
+          );
+          let whitelistChain = await transferorContract.allowlistDestinationChain('12532609583862916517', true);
+          console.log(transferorContract, "contractObj");
+          console.log(whitelistChain, "whitelistChain");
+        } else {
+          console.error("MetaMask not detected. Please install MetaMask extension.");
+        }
+      } catch (error) {
+        console.error("Error during MetaMask initialization:", error.message);
+      }
+    };
+  
+    allowDestinationChain();
+  }, []);
+  
   const handleSwap = () => {
     setFromChain(toChain);
     setToChain(fromChain);
@@ -252,6 +284,60 @@ const Transfer = () => {
 
     )
   }
+  const handleTransfer = async () => {
+    try {
+      if (!address) {
+        console.error('Wallet not connected. Please connect your wallet.');
+        return;
+      }
+
+      // Connect to Ethereum provider
+      if (window.ethereum) {
+        const accounts = await window.ethereum.request({
+          method: "eth_requestAccounts",
+        });
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const signer = await provider.getSigner();
+
+      // Create contract instance
+      const transferorContract = new ethers.Contract(
+        TokenTransferorContract,
+        TokenTransferorABI.abi,
+        signer
+      );
+
+      // Hardcoded values
+      const destinationChain = '12532609583862916517'; 
+      console.log(address,"add");
+      const receiver = address; 
+      const token = '0xFd57b4ddBf88a4e07fF4e34C487b99af2Fe82a05'; 
+
+      // Your logic to allowlist destination chain can go here
+
+      // Convert the input amount to the correct format (wei)
+      const amountInWei = ethers.parseEther(amount.toString());
+      // Call your transferTokensPayLINK function
+      const messageId = await transferorContract.transferTokensPayLINK(
+        destinationChain,
+        receiver,
+        token,
+        amountInWei.toString()
+      );    
+      console.log(destinationChain, "destinationChain");
+      console.log(receiver, "receiver");
+      console.log(token, "token");
+      console.log(amountInWei.toString(), 'amountInWei');
+      console.log('Transfer successful. Message ID:', messageId);
+    } else {
+      console.error("MetaMask not detected. Please install MetaMask extension.");
+    }
+
+    } catch (error) {
+      console.error('Error during transfer:', error.message);
+    }
+  };
+  
+
   return (
     <div className='container'>
       <div className="row">
@@ -350,6 +436,8 @@ const Transfer = () => {
                       type="number"
                       step="0.01"
                       placeholder="0.00"
+                      value={amount}
+                      onChange={(e) => setAmount(e.target.value)}
                     />
                   </Typography>
 
@@ -364,6 +452,7 @@ const Transfer = () => {
                   }}>
                   <button
                     className="btn py-2 fs-5 px-5 text-uppercase"
+                    onClick={handleTransfer}
                     style={{ backgroundColor : '#362465', color: 'white'}}
                   >
                     Transfer

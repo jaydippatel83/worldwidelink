@@ -20,7 +20,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.2.0",
-    "ethers": "^6.6.0",
+    "ethers": "^6.0.0",
     "formik": "^2.2.9",
     "framer-motion": "^8.0.2",
     "lightgallery": "^2.7.0",

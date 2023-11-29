@@ -1,4 +1,4 @@
-import { ethers } from "ethers";
+const ethers = require("ethers") 
 
 export const chain = {
     80001: "mumbai",

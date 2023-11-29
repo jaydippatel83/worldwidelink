@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState } from "react";
-import { ethers } from "ethers";
+// import { ethers } from "ethers";
 import {
   chain,
   chainParams,
@@ -8,7 +8,7 @@ import {
 } from "../config";
 import { toast } from "react-toastify";
 import { useNavigate, useLocation } from "react-router-dom";
-
+const ethers = require("ethers") 
 export const Web3Context = createContext(undefined);
 
 export const Web3ContextProvider = (props) => {

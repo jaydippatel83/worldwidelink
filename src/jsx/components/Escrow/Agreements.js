@@ -13,7 +13,7 @@ import { EscrowContext } from '../EscrowContext/EscrowContext';
 export default function Agreements() {
     const escrowContext = React.useContext(EscrowContext);
 
-    const { everyAgreement, fetchAllAgreements } = escrowContext;
+    const { everyAgreement, stakeCcipProvider } = escrowContext;
     const [providerStaked, setProviderStaked] = useState(false);
     const [workStatus, setWorkStatus] = useState('pending');
     const [fundsReleased, setFundsReleased] = useState(false);
@@ -247,7 +247,7 @@ export default function Agreements() {
                                                             </div>
                                                         ) : (
                                                             <button type="button" class="btn btn-primary"
-                                                                onClick={() => setProviderStaked(true)}>Stake Token</button>
+                                                                onClick={() => stakeCcipProvider(Agreement.agreeId, Agreement.agreementAmount)}>Stake Token</button>
 
                                                         )}
 

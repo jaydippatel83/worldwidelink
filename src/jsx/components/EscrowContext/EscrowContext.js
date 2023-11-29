@@ -142,7 +142,7 @@ export const EscrowContextProvider = (props) => {
 
             const ccipInstance = getCCIPTokenContractInstance(CCIP_TOKEN_ADDRESS_MUMBAI, signer);
 
-            const tx = await ccipInstance.approve(ESCROW_RECEIVER_CONTRACT_ADDRESS, ethers.parseEther('0.20'))
+            const tx = await ccipInstance.approve(ESCROW_RECEIVER_CONTRACT_ADDRESS, ethers.parseEther(_agreementAmount))
             await tx.wait();
 
             const escroContract = getEscrowContractInstance(ESCROW_RECEIVER_CONTRACT_ADDRESS, signer);

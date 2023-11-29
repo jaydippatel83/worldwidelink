@@ -37,7 +37,7 @@ const Web3ContextProvider = (props) => {
         method: "eth_requestAccounts",
       });
       console.log("Found an account! Address: ", accounts[0]);
-      console.log(accounts);
+      // console.log(accounts);
       setAddress(accounts[0]);
     } catch (err) {
       console.log(err);
@@ -46,7 +46,7 @@ const Web3ContextProvider = (props) => {
           const accounts = await ethereum.request({
             method: "eth_requestAccounts",
           });
-          console.log(accounts);
+          // console.log(accounts);
           setAddress(accounts[0]);
         } catch (err) {
           alert(err.message);
@@ -57,6 +57,7 @@ const Web3ContextProvider = (props) => {
   const disconnectWallet = () => {
     // Reset the address to disconnect the wallet
     setAddress(null);
+    localStorage.removeItem('userAddress')
   };
 
   return (

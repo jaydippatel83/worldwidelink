@@ -6,12 +6,14 @@ import { useTable, useSortBy } from 'react-table';
 import PageTitle from '../../layouts/PageTitle';
 import Table from 'react-bootstrap/Table';
 import { Badge, Button, Col, Row } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 // import MOCK_DATA from './MOCK_DATA_3.json';
 // import { COLUMNS } from './Columns';
 
 
 export default function Agreements() {
-
+    const [providerStaked, setProviderStaked] = useState(false);
+    const [workStatus, setWorkStatus] = useState('pending');
 
     function CustomToggle({ children, eventKey }) {
         const decoratedOnClick = useAccordionButton(eventKey, () =>
@@ -28,8 +30,21 @@ export default function Agreements() {
         );
     }
 
+    const handleSubmitWork = () => {
+        setWorkStatus('done');
+    };
 
+    const handleCancelWork = () => {
+        setWorkStatus('canceled');
+    };
 
+    const handleDispute = () => {
+        setWorkStatus('disputed');
+    };
+
+    const handleReleaseFund = () => {
+        setWorkStatus('fundsReleased');
+    };
 
     return (
         <>
@@ -53,7 +68,7 @@ export default function Agreements() {
                                     <tr>
                                         <td>1</td>
                                         <td>Home Agreement</td>
-                                        <td>address28237447473838</td>
+                                        <td>{localStorage.getItem('userAddress')}</td>
                                         <td>0.001 CCIP</td>
                                         {/* <td>Created Aggrement</td> */}
                                         <td>
@@ -82,32 +97,66 @@ export default function Agreements() {
                                 </h5>
                             </div>
                             <Row className="d-flex align-items-center">
-                                <Col xl="4" className="mx-auto">
+                                <Col xl="5" className="mx-auto">
                                     <Card style={{
-                                        maxWidth: '300px',
+                                        maxWidth: '500px',
                                         backgroundColor: "#f4effe"
                                         // backgroundColor:"#e1daee"
                                     }}>
                                         <Card.Header>
-                                            <Card.Title >Buyer Information</Card.Title>
+                                            <Card.Title >Client Information</Card.Title>
                                         </Card.Header>
                                         <Card.Body className=" mb-0">
-                                            <p className='text-black'> Address:  7545934598349</p>
+                                            <p className='text-black'> Address:  {localStorage.getItem('userAddress')}</p>
                                             <p className='text-black'>
                                                 Staked Amount : 0.02 CCIP
                                             </p>
+
+                                            <p className='text-black'>
+                                                Work Status :
+                                                <Link to={"#"} className='badge-md light ms-1 badge badge-warning'>Pending</Link>
+
+                                            </p>
+                                            {
+                                                workStatus === "pending" ? (
+
+                                                    < div >
+                                                        <div className="row text-center mt-4">
+                                                            <div className='col-6'>
+                                                                <button type="button" class="btn btn-primary btn-sm"
+                                                                // onClick={handleSubmitWork}
+                                                                >Cancle</button>
+                                                            </div>
+                                                            <div className='col-6'>
+                                                                <button type="button" class="btn btn-primary btn-sm"
+                                                                >Dispute</button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                ) : (
+                                                    <div className='col'>
+                                                        <button type="button" class="btn btn-primary btn-md" onClick={handleReleaseFund}
+                                                        >Relese Fund</button>
+                                                        {workStatus === 'fundsReleased' &&
+                                                            <Card.Footer className=" bg-transparent border-0 text-white">
+                                                                <h4 >Fund Release  <span className="badge light badge-success">Successful</span></h4>
+                                                            </Card.Footer>
+                                                            }
+                                                    </div>
+                                                )
+                                            }
+
                                         </Card.Body>
-                                        <Card.Footer className=" bg-transparent border-0 text-white">
-                                            <h4 >Fund Release  <span className="badge light badge-success">Successful</span></h4>
-                                        </Card.Footer>
+
                                     </Card>
                                 </Col>
-                                <Col xl="4" className="mx-auto">
+                                <Col xl="5" className="mx-auto">
                                     <Card
                                         //  className="bg-light"
-                                        style={{ maxWidth: '300px', backgroundColor: "#f4effe" }}>
+                                        style={{ maxWidth: '800px', backgroundColor: "#f4effe" }}>
                                         <Card.Header>
-                                            <Card.Title >Seller Information</Card.Title>
+                                            <Card.Title >Provider Information</Card.Title>
                                         </Card.Header>
                                         <Card.Body className=" mb-0">
                                             <p className='text-black'> Address:  7545934598349</p>
@@ -116,11 +165,53 @@ export default function Agreements() {
                                             </p>
                                         </Card.Body>
                                         <Card.Footer className=" bg-transparent border-0 text-white">
-                                            <h4>Work status   <span className="badge light badge-success">Done</span></h4>
-                                            <h4>  Fund Recieved {" "}
-                                                <Badge bg="" className="light badge-danger">NO</Badge>
+                                            {providerStaked ? (
 
-                                            </h4>
+                                                <div>
+                                                    {workStatus === 'done' ? (
+
+                                                        <div>
+                                                            <h4>Work status   <span className="badge light badge-success">Done</span></h4>
+                                                            <h4 className='mt-4'>  Fund Recieved {" "}
+                                                                <Badge bg="" className="light badge-danger">NO</Badge>
+                                                                {/* <Link to={"#"} className='badge-md light ms-1 badge badge-warning'>Pending</Link>    */}
+
+
+                                                            </h4>
+                                                        </div>
+
+                                                    ) : (
+                                                        <div>
+                                                            <div className="row text-center mt-4">
+                                                                <div className='col-6'>
+                                                                    <button type="button" class="btn btn-primary btn-sm"
+                                                                        onClick={handleSubmitWork}
+                                                                    >Submit Work</button>
+                                                                </div>
+                                                                <div className='col-6'>
+                                                                    <button type="button" class="btn btn-primary btn-sm"
+                                                                    >Dispute</button>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    )}
+                                                </div>
+                                            ) : (
+                                                <button type="button" class="btn btn-primary"
+                                                    onClick={() => setProviderStaked(true)}>Stake Token</button>
+
+
+
+
+
+
+                                            )}
+                                            {/* <h4>Work status   <span className="badge light badge-success">Done</span></h4>
+                                            <h4>  Fund Recieved {" "}
+                                                <Badge bg="" className="light badge-danger">NO</Badge> */}
+
+                                            {/* </h4> */}
                                         </Card.Footer>
                                     </Card>
                                 </Col>

@@ -133,7 +133,6 @@
 		"../../scss/components/blog/_default.scss",
 		"../../scss/components/blog/_blog-post-1.scss",
 		"../../scss/components/_pricingtable.scss",
-		"../../scss/pages/_pages.scss",
 		"../../scss/pages/_index.scss",
 		"../../scss/pages/_blog-details.scss"
 	],

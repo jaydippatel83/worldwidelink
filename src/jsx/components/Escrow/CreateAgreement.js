@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useRef, useEffect, useContext } from 'react'
 import { EscrowContext } from '../EscrowContext/EscrowContext'
 import { destinationChainContractAddress, CCIP_TOKEN_ABI, CCIP_TOKEN_ADDRESS_SEPOLIA, ESCROW_SENDER_CONTRACT_ADDRESS, ESCROW_ABI, CCIP_TOKEN_ADDRESS_MUMBAI, ESCROW_RECEIVER_CONTRACT_ADDRESS } from '../../../constants';
 import Web3Modal from "web3modal";
@@ -18,9 +18,7 @@ export default function CreateAgreement() {
     const [amount, setAmount] = useState(0);
     const [fund, setFund] = useState(0);
     const [totalNumOfAgreement, setTotalNumOfAgreements] = useState(0);
-    // const [fundsReleased, setFundsReleased] = useState(false);
     const [walletConnected, setWalletConnected] = useState(false);
-
     const [selectChain, setSelectChain] = useState('Mumbai testnet');
     const [chainContractAddress, setChainContractAddress] = useState(destinationChainContractAddress['Mumbai testnet']);
 
@@ -54,9 +52,9 @@ export default function CreateAgreement() {
             // Update the state to reflect the new escrow agreement
             // setFundsReleased(false);
 
-            // getNumOfAgreements();
             setLoading(false);
             alert('Funds deposited successfully.');
+            console.log('----');
         } catch (error) {
             console.error("Transaction failed:", error.message);
             setLoading(false);
@@ -68,6 +66,7 @@ export default function CreateAgreement() {
         setChainContractAddress(destinationChainContractAddress[selectChain]);
 
     };
+
 
 
     return (
@@ -107,14 +106,6 @@ export default function CreateAgreement() {
                                                         {key}
                                                     </option>
                                                 ))}
-
-
-                                                {/* <option>Sepolia testnet</option>
-                                                <option>Optimism Goerli testnet</option>
-                                                <option>Mumbai testnet</option>
-                                                <option>Fuji testnet</option>
-                                                <option>BNB Chain testnet</option>
-                                                <option> Base Goerli testnet</option> */}
 
                                             </select>
                                         </div>
@@ -170,7 +161,7 @@ export default function CreateAgreement() {
                                             // onClick={createAgreement}
                                             onClick={fetchAllAgreements}
 
-                                        >Create</button>
+                                        >Create escrow</button>
                                     </div>
                                 </form>
                             </div>

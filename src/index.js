@@ -14,14 +14,15 @@ import Web3Context from './context/Web3Context';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
+
     <Provider store={store}>
       <BrowserRouter basename='/'>
         <ThemeContext>
-          <EscrowContextProvider>
-            <Web3Context>
+          <Web3Context>
+            <EscrowContextProvider>
               <App />
-            </Web3Context>
-          </EscrowContextProvider>
+            </EscrowContextProvider>
+          </Web3Context>
         </ThemeContext>
       </BrowserRouter>
     </Provider>

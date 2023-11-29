@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import coinGecko from '../../../../images/avatar/coingecko.png'
 
 const options2 = [
     { value: '1', label: 'USD' },
@@ -92,7 +93,12 @@ const Converter = () => {
                             ))}
                         </select>
                     </div>
-
+                    <div className="d-flex justify-content-end align-items-center custome-refresh">
+                        <span className='mr-1'><img src={coinGecko} width={24} height={24} alt='coingecko' /></span>
+                        <span className="text-black">
+                            Powered by <b>CoinGecko</b> API
+                        </span>
+                    </div>
                 </div>
             </div>
         </div>

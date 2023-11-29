@@ -64,7 +64,7 @@ export const EscrowContextProvider = (props) => {
     const fetchAllAgreements = async () => {
         try {
             const allAgrmnt = [];
-            for (let i = 1; i <= 1; i++) {
+            for (let i = 1; i <= 2; i++) {
                 const agreement = await fetchAgreementById(i);
 
                 allAgrmnt.push(agreement);

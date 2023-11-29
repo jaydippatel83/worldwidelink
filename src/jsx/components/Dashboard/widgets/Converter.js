@@ -4,14 +4,13 @@ import Select from 'react-select';
 const options = [
     { value: '1', label: 'Bitcoin (BTC)' },
     { value: '2', label: 'Ethereum (ETH)' },
-    { value: '3', label: 'EOS(EOS)' },
-    { value: '4', label: 'Litecoin(LTC)' },
-    { value: '5', label: 'XRP(XRP)' }
+    { value: '3', label: 'Chainlink (LINK)' },
+    { value: '4', label: 'Polygon (MATIC)' },
 ]
 
 const options2 = [
     { value: '1', label: 'USD' },
-    { value: '2', label: 'EUR' },
+    { value: '2', label: 'INR' },
     { value: '3', label: 'GBP' },
     { value: '4', label: 'JPY' },
     { value: '5', label: 'HKD' },

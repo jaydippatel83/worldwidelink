@@ -4,15 +4,7 @@ import { Link } from 'react-router-dom';
 //Import Components
 import { ThemeContext } from "../../../context/ThemeContext";
 import coin from './../../../images/coin.png';
-import {
-	Row,
-	Col,
-	Card,
-	Table,
-	Badge,
-	Dropdown,
-	ProgressBar,
-} from "react-bootstrap";
+
 import Charts from './widgets/Charts';
 import MarketInfo from './widgets/MarketInfo';
 import CardSlider from './widgets/CardSlider';

@@ -12,6 +12,10 @@ module.exports = {
     sepolia: {
       url: `https://sepolia.infura.io/v3/${INFURA_API_KEY}`,
       accounts: [SEPOLIA_PRIVATE_KEY]
+    },
+    mumbai: {
+      url : `https://polygon-mumbai.infura.io/v3/${INFURA_API_KEY}`,
+      accounts: [SEPOLIA_PRIVATE_KEY]
     }
   }
 };

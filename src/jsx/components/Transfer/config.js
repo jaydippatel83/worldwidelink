@@ -1,1 +1,2 @@
-export const TokenTransferorContract = '0xAF8B4C8Ff0db2E6e899AFDD5378A8fc0A92b4a03'; 
+export const TokenTransferorContractSepoliya = '0x253b3b4807076Cf51c3Cda5Ebd5DA290DdD89f13';
+export const TokenTransferorContractMumbai = '0xFf72875645e3a6DFAc819a14a98c93b01D3f449B'; 

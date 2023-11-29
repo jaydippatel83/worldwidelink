@@ -9,7 +9,8 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import SwapVerticalCircleIcon from '@mui/icons-material/SwapVerticalCircle';
 import { Web3Context } from '../../../context/Web3Context';
 import TokenTransferorABI from './TokenTransferor.json';
-import {TokenTransferorContract} from './config';
+import {TokenTransferorContractSepoliya} from './config';
+import {TokenTransferorContractMumbai} from './config';
 const ethers = require("ethers");
 const bull = (
   <Box
@@ -201,34 +202,34 @@ const Transfer = () => {
   const [isSwapped, setIsSwapped] = useState(false);
   const [amount, setAmount] = useState('0');
 
-  useEffect(() => {
-    const allowDestinationChain = async () => {
-      try {
-        if (window.ethereum) {
-          const accounts = await window.ethereum.request({
-            method: "eth_requestAccounts",
-          });
-          const address = accounts[0];
-          const provider = new ethers.BrowserProvider(window.ethereum);
-          const signer = await provider.getSigner();
-          const transferorContract = new ethers.Contract(
-            TokenTransferorContract,
-            TokenTransferorABI.abi,
-            signer
-          );
-          let whitelistChain = await transferorContract.allowlistDestinationChain('12532609583862916517', true);
-          console.log(transferorContract, "contractObj");
-          console.log(whitelistChain, "whitelistChain");
-        } else {
-          console.error("MetaMask not detected. Please install MetaMask extension.");
-        }
-      } catch (error) {
-        console.error("Error during MetaMask initialization:", error.message);
-      }
-    };
+  // useEffect(() => {
+  //   const allowDestinationChain = async () => {
+  //     try {
+  //       if (window.ethereum) {
+  //         const accounts = await window.ethereum.request({
+  //           method: "eth_requestAccounts",
+  //         });
+  //         const address = accounts[0];
+  //         const provider = new ethers.BrowserProvider(window.ethereum);
+  //         const signer = await provider.getSigner();
+  //         const transferorContract = new ethers.Contract(
+  //           TokenTransferorContract,
+  //           TokenTransferorABI.abi,
+  //           signer
+  //         );
+  //         let whitelistChain = await transferorContract.allowlistDestinationChain('12532609583862916517', true);
+  //         console.log(transferorContract, "contractObj");
+  //         console.log(whitelistChain, "whitelistChain");
+  //       } else {
+  //         console.error("MetaMask not detected. Please install MetaMask extension.");
+  //       }
+  //     } catch (error) {
+  //       console.error("Error during MetaMask initialization:", error.message);
+  //     }
+  //   };
   
-    allowDestinationChain();
-  }, []);
+  //   allowDestinationChain();
+  // }, []);
   
   const handleSwap = () => {
     setFromChain(toChain);
@@ -284,59 +285,78 @@ const Transfer = () => {
 
     )
   }
+
   const handleTransfer = async () => {
     try {
       if (!address) {
         console.error('Wallet not connected. Please connect your wallet.');
         return;
       }
-
+  
       // Connect to Ethereum provider
       if (window.ethereum) {
         const accounts = await window.ethereum.request({
           method: "eth_requestAccounts",
         });
-      const provider = new ethers.BrowserProvider(window.ethereum);
-      const signer = await provider.getSigner();
-
-      // Create contract instance
-      const transferorContract = new ethers.Contract(
-        TokenTransferorContract,
-        TokenTransferorABI.abi,
-        signer
-      );
-
-      // Hardcoded values
-      const destinationChain = '12532609583862916517'; 
-      console.log(address,"add");
-      const receiver = address; 
-      const token = '0xFd57b4ddBf88a4e07fF4e34C487b99af2Fe82a05'; 
-
-      // Your logic to allowlist destination chain can go here
-
-      // Convert the input amount to the correct format (wei)
-      const amountInWei = ethers.parseEther(amount.toString());
-      // Call your transferTokensPayLINK function
-      const messageId = await transferorContract.transferTokensPayLINK(
-        destinationChain,
-        receiver,
-        token,
-        amountInWei.toString()
-      );    
-      console.log(destinationChain, "destinationChain");
-      console.log(receiver, "receiver");
-      console.log(token, "token");
-      console.log(amountInWei.toString(), 'amountInWei');
-      console.log('Transfer successful. Message ID:', messageId);
-    } else {
-      console.error("MetaMask not detected. Please install MetaMask extension.");
-    }
-
+        const provider = new ethers.BrowserProvider(window.ethereum);
+        const signer = await provider.getSigner();
+  
+        // Create contract instances for Sepolia and Mumbai
+        const transferorContractSepoliya = new ethers.Contract(
+          TokenTransferorContractSepoliya,
+          TokenTransferorABI.abi,
+          signer
+        );
+        const transferorContractMumbai = new ethers.Contract(
+          TokenTransferorContractMumbai,
+          TokenTransferorABI.abi,
+          signer
+        );
+  
+        let transferorContract;
+        let destinationChain;
+        let token;
+   console.log(fromChain, "fromChain");
+   console.log(toChain, "toChain");
+        if (fromChain === 20 && toChain === 30) {
+          // Sepolia to Mumbai 
+          transferorContract = transferorContractSepoliya ;
+          destinationChain = '12532609583862916517';
+          token = '0xFd57b4ddBf88a4e07fF4e34C487b99af2Fe82a05';
+        } else if (fromChain === 30 && toChain === 20) {
+          // Mumbai to Sepolia 
+          transferorContract = transferorContractMumbai;
+          destinationChain = '16015286601757825753';
+          token = '0xf1E3A5842EeEF51F2967b3F05D45DD4f4205FF40';
+        } else {
+          console.log("You have selected unsupported networks!");
+          return;
+        }
+  
+        console.log(transferorContract,"contract address");
+        let whitelistChain = await transferorContract.allowlistDestinationChain(destinationChain, true);
+        console.log("Allowlist Chain:", whitelistChain);
+  
+        const amountInWei = ethers.parseEther(amount.toString());
+  
+        const messageId = await transferorContract.transferTokensPayLINK(
+          destinationChain,
+          address, 
+          token,
+          amountInWei.toString()
+        );
+        console.log(destinationChain, "destinationChain");
+        console.log(address,"address");
+        console.log(token,"token");
+        console.log(amountInWei.toString(), "amount");
+        console.log('Transfer successful. Message ID:', messageId);
+      } else {
+        console.error("MetaMask not detected. Please install MetaMask extension.");
+      }
     } catch (error) {
       console.error('Error during transfer:', error.message);
     }
   };
-  
 
   return (
     <div className='container'>

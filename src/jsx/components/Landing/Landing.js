@@ -11,7 +11,7 @@ import { ethers } from "ethers";
 
 import ccipBnMAbi from "../../../abis/CCIPBnM.json";
 import ccipLnMAbi from "../../../abis/CCIPLnM.json";
-import { networks } from "../../../network";
+import { networks, chainsIds } from "../../../network";
 
 const chains = [
   { value: "sepolia", label: "Sepolia testnet" },
@@ -86,12 +86,16 @@ const Landing = () => {
     getBalance();
   }, [token, fromVal]);
 
-  const getBalance = async () => {
+  const getBalance = async (address) => {
     const { ethereum } = window;
     const provider = new ethers.providers.Web3Provider(window.ethereum);
     const signer = provider.getSigner();
+    const { chainId } = await provider.getNetwork();
+
+    const network = networks[chainsIds[chainId]];
+
     const tokenContract = new ethers.Contract(
-      networks[fromVal.value][token.value],
+      network[token.value],
       token.value == "bnmToken" ? ccipBnMAbi : ccipLnMAbi,
       signer
     );
@@ -99,10 +103,13 @@ const Landing = () => {
     const accounts = await ethereum.request({
       method: "eth_requestAccounts",
     });
-    const balance = await tokenContract.balanceOf(accounts[0]);
-    const decimals = await tokenContract.decimals();
-    console.log(ethers.utils.formatUnits(balance, decimals), "token");
-    setBalance(ethers.utils.formatUnits(balance, decimals));
+
+    if (accounts[0]) {
+      console.log(accounts[0]);
+      const balance = await tokenContract.balanceOf(accounts[0]);
+      const decimals = await tokenContract.decimals();
+      setBalance(ethers.utils.formatUnits(balance, decimals));
+    }
   };
 
   return (
@@ -558,7 +565,9 @@ const Landing = () => {
                         <div className="d-flex flex-wrap justify-content-between">
                           <div>Tokens</div>
                           <div className="text-muted">
-                            {toVal.value == "mumbai" ? "MATIC/USD" : "ETH/USD"}
+                            {toVal.value == "mumbai"
+                              ? `MATIC/${values.token.label}`
+                              : `ETH/${values.token.label}`}
                           </div>
                         </div>
                       </div>

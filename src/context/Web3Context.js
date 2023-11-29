@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState, useRef } from "react";
-import { networks, chains } from "../network";
+import { networks, chainsIds } from "../network";
 import ccipBnMAbi from "../abis/CCIPBnM.json";
 import ccipLnMAbi from "../abis/CCIPLnM.json";
 import senderAbi from "../abis/Sender.json";
@@ -79,13 +79,15 @@ const Web3ContextProvider = (props) => {
     );
     var price;
     var decimal;
-    if ((data.token = "1")) {
+
+    if (data.token == "1") {
       let priceFeed = await protocolContract.getPriceAndDecimal(
         data.network.usdcPriceFeed
       );
       price = priceFeed.price;
       decimal = priceFeed.decimal;
     } else {
+      console.log(data.network);
       let priceFeed = await protocolContract.getPriceAndDecimal(
         data.network.daiPriceFeed
       );
@@ -215,7 +217,7 @@ const Web3ContextProvider = (props) => {
     const signer = provider.getSigner();
     const { chainId } = await provider.getNetwork();
 
-    const network = networks[chains[chainId]];
+    const network = networks[chainsIds[chainId]];
 
     const protocolContract = new ethers.Contract(
       network.protocol,
@@ -235,7 +237,7 @@ const Web3ContextProvider = (props) => {
     const signer = provider.getSigner();
     const { chainId } = await provider.getNetwork();
 
-    const network = networks[chains[chainId]];
+    const network = networks[chainsIds[chainId]];
 
     const protocolContract = new ethers.Contract(
       network.protocol,

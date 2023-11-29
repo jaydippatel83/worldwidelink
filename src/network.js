@@ -26,7 +26,7 @@ export const networks = {
     bnmToken: "0xFd57b4ddBf88a4e07fF4e34C487b99af2Fe82a05",
     lnmToken: "0x466D489b6d36E7E3b824ef491C225F5830E81cC1",
     usdcPriceFeed: "0x5fb1616F78dA7aFC9FF79e0371741a747D2a7F22", // ETH/USD
-    daiPriceFeed: "0x1b44F3514812d835EB1BDB0acB33d3fA3351Ee43", // BTC/USD
+    daiPriceFeed: "0x5fb1616F78dA7aFC9FF79e0371741a747D2a7F22", // ETH/USD
     //Contract Addresses
     sender: "0x53cc33bCb8f54BD041210Be871b7b3FAF3884ac2",
     protocol: "0x67179faFCB5Fbf8F106DaFFA3fb70e1369c1Fc3f",
@@ -45,14 +45,14 @@ export const networks = {
     bnmToken: "0xf1E3A5842EeEF51F2967b3F05D45DD4f4205FF40",
     lnmToken: "0xc1c76a8c5bfde1be034bbcd930c668726e7c1987",
     usdcPriceFeed: "0xd0D5e3DB44DE05E9F294BB0a3bEEaF030DE24Ada", // MATIC/USD
-    daiPriceFeed: "0x007A22900a3B98143368Bd5906f8E17e9867581b", // BTC/USD
+    daiPriceFeed: "0xd0D5e3DB44DE05E9F294BB0a3bEEaF030DE24Ada", // MATIC/USD
     //Contract Addresses
     sender: "0x3Db45de715929b76E0570d01815F20eEe576B9E7",
     protocol: "0x9c29a12d441757AcF45aa106A3905E85C008dFA2",
   },
 };
 
-export const chains = {
+export const chainsIds = {
   11155111: "sepolia",
   80001: "mumbai",
 };

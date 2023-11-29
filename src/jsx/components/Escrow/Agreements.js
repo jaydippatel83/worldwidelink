@@ -49,12 +49,15 @@ export default function Agreements() {
     };
 
     useEffect(() => {
-        console.log('everyAgreement', everyAgreement);
+        // console.log('everyAgreement', everyAgreement);
         // fetchAllAgreements();
         everyAgreement.map((e) => {
-            console.log('-----', e);
+            // console.log('-----', e);
         })
     }, [everyAgreement])
+
+
+    
 
 
     return (
@@ -70,53 +73,44 @@ export default function Agreements() {
                     </tr>
                 </thead>
             </Table>
-            <Accordion defaultActiveKey="0">
-                <Card>
-                    <Card.Header>
-                        <CustomToggle eventKey="0">
-                            <Table borderless>
-                                <tbody>
-                                    <tr>
-                                        {
-                                            everyAgreement && everyAgreement?.map((Agreement) => {
-                                                return (
-                                                    <><td>{Agreement.agreeId}</td>
-                                                        <td>{Agreement.title}</td>
-                                                        <td>{Agreement.clientAdd}</td>
-                                                        <td>{Agreement.agreementAmount} CCIP</td></>
-                                                )
-                                            })
-                                        }
 
-                                        {/* <td>Created Aggrement</td> */}
-                                        <td>
-                                            {/* <span className="badge badge-primary badge-lg">
-                                                Pending
-                                                <span className="ms-1 fa fa-redo" />
-                                            </span> */}
-                                            <span className="badge badge-success badge-lg">
-                                                Created Agreement
-                                                <span className="ms-1 fa fa-check" />
-                                            </span>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </Table>
-                        </CustomToggle>
-                    </Card.Header>
-                    <Accordion.Collapse eventKey="0">
 
-                        <Card.Body>
-                            {
-                                everyAgreement && everyAgreement?.map((Cagreement) => {
-                                    return (
+            {
+                everyAgreement && everyAgreement?.map((agr) => {
+                    return (
+                        <Accordion defaultActiveKey="0">
+                            <Card>
+                                <Card.Header>
+                                    <CustomToggle eventKey="0">
+                                        <Table borderless>
+                                            <tbody>
+                                                <tr>
+                                                    <><td>{agr.agreeId}</td>
+                                                        <td>{agr.title}</td>
+                                                        <td>{agr.clientAdd}</td>
+                                                        <td>{agr.agreementAmount} CCIP</td></>
+
+                                                    <td>
+                                                        <span className="badge badge-success badge-lg">
+                                                            Created Agreement
+                                                            <span className="ms-1 fa fa-check" />
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </Table>
+                                    </CustomToggle>
+                                </Card.Header>
+                                <Accordion.Collapse eventKey="0">
+
+                                    <Card.Body>
                                         <>
                                             <div className='mb-5' style={{ textAlign: "center", borderBottom: "1px solid #eeee" }}>
                                                 <h3>
-                                                    {Cagreement?.title}'s Details
+                                                    {agr?.title}'s Details
                                                 </h3>
                                                 <h5>
-                                                    Agreement amount: <span style={{ color: "red" }}>{Cagreement.agreementAmount}</span>
+                                                    Agreement amount: <span style={{ color: "red" }}>{agr.agreementAmount}</span>
                                                 </h5>
                                             </div>
                                             <Row className="d-flex align-items-center">
@@ -124,23 +118,22 @@ export default function Agreements() {
                                                     <Card style={{
                                                         maxWidth: '500px',
                                                         backgroundColor: "#f4effe"
-                                                        // backgroundColor:"#e1daee"
                                                     }}>
                                                         <Card.Header>
                                                             <Card.Title>Client Information</Card.Title>
                                                         </Card.Header>
                                                         <Card.Body className=" mb-0">
-                                                            <p className='text-black'> Address: {Cagreement.clientAdd}</p>
+                                                            <p className='text-black'> Address: {agr.clientAdd}</p>
                                                             <p className='text-black'>
-                                                                Staked Amount : {Cagreement.clientStake} CCIP
+                                                                Staked Amount : {agr.clientStake} CCIP
                                                             </p>
 
                                                             <p className='text-black'>
-                                                                Work Status :
-                                                                <Link to={"#"} className='badge-md light ms-1 badge badge-warning'>Pending</Link>
+                                                                Work Statusss :
+                                                                <Link to={"#"} className='badge-md light ms-1 badge badge-warning'>{agr?.workSubmitted ? 'Completed' : 'Pending'}</Link>
 
                                                             </p>
-                                                            {workStatus === "pending" ? (
+                                                            {agr?.providerStake == '0.0' && agr?.workSubmitted === false ? (
 
                                                                 <div>
                                                                     <div className="row text-center mt-4">
@@ -172,15 +165,14 @@ export default function Agreements() {
                                                 </Col>
                                                 <Col xl="5" className="mx-auto">
                                                     <Card
-                                                        //  className="bg-light"
                                                         style={{ maxWidth: '800px', backgroundColor: "#f4effe" }}>
                                                         <Card.Header>
                                                             <Card.Title>Provider Information</Card.Title>
                                                         </Card.Header>
                                                         <Card.Body className=" mb-0">
-                                                            <p className='text-black'> Address: {Cagreement.providerAdd}</p>
+                                                            <p className='text-black'> Address: {agr.providerAdd}</p>
                                                             <p className='text-black'>
-                                                                Staked Amount : {Cagreement.providerStake} CCIP
+                                                                Staked Amount : {agr.providerStake} CCIP
                                                             </p>
                                                         </Card.Body>
                                                         <Card.Footer className=" bg-transparent border-0 text-white">
@@ -193,7 +185,6 @@ export default function Agreements() {
                                                                             <h4>Work status   <span className="badge light badge-success">Done</span></h4>
                                                                             <h4 className='mt-4'>  Fund Recieved {" "}
                                                                                 <Badge bg="" className="light badge-danger">NO</Badge>
-                                                                                {/* <Link to={"#"} className='badge-md light ms-1 badge badge-warning'>Pending</Link>    */}
 
 
                                                                             </h4>
@@ -227,15 +218,18 @@ export default function Agreements() {
                                                 </Col>
                                             </Row>
                                         </>
-                                    )
-                                })
-                            }
-                        </Card.Body>
+                                    </Card.Body>
 
 
-                    </Accordion.Collapse>
-                </Card>
-            </Accordion>
+                                </Accordion.Collapse>
+                            </Card>
+                        </Accordion>
+                    )
+                })
+            }
+
+
+
         </>
     )
 }

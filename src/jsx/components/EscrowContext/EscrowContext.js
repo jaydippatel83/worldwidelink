@@ -8,12 +8,44 @@ export const EscrowContextProvider = (props) => {
 
 
     const [everyAgreement, setEveryAgreement] = useState([]);
-    console.log(everyAgreement);
+    const [totalNumOfAgreement, setTotalNumOfAgreements] = useState(0);
 
     useEffect(() => {
-        fetchAllAgreements();
-    }, [])
+        getNumOfAgreements()
+        console.log(totalNumOfAgreement);
+        if (totalNumOfAgreement > 0) {
+            fetchAllAgreements();
+        }
+    }, [totalNumOfAgreement])
 
+    // useEffect(() => {
+    //     console.log(localStorage.getItem('userAddress'));
+    //     if (localStorage.getItem('userAddress') !== null) {
+    //             let num =  getNumOfAgreements();
+    //     }
+    // }, [])
+
+
+    const getNumOfAgreements = async () => {
+        try {
+            const provider = await getProviderOrSigner();
+            const network = await provider.getNetwork();
+
+            let escroContract;
+            if (network?.chainId == 11155111) {
+                escroContract = getEscrowContractInstance(ESCROW_SENDER_CONTRACT_ADDRESS, provider);
+            } else if (network?.chainId == 80001) {
+                escroContract = getEscrowContractInstance(ESCROW_RECEIVER_CONTRACT_ADDRESS, provider);
+            } else {
+                alert('Please connect to Sepolia or Mumbai network')
+            }
+            let num = await escroContract?.numOfAgreement();
+            setTotalNumOfAgreements(Number(num))
+            return Number(num);
+        } catch (error) {
+            console.log(error);
+        }
+    };
 
     const getProviderOrSigner = async (needSigner = false) => {
         try {
@@ -64,9 +96,9 @@ export const EscrowContextProvider = (props) => {
     const fetchAllAgreements = async () => {
         try {
             const allAgrmnt = [];
-            for (let i = 1; i <= 1; i++) {
+            for (let i = 1; i <= totalNumOfAgreement; i++) {
                 const agreement = await fetchAgreementById(i);
-
+                console.log(agreement);
                 allAgrmnt.push(agreement);
 
             }
@@ -77,13 +109,11 @@ export const EscrowContextProvider = (props) => {
     }
 
     const fetchAgreementById = async (id) => {
-        console.log('erntered fetch by id', id);
 
         try {
             const provider = await getProviderOrSigner();
             const network = await provider.getNetwork();
 
-            console.log('network name', network?.chainId);
             let escroContract;
             if (network?.chainId == 11155111) {
                 escroContract = getEscrowContractInstance(ESCROW_SENDER_CONTRACT_ADDRESS, provider);
@@ -92,10 +122,8 @@ export const EscrowContextProvider = (props) => {
             } else {
                 alert('Please connect to Sepolia or Mumbai network')
             }
-            // const escroContract = getEscrowContractInstance(ESCROW_SENDER_CONTRACT_ADDRESS, provider);
             let agreement = await escroContract.agreements(id);
-            console.log(agreement);
-            console.log(agreement.title);
+            // console.log(agreement);
             let isDispute = await escroContract.isDisputed(id);
             let isSubmitted = await escroContract.isWorkSubmitted(id);
 
@@ -189,8 +217,8 @@ export const EscrowContextProvider = (props) => {
                 stakeCcipProvider,
                 submitWork,
                 releaseFund,
-                raiseDispute
-                // getNumOfAgreements
+                raiseDispute,
+                getNumOfAgreements
 
             }}
 

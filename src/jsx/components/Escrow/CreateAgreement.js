@@ -158,8 +158,8 @@ export default function CreateAgreement() {
                                             // onClick={stakeCcipProvider}
                                             // onClick={submitWork}
                                             // onClick={releaseFund}
-                                            // onClick={createAgreement}
-                                            onClick={fetchAllAgreements}
+                                            onClick={createAgreement}
+                                            // onClick={fetchAllAgreements}
 
                                         >Create escrow</button>
                                     </div>

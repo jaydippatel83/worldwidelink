@@ -2,7 +2,7 @@ import React, { useState, useContext } from 'react'
 import { EscrowContext } from '../EscrowContext/EscrowContext'
 import { destinationChainContractAddress, CCIP_TOKEN_ABI, CCIP_TOKEN_ADDRESS_SEPOLIA, ESCROW_SENDER_CONTRACT_ADDRESS, ESCROW_ABI, CCIP_TOKEN_ADDRESS_MUMBAI, ESCROW_RECEIVER_CONTRACT_ADDRESS } from '../../../constants';
 import Web3Modal from "web3modal";
-import { ethers, Contract, providers, Signer } from 'ethers';
+import { ethers } from 'ethers';
 
 export default function CreateAgreement() {
 
@@ -37,7 +37,7 @@ export default function CreateAgreement() {
         const ccipInstance = getCCIPTokenContractInstance(CCIP_TOKEN_ADDRESS_SEPOLIA, signer);
 
         try {
-            const tx = await ccipInstance.approve(ESCROW_SENDER_CONTRACT_ADDRESS, ethers.utils.parseEther(fund))
+            const tx = await ccipInstance.approve(ESCROW_SENDER_CONTRACT_ADDRESS, ethers.parseEther(fund))
             await tx.wait();
         } catch (error) {
             console.log(error);
@@ -45,7 +45,7 @@ export default function CreateAgreement() {
 
         const escroContract = getEscrowContractInstance(ESCROW_SENDER_CONTRACT_ADDRESS, signer);
         try {
-            const tx = await escroContract.createEscrowAgreement(title, clientAddress, serviceProviderAddress, arbitratorAddress, ethers.utils.parseEther(amount), ESCROW_RECEIVER_CONTRACT_ADDRESS
+            const tx = await escroContract.createEscrowAgreement(title, clientAddress, serviceProviderAddress, arbitratorAddress, ethers.parseEther(amount), ESCROW_RECEIVER_CONTRACT_ADDRESS
             );
 
             setLoading(true)
@@ -62,56 +62,6 @@ export default function CreateAgreement() {
             setLoading(false);
         }
     }
-
-    const stakeCcipProvider = async (_agreementId = 1) => {
-        try {
-            const signer = await getProviderOrSigner(true);
-
-            const ccipInstance = getCCIPTokenContractInstance(CCIP_TOKEN_ADDRESS_MUMBAI, signer);
-
-            const tx = await ccipInstance.approve(ESCROW_RECEIVER_CONTRACT_ADDRESS, ethers.utils.parseEther('0.20'))
-            await tx.wait();
-
-            const escroContract = getEscrowContractInstance(ESCROW_RECEIVER_CONTRACT_ADDRESS, signer);
-
-            const txx = await escroContract.stakeProviderEth(1, ESCROW_SENDER_CONTRACT_ADDRESS, CCIP_TOKEN_ADDRESS_MUMBAI);
-            await txx.wait();
-        } catch (error) {
-            console.log(error);
-        }
-        // fetchAllAgreements();
-        // alert('ETH staked successfully.');
-    }
-
-        const submitWork = async (_agreementId = 1) => {
-            try {
-                const signer = await getProviderOrSigner(true);
-
-                const escroContract = getEscrowContractInstance(ESCROW_RECEIVER_CONTRACT_ADDRESS, signer);
-
-                const txx = await escroContract.SubmitWork(1, ESCROW_SENDER_CONTRACT_ADDRESS);
-                await txx.wait();
-            } catch (error) {
-                console.log(error);
-            }
-        }
-    const releaseFund = async (_agreementId = 1) => {
-        try {
-            const signer = await getProviderOrSigner(true);
-
-            const escroContract = getEscrowContractInstance(ESCROW_SENDER_CONTRACT_ADDRESS, signer);
-
-            const txx = await escroContract.releaseFunds(1, ESCROW_RECEIVER_CONTRACT_ADDRESS, CCIP_TOKEN_ADDRESS_SEPOLIA);
-            await txx.wait();
-        } catch (error) {
-            console.log(error);
-        }
-    }
-
-
-    
-
-   
 
     const handleChange = (event) => {
         setSelectChain(event.target.value);
@@ -214,11 +164,11 @@ export default function CreateAgreement() {
                                     </div>
                                     <div class="text-center mt-4">
                                         <button type="button" class="btn btn-primary"
-                                        // onClick={stakeCcipProvider}
-                                        onClick={submitWork}
-                                        // onClick={releaseFund}
-                                        // onClick={createAgreement}
-                                        // onClick={fetchAllAgreements}
+                                            // onClick={stakeCcipProvider}
+                                            // onClick={submitWork}
+                                            // onClick={releaseFund}
+                                            // onClick={createAgreement}
+                                            onClick={fetchAllAgreements}
 
                                         >Create</button>
                                     </div>

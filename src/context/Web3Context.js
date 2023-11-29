@@ -26,7 +26,7 @@ export const Web3ContextProvider = (props) => {
   useEffect(() => {
     const initialize = async () => {
       const provider = new ethers.BrowserProvider(window.ethereum);
-      const signer = provider.getSigner();
+      const signer = await provider.getSigner();
 
       setProvider(provider);
       setSigner(signer);
@@ -107,7 +107,8 @@ export const Web3ContextProvider = (props) => {
     }
     try {
       const accounts = await ethereum.request({
-        method: "eth_requestAccounts",
+        method: "wallet_requestPermissions",
+        params: [{ eth_accounts: {} }]
       });
       setAddress(accounts[0]);
       window.localStorage.setItem("address", accounts[0]);
@@ -119,7 +120,8 @@ export const Web3ContextProvider = (props) => {
         try {
           setaLoading(true);
           const accounts = await ethereum.request({
-            method: "eth_requestAccounts",
+            method: "wallet_requestPermissions",
+            params: [{ eth_accounts: {} }]
           });
           setAddress(accounts[0]);
           window.localStorage.setItem("address", accounts[0]);

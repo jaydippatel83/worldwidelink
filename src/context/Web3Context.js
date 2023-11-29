@@ -9,19 +9,19 @@ const Web3ContextProvider = (props) => {
   const [signer, setSigner] = useState();
   const [address, setAddress] = useState("");
 
-  useEffect(() => {
-    const connect = async () => {
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      const signer = provider.getSigner();
-      setSigner(signer);
-      const accounts = await window.ethereum.request({
-        method: "eth_requestAccounts",
-      });
-      localStorage.setItem('userAddress', accounts[0]);
-      setAddress(accounts[0]);
-    }
-    connect();
-  }, []);
+    useEffect(() => {
+        const connect = async() => {
+            const provider = new ethers.providers.Web3Provider(window.ethereum);
+            const signer = provider.getSigner();
+            setSigner(signer);
+            const accounts = await window.ethereum.request({
+              method: "eth_requestAccounts",
+            });
+            localStorage.setItem('userAddress', accounts[0]);
+            setAddress(accounts[0]);
+        } 
+        connect();
+      }, []);
 
 
 

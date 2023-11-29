@@ -209,6 +209,7 @@ export default function Agreements() {
                                                                             </div>
                                                                             <div className='col-6'>
                                                                                 <button type="button" class="btn btn-danger btn-sm"
+                                                                            onClick={() => raiseDispute(Agreement.agreeId, Agreement.clientAdd, Agreement.providerAdd)}
                                                                                 >Dispute</button>
                                                                             </div>
                                                                         </div>
@@ -313,6 +314,7 @@ export default function Agreements() {
                                                                         </div>
                                                                         <div className='col-6'>
                                                                             <button type="button" class="btn btn-danger btn-sm"
+                                                                                onClick={() => raiseDispute(Agreement.agreeId, Agreement.clientAdd, Agreement.providerAdd)}
                                                                             >Dispute</button>
                                                                         </div>
                                                                     </div>

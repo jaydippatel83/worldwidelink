@@ -7,7 +7,8 @@ export const EscrowContext = createContext(undefined);
 export const EscrowContextProvider = (props) => {
 
 
-    const [everyAgreement, setEveryAgreement] = useState([]);
+    const [everyAgreementClient, setEveryAgreementClient] = useState([]);
+    const [everyAgreementProvider, setEveryAgreementProvider] = useState([]);
     const [totalNumOfAgreement, setTotalNumOfAgreements] = useState(0);
 
     useEffect(() => {
@@ -95,6 +96,10 @@ export const EscrowContextProvider = (props) => {
     }
     const fetchAllAgreements = async () => {
         try {
+
+            const provider = await getProviderOrSigner();
+            const network = await provider.getNetwork();
+            let chainId = network?.chainId
             const allAgrmnt = [];
             for (let i = 1; i <= totalNumOfAgreement; i++) {
                 const agreement = await fetchAgreementById(i);
@@ -102,7 +107,11 @@ export const EscrowContextProvider = (props) => {
                 allAgrmnt.push(agreement);
 
             }
-            setEveryAgreement(allAgrmnt);
+            if (chainId == 11155111) {
+                setEveryAgreementClient(allAgrmnt);
+            }else{
+                setEveryAgreementProvider(allAgrmnt)
+            }
         } catch (error) {
             console.log(error);
         }
@@ -152,8 +161,8 @@ export const EscrowContextProvider = (props) => {
         } catch (error) {
             console.log(error);
         }
-        // fetchAllAgreements();
-        // alert('ETH staked successfully.');
+        fetchAllAgreements();
+        alert('CCIP staked successfully.');
     }
 
     const submitWork = async (_agreementId) => {
@@ -167,6 +176,8 @@ export const EscrowContextProvider = (props) => {
         } catch (error) {
             console.log(error);
         }
+        fetchAllAgreements();
+        alert('Submitted work successfully.');
     }
     const releaseFund = async (_agreementId) => {
         try {
@@ -212,13 +223,14 @@ export const EscrowContextProvider = (props) => {
                 getEscrowContractInstance,
                 getCCIPTokenContractInstance,
                 fetchAgreementById,
-                everyAgreement,
+                everyAgreementClient,
                 fetchAllAgreements,
                 stakeCcipProvider,
                 submitWork,
                 releaseFund,
                 raiseDispute,
-                getNumOfAgreements
+                getNumOfAgreements,
+                everyAgreementProvider
 
             }}
 

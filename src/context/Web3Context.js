@@ -17,7 +17,7 @@ const Web3ContextProvider = (props) => {
             const accounts = await window.ethereum.request({
               method: "eth_requestAccounts",
             });
-        
+            localStorage.setItem('userAddress', accounts[0]);
             setAddress(accounts[0]);
         } 
         connect();

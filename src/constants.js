@@ -1,5 +1,7 @@
-export const ESCROW_CONTRACT_ADDRESS = "0x1b94d8d9585952a88d0ab9d65a658cadc010ef97";
+export const ESCROW_SENDER_CONTRACT_ADDRESS = "0xfBFe896dBfB0E6912718787D64F0F3C4e7420907";
+export const ESCROW_RECEIVER_CONTRACT_ADDRESS = "0xa27727Aa9F790924c3f04cc69eC6692877A7187D";
 export const CCIP_TOKEN_ADDRESS_SEPOLIA = "0xFd57b4ddBf88a4e07fF4e34C487b99af2Fe82a05";
+export const CCIP_TOKEN_ADDRESS_MUMBAI = "0xf1E3A5842EeEF51F2967b3F05D45DD4f4205FF40";
 
 export const destinationChainContractAddress = {
     'Sepolia testnet': '0x2f59dd06728e287588fca641c7a10a854d8280a5',
@@ -15,319 +17,54 @@ export const ESCROW_ABI = [
 	{
 		"inputs": [
 			{
-				"internalType": "address",
-				"name": "_router",
-				"type": "address"
-			},
-			{
-				"internalType": "address",
-				"name": "_link",
-				"type": "address"
-			},
-			{
-				"internalType": "address",
-				"name": "_ccip",
-				"type": "address"
-			}
-		],
-		"stateMutability": "nonpayable",
-		"type": "constructor"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "router",
-				"type": "address"
-			}
-		],
-		"name": "InvalidRouter",
-		"type": "error"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": true,
-				"internalType": "bytes32",
-				"name": "messageId",
-				"type": "bytes32"
-			},
-			{
-				"indexed": true,
-				"internalType": "uint64",
-				"name": "sourceChainSelector",
-				"type": "uint64"
-			},
-			{
-				"indexed": false,
-				"internalType": "address",
-				"name": "sender",
-				"type": "address"
-			},
-			{
-				"components": [
-					{
-						"internalType": "uint256",
-						"name": "agreementID",
-						"type": "uint256"
-					},
-					{
-						"internalType": "string",
-						"name": "title",
-						"type": "string"
-					},
-					{
-						"internalType": "address payable[3]",
-						"name": "CSA",
-						"type": "address[3]"
-					},
-					{
-						"internalType": "uint256",
-						"name": "agreementAmount",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "clientStake",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "serviceProviderStake",
-						"type": "uint256"
-					},
-					{
-						"internalType": "bool",
-						"name": "fundsReleased",
-						"type": "bool"
-					},
-					{
-						"internalType": "uint8",
-						"name": "fundreceiver",
-						"type": "uint8"
-					},
-					{
-						"internalType": "uint64",
-						"name": "sourceChainSelector",
-						"type": "uint64"
-					},
-					{
-						"internalType": "uint64",
-						"name": "destinationChainSelector",
-						"type": "uint64"
-					}
-				],
-				"indexed": false,
-				"internalType": "struct EscrowSender.EscrowAgreement",
-				"name": "message",
-				"type": "tuple"
-			}
-		],
-		"name": "MessageReceived",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": true,
-				"internalType": "bytes32",
-				"name": "messageId",
-				"type": "bytes32"
-			},
-			{
-				"indexed": true,
-				"internalType": "uint64",
-				"name": "destinationChainSelector",
-				"type": "uint64"
-			},
-			{
-				"indexed": false,
-				"internalType": "address",
-				"name": "receiver",
-				"type": "address"
-			},
-			{
-				"components": [
-					{
-						"internalType": "uint256",
-						"name": "agreementID",
-						"type": "uint256"
-					},
-					{
-						"internalType": "string",
-						"name": "title",
-						"type": "string"
-					},
-					{
-						"internalType": "address payable[3]",
-						"name": "CSA",
-						"type": "address[3]"
-					},
-					{
-						"internalType": "uint256",
-						"name": "agreementAmount",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "clientStake",
-						"type": "uint256"
-					},
-					{
-						"internalType": "uint256",
-						"name": "serviceProviderStake",
-						"type": "uint256"
-					},
-					{
-						"internalType": "bool",
-						"name": "fundsReleased",
-						"type": "bool"
-					},
-					{
-						"internalType": "uint8",
-						"name": "fundreceiver",
-						"type": "uint8"
-					},
-					{
-						"internalType": "uint64",
-						"name": "sourceChainSelector",
-						"type": "uint64"
-					},
-					{
-						"internalType": "uint64",
-						"name": "destinationChainSelector",
-						"type": "uint64"
-					}
-				],
-				"indexed": false,
-				"internalType": "struct EscrowSender.EscrowAgreement",
-				"name": "message",
-				"type": "tuple"
-			},
-			{
-				"indexed": false,
-				"internalType": "address",
-				"name": "feeToken",
-				"type": "address"
-			},
-			{
-				"indexed": false,
 				"internalType": "uint256",
-				"name": "fees",
+				"name": "_agreementId",
 				"type": "uint256"
-			}
-		],
-		"name": "MessageSent",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
+			},
 			{
-				"indexed": true,
 				"internalType": "address",
-				"name": "from",
+				"name": "_receiver",
 				"type": "address"
 			},
 			{
-				"indexed": true,
 				"internalType": "address",
-				"name": "to",
+				"name": "_ccipToken",
 				"type": "address"
 			}
 		],
-		"name": "OwnershipTransferRequested",
-		"type": "event"
-	},
-	{
-		"anonymous": false,
-		"inputs": [
-			{
-				"indexed": true,
-				"internalType": "address",
-				"name": "from",
-				"type": "address"
-			},
-			{
-				"indexed": true,
-				"internalType": "address",
-				"name": "to",
-				"type": "address"
-			}
-		],
-		"name": "OwnershipTransferred",
-		"type": "event"
-	},
-	{
-		"stateMutability": "payable",
-		"type": "fallback"
-	},
-	{
-		"inputs": [],
-		"name": "acceptOwnership",
+		"name": "_releaseFund",
 		"outputs": [],
-		"stateMutability": "nonpayable",
+		"stateMutability": "payable",
 		"type": "function"
 	},
 	{
 		"inputs": [
 			{
 				"internalType": "uint256",
-				"name": "",
+				"name": "_agreementId",
 				"type": "uint256"
+			},
+			{
+				"internalType": "address",
+				"name": "_receiver",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "_ccipToken",
+				"type": "address"
 			}
 		],
-		"name": "agreements",
-		"outputs": [
-			{
-				"internalType": "uint256",
-				"name": "agreementID",
-				"type": "uint256"
-			},
-			{
-				"internalType": "string",
-				"name": "title",
-				"type": "string"
-			},
-			{
-				"internalType": "uint256",
-				"name": "agreementAmount",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "clientStake",
-				"type": "uint256"
-			},
-			{
-				"internalType": "uint256",
-				"name": "serviceProviderStake",
-				"type": "uint256"
-			},
-			{
-				"internalType": "bool",
-				"name": "fundsReleased",
-				"type": "bool"
-			},
-			{
-				"internalType": "uint8",
-				"name": "fundreceiver",
-				"type": "uint8"
-			},
-			{
-				"internalType": "uint64",
-				"name": "sourceChainSelector",
-				"type": "uint64"
-			},
-			{
-				"internalType": "uint64",
-				"name": "destinationChainSelector",
-				"type": "uint64"
-			}
-		],
-		"stateMutability": "view",
+		"name": "_resolveDispute",
+		"outputs": [],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "acceptOwnership",
+		"outputs": [],
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -398,19 +135,6 @@ export const ESCROW_ABI = [
 	{
 		"inputs": [
 			{
-				"internalType": "uint256",
-				"name": "_agreementId",
-				"type": "uint256"
-			}
-		],
-		"name": "completedWork",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
 				"internalType": "string",
 				"name": "_title",
 				"type": "string"
@@ -447,16 +171,302 @@ export const ESCROW_ABI = [
 		"type": "function"
 	},
 	{
-		"inputs": [],
-		"name": "getPurpose",
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "_router",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "_link",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "_ccip",
+				"type": "address"
+			}
+		],
+		"stateMutability": "nonpayable",
+		"type": "constructor"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "router",
+				"type": "address"
+			}
+		],
+		"name": "InvalidRouter",
+		"type": "error"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "from",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "to",
+				"type": "address"
+			}
+		],
+		"name": "OwnershipTransferRequested",
+		"type": "event"
+	},
+	{
+		"anonymous": false,
+		"inputs": [
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "from",
+				"type": "address"
+			},
+			{
+				"indexed": true,
+				"internalType": "address",
+				"name": "to",
+				"type": "address"
+			}
+		],
+		"name": "OwnershipTransferred",
+		"type": "event"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_agreementId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "address",
+				"name": "_receiverContract",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "_cciptoken",
+				"type": "address"
+			}
+		],
+		"name": "releaseFunds",
+		"outputs": [],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_agreementId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "bool",
+				"name": "_releasefund",
+				"type": "bool"
+			},
+			{
+				"internalType": "address",
+				"name": "_receiverContract",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "_ccpitoken",
+				"type": "address"
+			}
+		],
+		"name": "resolveDispute",
+		"outputs": [],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_agreementId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "address",
+				"name": "_receiver",
+				"type": "address"
+			}
+		],
+		"name": "setDispute",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_agreementId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "address",
+				"name": "_receiver",
+				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "_ccipToken",
+				"type": "address"
+			}
+		],
+		"name": "stakeProviderEth",
+		"outputs": [],
+		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_agreementId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "address",
+				"name": "_receiver",
+				"type": "address"
+			}
+		],
+		"name": "SubmitWork",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "address",
+				"name": "to",
+				"type": "address"
+			}
+		],
+		"name": "transferOwnership",
+		"outputs": [],
+		"stateMutability": "nonpayable",
+		"type": "function"
+	},
+	{
+		"stateMutability": "payable",
+		"type": "fallback"
+	},
+	{
+		"stateMutability": "payable",
+		"type": "receive"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "",
+				"type": "uint256"
+			}
+		],
+		"name": "agreements",
 		"outputs": [
 			{
+				"internalType": "uint256",
+				"name": "agreementID",
+				"type": "uint256"
+			},
+			{
 				"internalType": "string",
-				"name": "",
+				"name": "title",
 				"type": "string"
+			},
+			{
+				"internalType": "address payable",
+				"name": "client",
+				"type": "address"
+			},
+			{
+				"internalType": "address payable",
+				"name": "serviceProvider",
+				"type": "address"
+			},
+			{
+				"internalType": "address payable",
+				"name": "arbitrator",
+				"type": "address"
+			},
+			{
+				"internalType": "uint256",
+				"name": "agreementAmount",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "clientStake",
+				"type": "uint256"
+			},
+			{
+				"internalType": "uint256",
+				"name": "serviceProviderStake",
+				"type": "uint256"
+			},
+			{
+				"internalType": "bool",
+				"name": "fundsReleased",
+				"type": "bool"
+			},
+			{
+				"internalType": "uint8",
+				"name": "fundreceiver",
+				"type": "uint8"
+			},
+			{
+				"internalType": "uint64",
+				"name": "sourceChainSelector",
+				"type": "uint64"
+			},
+			{
+				"internalType": "uint64",
+				"name": "destinationChainSelector",
+				"type": "uint64"
 			}
 		],
 		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "a",
+				"type": "string"
+			},
+			{
+				"internalType": "string",
+				"name": "b",
+				"type": "string"
+			}
+		],
+		"name": "compareStrings",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "pure",
 		"type": "function"
 	},
 	{
@@ -480,7 +490,7 @@ export const ESCROW_ABI = [
 				"type": "uint256"
 			}
 		],
-		"name": "isCompleted",
+		"name": "isDisputed",
 		"outputs": [
 			{
 				"internalType": "bool",
@@ -499,7 +509,7 @@ export const ESCROW_ABI = [
 				"type": "uint256"
 			}
 		],
-		"name": "isDisputed",
+		"name": "isWorkSubmitted",
 		"outputs": [
 			{
 				"internalType": "bool",
@@ -540,70 +550,19 @@ export const ESCROW_ABI = [
 		"inputs": [
 			{
 				"internalType": "uint256",
-				"name": "_agreementId",
+				"name": "",
 				"type": "uint256"
 			}
 		],
-		"name": "releaseFunds",
-		"outputs": [],
-		"stateMutability": "payable",
-		"type": "function"
-	},
-	{
-		"inputs": [
+		"name": "purposes",
+		"outputs": [
 			{
-				"internalType": "uint256",
-				"name": "_agreementId",
-				"type": "uint256"
-			},
-			{
-				"internalType": "bool",
-				"name": "_releasefund",
-				"type": "bool"
+				"internalType": "string",
+				"name": "",
+				"type": "string"
 			}
 		],
-		"name": "resolveDispute",
-		"outputs": [],
-		"stateMutability": "payable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_agreementId",
-				"type": "uint256"
-			}
-		],
-		"name": "setDispute",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_numOfAgreement",
-				"type": "uint256"
-			}
-		],
-		"name": "stakeCcipClient",
-		"outputs": [],
-		"stateMutability": "payable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_agreementId",
-				"type": "uint256"
-			}
-		],
-		"name": "stakeProviderEth",
-		"outputs": [],
-		"stateMutability": "payable",
+		"stateMutability": "view",
 		"type": "function"
 	},
 	{
@@ -624,35 +583,5 @@ export const ESCROW_ABI = [
 		],
 		"stateMutability": "pure",
 		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "_receiver",
-				"type": "address"
-			}
-		],
-		"name": "testPurpose",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "address",
-				"name": "to",
-				"type": "address"
-			}
-		],
-		"name": "transferOwnership",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"stateMutability": "payable",
-		"type": "receive"
 	}
 ]

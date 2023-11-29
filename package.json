@@ -63,7 +63,8 @@
     "swiper": "^8.4.5",
     "web-vitals": "^2.1.4",
     "yup": "^0.32.11",
-    "web3modal": "^1.9.12"
+    "web3modal": "^1.9.12",
+    "web3": "^1.8.2"
   },
   "scripts": {
     "start": "react-scripts start",

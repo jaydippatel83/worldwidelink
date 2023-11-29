@@ -1,18 +1,18 @@
-import React, { useState, useRef } from 'react'
+import React, { useState, useContext } from 'react'
 import { EscrowContext } from '../EscrowContext/EscrowContext'
-import { destinationChainContractAddress, CCIP_TOKEN_ABI, CCIP_TOKEN_ADDRESS_SEPOLIA, ESCROW_CONTRACT_ADDRESS, ESCROW_ABI } from '../../../constants';
+import { destinationChainContractAddress, CCIP_TOKEN_ABI, CCIP_TOKEN_ADDRESS_SEPOLIA, ESCROW_SENDER_CONTRACT_ADDRESS, ESCROW_ABI, CCIP_TOKEN_ADDRESS_MUMBAI, ESCROW_RECEIVER_CONTRACT_ADDRESS } from '../../../constants';
 import Web3Modal from "web3modal";
 import { ethers, Contract, providers, Signer } from 'ethers';
 
-
 export default function CreateAgreement() {
+
     const escrowContext = React.useContext(EscrowContext);
-    const web3ModalRef = useRef();
+    const { getProviderOrSigner, getCCIPTokenContractInstance, getEscrowContractInstance, fetchAgreementById, fetchAllAgreements } = escrowContext;
 
     const [title, setTitle] = useState('');
     const [serviceProviderAddress, setServiceProviderAddress] = useState();
     const [arbitratorAddress, setArbitratorAddress] = useState();
-    const [clientAddress, setClientAddress] = useState();
+    const [clientAddress, setClientAddress] = useState(localStorage.getItem('userAddress'));
     const [loading, setLoading] = useState(false);
     const [everyAgreementAsClient, setEveryAgreementAsClient] = useState([]);
     const [amount, setAmount] = useState(0);
@@ -26,27 +26,27 @@ export default function CreateAgreement() {
 
 
     const createAgreement = async () => {
-        let receiverContract = "0x11433c4eb1ff81a49a257644ceff2ad09a204160";
-        if (title == null || clientAddress == null || serviceProviderAddress == null || arbitratorAddress == null || amount == null) {
-            alert('Please enter all required fields.');
-            return;
-        }
+        // let receiverContract = "0xf1E3A5842EeEF51F2967b3F05D45DD4f4205FF40";
+        // if (title == null || clientAddress == null || serviceProviderAddress == null || arbitratorAddress == null || amount == null) {
+        //     alert('Please enter all required fields.');
+        //     return;
+        // }
 
         const signer = await getProviderOrSigner(true);
 
-        const ccipInstance = getCCIPTokenContractInstance(signer);
-        console.log(ccipInstance);
+        const ccipInstance = getCCIPTokenContractInstance(CCIP_TOKEN_ADDRESS_SEPOLIA, signer);
 
         try {
-            const tx = await ccipInstance.approve(ESCROW_CONTRACT_ADDRESS, ethers.utils.parseEther(fund))
+            const tx = await ccipInstance.approve(ESCROW_SENDER_CONTRACT_ADDRESS, ethers.utils.parseEther(fund))
             await tx.wait();
         } catch (error) {
             console.log(error);
         }
 
-        const escroContract = getEscrowContractInstance(signer);
+        const escroContract = getEscrowContractInstance(ESCROW_SENDER_CONTRACT_ADDRESS, signer);
         try {
-            const tx = await escroContract.createEscrowAgreement(title, clientAddress, serviceProviderAddress, arbitratorAddress, ethers.utils.parseEther(amount), receiverContract);
+            const tx = await escroContract.createEscrowAgreement(title, clientAddress, serviceProviderAddress, arbitratorAddress, ethers.utils.parseEther(amount), ESCROW_RECEIVER_CONTRACT_ADDRESS
+            );
 
             setLoading(true)
             await tx.wait();
@@ -61,49 +61,58 @@ export default function CreateAgreement() {
             console.error("Transaction failed:", error.message);
             setLoading(false);
         }
-
-
     }
 
-    const getProviderOrSigner = async (needSigner = false) => {
-        const provider = await web3ModalRef.current.connect();
+    const stakeCcipProvider = async (_agreementId = 1) => {
+        try {
+            const signer = await getProviderOrSigner(true);
 
-        const web3Provider = new providers.Web3Provider(provider);
-        const signerForUserAddress = await web3Provider.getSigner();
-        const clientAddress = await signerForUserAddress.getAddress();
-        setClientAddress(clientAddress);
-        const { chainId } = await web3Provider.getNetwork();
-        // if (chainId !== 471100) {
-        //     window.alert("Please switch to the patex-sepolia network!");
-        //     throw new Error("Please switch to the patex-sepolia network");
-        // }
+            const ccipInstance = getCCIPTokenContractInstance(CCIP_TOKEN_ADDRESS_MUMBAI, signer);
 
-        if (needSigner) {
-            const signer = web3Provider.getSigner();
-            return signer;
+            const tx = await ccipInstance.approve(ESCROW_RECEIVER_CONTRACT_ADDRESS, ethers.utils.parseEther('0.20'))
+            await tx.wait();
+
+            const escroContract = getEscrowContractInstance(ESCROW_RECEIVER_CONTRACT_ADDRESS, signer);
+
+            const txx = await escroContract.stakeProviderEth(1, ESCROW_SENDER_CONTRACT_ADDRESS, CCIP_TOKEN_ADDRESS_MUMBAI);
+            await txx.wait();
+        } catch (error) {
+            console.log(error);
         }
-        return web3Provider;
+        // fetchAllAgreements();
+        // alert('ETH staked successfully.');
     }
 
-    const getCCIPTokenContractInstance = (providerOrSigner) => {
-        return new Contract(
-            CCIP_TOKEN_ADDRESS_SEPOLIA,
-            CCIP_TOKEN_ABI,
-            providerOrSigner
-        );
-    };
+        const submitWork = async (_agreementId = 1) => {
+            try {
+                const signer = await getProviderOrSigner(true);
 
-    const getEscrowContractInstance = (providerOrSigner) => {
-        return new Contract(
-            ESCROW_CONTRACT_ADDRESS,
-            ESCROW_ABI,
-            providerOrSigner
-        );
-    };
+                const escroContract = getEscrowContractInstance(ESCROW_RECEIVER_CONTRACT_ADDRESS, signer);
+
+                const txx = await escroContract.SubmitWork(1, ESCROW_SENDER_CONTRACT_ADDRESS);
+                await txx.wait();
+            } catch (error) {
+                console.log(error);
+            }
+        }
+    const releaseFund = async (_agreementId = 1) => {
+        try {
+            const signer = await getProviderOrSigner(true);
+
+            const escroContract = getEscrowContractInstance(ESCROW_SENDER_CONTRACT_ADDRESS, signer);
+
+            const txx = await escroContract.releaseFunds(1, ESCROW_RECEIVER_CONTRACT_ADDRESS, CCIP_TOKEN_ADDRESS_SEPOLIA);
+            await txx.wait();
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
 
-    console.log(selectChain);
-    console.log(chainContractAddress);
+    
+
+   
+
     const handleChange = (event) => {
         setSelectChain(event.target.value);
         setChainContractAddress(destinationChainContractAddress[selectChain]);
@@ -205,7 +214,11 @@ export default function CreateAgreement() {
                                     </div>
                                     <div class="text-center mt-4">
                                         <button type="button" class="btn btn-primary"
-                                            onClick={createAgreement}
+                                        // onClick={stakeCcipProvider}
+                                        onClick={submitWork}
+                                        // onClick={releaseFund}
+                                        // onClick={createAgreement}
+                                        // onClick={fetchAllAgreements}
 
                                         >Create</button>
                                     </div>

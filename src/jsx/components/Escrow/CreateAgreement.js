@@ -56,7 +56,6 @@ export default function CreateAgreement() {
             // Update the state to reflect the new escrow agreement
             // setFundsReleased(false);
 
-            getNumOfAgreements();
             setLoading(false);
             alert('Funds deposited successfully.');
             console.log('----');
@@ -206,10 +205,10 @@ export default function CreateAgreement() {
                                     <div class="text-center mt-4">
                                         <button type="button" class="btn btn-primary"
                                             // onClick={stakeCcipProvider}
-                                            onClick={submitWork}
-                                        // onClick={releaseFund}
-                                        // onClick={createAgreement}
-                                        // onClick={fetchAllAgreements}
+                                            // onClick={submitWork}
+                                            // onClick={releaseFund}
+                                            // onClick={createAgreement}
+                                            onClick={fetchAllAgreements}
 
                                         >Create escrow</button>
                                     </div>

@@ -6,8 +6,15 @@ export const EscrowContext = createContext(undefined);
 
 export const EscrowContextProvider = (props) => {
 
+
     const [everyAgreement, setEveryAgreement] = useState([]);
     console.log(everyAgreement);
+
+    useEffect(() => {
+        fetchAllAgreements();
+    }, [])
+
+
     const getProviderOrSigner = async (needSigner = false) => {
         const web3Provider = new ethers.providers.Web3Provider(window.ethereum);
         if (needSigner) {
@@ -30,6 +37,9 @@ export const EscrowContextProvider = (props) => {
             providerOrSigner
         );
     };
+
+
+
 
     function ParsedAgreement(_agreeId, _AgreementTitle, _clientAdd, _providerAdd, _arbitrator, _agreementAmount, _clientStake, _providerStake, _released, _fundReceiver, _dispute, _workSubmitted) {
         this.agreeId = _agreeId;
@@ -61,7 +71,7 @@ export const EscrowContextProvider = (props) => {
     }
 
     const fetchAgreementById = async (id) => {
-        // console.log('erntered fetch by id', id);
+        console.log('erntered fetch by id', id);
 
         try {
             const provider = await getProviderOrSigner();
@@ -73,7 +83,7 @@ export const EscrowContextProvider = (props) => {
                 escroContract = getEscrowContractInstance(ESCROW_SENDER_CONTRACT_ADDRESS, provider);
             } else if (network?.chainId == 80001) {
                 escroContract = getEscrowContractInstance(ESCROW_RECEIVER_CONTRACT_ADDRESS, provider);
-            } else{
+            } else {
                 alert('Please connect to Sepolia or Mumbai network')
             }
             // const escroContract = getEscrowContractInstance(ESCROW_SENDER_CONTRACT_ADDRESS, provider);

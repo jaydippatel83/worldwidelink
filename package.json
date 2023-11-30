@@ -9,6 +9,7 @@
     "@chainlink/env-enc": "^1.0.5",
     "@ckeditor/ckeditor5-build-classic": "^35.3.2",
     "@ckeditor/ckeditor5-react": "^5.0.3",
+    "@emotion/react": "^11.11.1",
     "@emotion/styled": "^11.11.0",
     "@fullcalendar/daygrid": "^5.11.3",
     "@fullcalendar/interaction": "^5.11.3",
@@ -72,7 +73,9 @@
     "swiper": "^8.4.5",
     "url": "^0.11.3",
     "web-vitals": "^2.1.4",
-    "yup": "^0.32.11"
+    "yup": "^0.32.11",
+    "web3modal": "^1.9.12",
+    "web3": "^1.8.2"
   },
   "scripts": {
     "start": "react-app-rewired start",

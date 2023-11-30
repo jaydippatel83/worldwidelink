@@ -5,7 +5,7 @@ import { Select as BaseSelect, selectClasses } from '@mui/base/Select';
 import { Option as BaseOption, optionClasses } from '@mui/base/Option';
 import { Popper as BasePopper } from '@mui/base/Popper';
 import { styled } from '@mui/system';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+// import { ExpandMoreIcon } from '@mui/icons-material'
 import SwapVerticalCircleIcon from '@mui/icons-material/SwapVerticalCircle';
 import { Web3Context } from '../../../context/Web3Context';
 
@@ -69,7 +69,7 @@ const Button1 = React.forwardRef(function Button(props, ref) {
   return (
     <button type="button" {...other} ref={ref}>
       {other.children}
-      <ExpandMoreIcon />
+      {/* <ExpandMoreIcon /> */}
     </button>
   );
 });

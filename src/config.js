@@ -1,4 +1,4 @@
-import { ethers } from "ethers";
+const ethers = require("ethers") 
 
 export const priceFeedAddress = "0xd1B48c231eE234C89BC02E6E7C80F75115DFD04D";
 export const priceFeedABI = [

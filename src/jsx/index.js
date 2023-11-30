@@ -10,7 +10,7 @@ import ScrollToTop from "./layouts/ScrollToTop";
 import Home from "./components/Dashboard/Home";
 import Error404 from "./pages/Error404";
 import { ThemeContext } from "../context/ThemeContext";
-import Trnasfer from "./components/Transfer";
+import Transfer from "./components/Transfer";
 import SosAlert from "./components/Sos";
 import Escrow from "./components/Escrow";
 import OnRamp from "./components/onRamp/OnRamp";
@@ -22,7 +22,7 @@ import Landing from "../landing/Landing";
 const Markup = () => {
   const allroutes = [
     { url: "home", component: <Landing /> },
-    { url: "transfer", component: <Trnasfer /> },
+    { url: "transfer", component: <Transfer /> },
     { url: "sos", component: <SosAlert /> },
     { url: "escrow", component: <Escrow /> },
     { url: "onramp", component: <OnRamp /> },

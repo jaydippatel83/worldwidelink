@@ -1,11 +1,45 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { Transak } from '@transak/transak-sdk';
 
 const OnRamp = () => {
+    let transak = new Transak({
+        apiKey: process.env.REACT_APP_transakt,
+        environment: 'STAGING',
+        exchangeScreenTitle: 'Buy / Sell Crypto',
+        defaultFiatAmount: '500',
+        defaultFiatCurrency: 'INR',
+        countryCode: 'IN',
+        excludeFiatCurrencies: 'GBP,EUR,USD,JPY,INR',
+        defaultNetwork: 'polygon',
+        network: 'ethereum',
+        networks: 'ethereum, polygon,terra,mainnet',
+        defaultPaymentMethod: 'credit_debit_card',
+        defaultCryptoAmount: '1',
+        cryptoCurrencyList: 'ETH,DAI,USDT,MATIC,USDC,BTC,SOL,LINK',
+        themeColor: '9567ff',
+        email: 'example@gmail.com',
+        walletAddress: '',
+        redirectURL: 'https://worldwidelink.vercel.app/',
+    });
+
+
+    useEffect(() => {
+        transak.init();
+        return () => {
+            transak.close();
+        };
+    }, []);
+
+    const handleOpen = () => {
+        transak.init();
+    }
+
     return (
         <div className='container'>
             <div className="row">
                 <div className="col">
-                    <h1>This is On / Off Ramp Component</h1>
+                    <h1> On / Off Ramp By Transak</h1>
+                    <button onClick={handleOpen} className='btn btn-primary btn-lg'>Buy Crypto</button>
                 </div>
             </div>
         </div>

@@ -31,11 +31,11 @@ const Home = () => {
 					</div>
 					:
 					<div className="row">
-						<CardSlider />
+						{/* <CardSlider /> */}
 						<CardData />
-						<Charts />
-						<EscrowTable/>
-						<TxTable />
+						{/* <Charts /> */}
+						<EscrowTable />
+						{/* <TxTable /> */}
 						<MarketInfo />
 						<Converter />
 					</div>

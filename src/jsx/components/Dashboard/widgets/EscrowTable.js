@@ -18,14 +18,12 @@ const EscrowTable = () => {
     const web3Context = React.useContext(Web3Context);
     const { everyAgreementProvider, everyAgreementClient } = escrowContext;
     const { shortAddress } = web3Context;
-    console.log('agrr', everyAgreementClient);
-    console.log('agrr', everyAgreementProvider);
 
     return (
         <Col lg={12}>
             <Card>
                 <Card.Header>
-                    <Card.Title>Recent Escrow Agreements</Card.Title>
+                    <Card.Title>Escrow Agreements</Card.Title>
                 </Card.Header>
                 <Card.Body>
                     <Table responsive>

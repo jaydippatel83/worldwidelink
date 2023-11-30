@@ -341,16 +341,15 @@ export const Web3ContextProvider = (props) => {
     <Web3Context.Provider
       value={{
         connectWallet,
-
         signer,
         address,
         latestMessageId,
         collateralValue,
         deposits,
         borrowings,
-        address,
         update,
         aLoading,
+        provider,
         disconnectWallet,
         supplyAsset,
         borrowToken,
@@ -358,7 +357,6 @@ export const Web3ContextProvider = (props) => {
         getDepositsData,
         getBorrowData,
         shortAddress,
-        disconnectWallet,
         setUpdate,
         switchNetwork,
       }}

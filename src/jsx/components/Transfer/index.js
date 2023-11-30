@@ -1,9 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Box, Card, Typography, CardActions, CardContent, Divider} from '@mui/material';
-import PropTypes from 'prop-types';
-import { Select as BaseSelect, selectClasses } from '@mui/base/Select';
-import { Option as BaseOption, optionClasses } from '@mui/base/Option';
-import { Popper as BasePopper } from '@mui/base/Popper';
+
+import MenuItem from '@mui/material/MenuItem';
+import FormHelperText from '@mui/material/FormHelperText';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
 import { styled } from '@mui/system';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import SwapVerticalCircleIcon from '@mui/icons-material/SwapVerticalCircle';
@@ -11,49 +12,9 @@ import { Web3Context } from '../../../context/Web3Context';
 import TokenTransferorABI from './TokenTransferor.json';
 import {TokenTransferorContractSepoliya} from './config';
 import {TokenTransferorContractMumbai} from './config';
+import  ccipbnmABI  from './CCIPBnM.json';
+
 const ethers = require("ethers");
-const bull = (
-  <Box
-    component="span"
-    sx={{ display: 'inline-block', mx: '2px', transform: 'scale(0.8)' }}
-  >
-    •
-  </Box>
-);
-const Select = React.forwardRef(function CustomSelect(props, ref) {
-  const slots = {
-    root: StyledButton,
-    listbox: Listbox,
-    popper: Popper,
-    ...props.slots,
-  };
-
-  return <BaseSelect {...props} ref={ref} slots={slots} />;
-});
-
-Select.propTypes = {
-  /**
-   * The components used for each slot inside the Select.
-   * Either a string to use a HTML element or a component.
-   * @default {}
-   */
-  slots: PropTypes.shape({
-    listbox: PropTypes.elementType,
-    popper: PropTypes.func,
-    root: PropTypes.elementType,
-  }),
-};
-
-const blue = {
-  100: '#DAECFF',
-  200: '#99CCF3',
-  400: '#3399FF',
-  500: '#007FFF',
-  600: '#0072E5',
-  700: '#0059B2',
-  900: '#003A75',
-};
-
 const grey = {
   50: '#F3F6F9',
   100: '#E5EAF2',
@@ -66,123 +27,6 @@ const grey = {
   800: '#303740',
   900: '#1C2025',
 };
-
-const Button1 = React.forwardRef(function Button(props, ref) {
-  const { ownerState, ...other } = props;
-  return (
-    <button type="button" {...other} ref={ref}>
-      {other.children}
-      <ExpandMoreIcon />
-    </button>
-  );
-});
-
-Button1.propTypes = {
-  children: PropTypes.node,
-  ownerState: PropTypes.object.isRequired,
-};
-
-const StyledButton = styled(Button1, { shouldForwardProp: () => true })(
-  ({ theme }) => `
-      font-family: IBM Plex Sans, sans-serif;
-      font-size: 0.875rem;
-      box-sizing: border-box;
-      min-width: 320px;
-      padding: 8px 12px;
-      border-radius: 8px;
-      text-align: left;
-      line-height: 1.5;
-      background: ${theme.palette.mode === 'dark' ? grey[900] : '#fff'};
-      border: 1px solid ${theme.palette.mode === 'dark' ? grey[700] : grey[200]};
-      color: ${theme.palette.mode === 'dark' ? grey[300] : grey[900]};
-      position: relative;
-      box-shadow: 0px 2px 4px ${theme.palette.mode === 'dark' ? 'rgba(0,0,0, 0.5)' : 'rgba(0,0,0, 0.05)'
-    };
-    
-      transition-property: all;
-      transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-      transition-duration: 120ms;
-    
-      &:hover {
-        background: ${theme.palette.mode === 'dark' ? grey[800] : grey[50]};
-        border-color: ${theme.palette.mode === 'dark' ? grey[600] : grey[300]};
-      }
-    
-      &.${selectClasses.focusVisible} {
-        outline: 0;
-        border-color: ${blue[400]};
-        box-shadow: 0 0 0 3px ${theme.palette.mode === 'dark' ? blue[700] : blue[200]};
-      }
-    
-      & > svg {
-        font-size: 1rem;
-        position: absolute;
-        height: 100%;
-        top: 0;
-        right: 10px;
-      }
-      `,
-);
-
-const Listbox = styled('ul')(
-  ({ theme }) => `
-      font-family: IBM Plex Sans, sans-serif;
-      font-size: 0.875rem;
-      box-sizing: border-box;
-      padding: 6px;
-      margin: 12px 0;
-      min-width: 320px;
-      border-radius: 12px;
-      overflow: auto;
-      outline: 0px;
-      background: ${theme.palette.mode === 'dark' ? grey[900] : '#fff'};
-      border: 1px solid ${theme.palette.mode === 'dark' ? grey[700] : grey[200]};
-      color: ${theme.palette.mode === 'dark' ? grey[300] : grey[900]};
-      box-shadow: 0px 2px 4px ${theme.palette.mode === 'dark' ? 'rgba(0,0,0, 0.5)' : 'rgba(0,0,0, 0.05)'
-    };
-      `,
-);
-
-const Option = styled(BaseOption)(
-  ({ theme }) => `
-      list-style: none;
-      padding: 8px;
-      border-radius: 8px;
-      cursor: default;
-    
-      &:last-of-type {
-        border-bottom: none;
-      }
-    
-      &.${optionClasses.selected} {
-        background-color: ${theme.palette.mode === 'dark' ? blue[900] : blue[100]};
-        color: ${theme.palette.mode === 'dark' ? blue[100] : blue[900]};
-      }
-    
-      &.${optionClasses.highlighted} {
-        background-color: ${theme.palette.mode === 'dark' ? grey[800] : grey[100]};
-        color: ${theme.palette.mode === 'dark' ? grey[300] : grey[900]};
-      }
-    
-      &.${optionClasses.highlighted}.${optionClasses.selected} {
-        background-color: ${theme.palette.mode === 'dark' ? blue[900] : blue[100]};
-        color: ${theme.palette.mode === 'dark' ? blue[100] : blue[900]};
-      }
-    
-      &.${optionClasses.disabled} {
-        color: ${theme.palette.mode === 'dark' ? grey[700] : grey[400]};
-      }
-    
-      &:hover:not(.${optionClasses.disabled}) {
-        background-color: ${theme.palette.mode === 'dark' ? grey[800] : grey[100]};
-        color: ${theme.palette.mode === 'dark' ? grey[300] : grey[900]};
-      }
-      `,
-);
-
-const Popper = styled(BasePopper)`
-      z-index: 1;
-  `
 const Input = styled('input')(
   ({ theme }) => `
       background-color: transparent; // or use the same color as the Typography
@@ -197,11 +41,17 @@ const Input = styled('input')(
 );
 const Transfer = () => {
   const { connectWallet, address, disconnectWallet } = useContext(Web3Context);
-  const [fromChain, setFromChain] = useState(20);
-  const [toChain, setToChain] = useState(30);
+  const [fromChain, setFromChain] = useState("20");
+  const [toChain, setToChain] = useState("30");
   const [isSwapped, setIsSwapped] = useState(false);
   const [amount, setAmount] = useState('0');
 
+  const handleChangeFrom = (event) => {
+    setFromChain(event.target.value);
+  };
+  const handleChangeTO = (event) => {
+    setToChain(event.target.value);
+  };
   // useEffect(() => {
   //   const allowDestinationChain = async () => {
   //     try {
@@ -316,23 +166,39 @@ const Transfer = () => {
         let transferorContract;
         let destinationChain;
         let token;
+        let linkToken;
    console.log(fromChain, "fromChain");
    console.log(toChain, "toChain");
-        if (fromChain === 20 && toChain === 30) {
+        if (fromChain === '20' && toChain === '30') {
           // Sepolia to Mumbai 
           transferorContract = transferorContractSepoliya ;
           destinationChain = '12532609583862916517';
           token = '0xFd57b4ddBf88a4e07fF4e34C487b99af2Fe82a05';
-        } else if (fromChain === 30 && toChain === 20) {
+          linkToken = '0x779877A7B0D9E8603169DdbD7836e478b4624789';
+
+        } else if (fromChain === '30' && toChain === '20') {
           // Mumbai to Sepolia 
           transferorContract = transferorContractMumbai;
           destinationChain = '16015286601757825753';
           token = '0xf1E3A5842EeEF51F2967b3F05D45DD4f4205FF40';
+          linkToken = '0x326C977E6efc84E512bB9C30f76E30c160eD06FB';
+
         } else {
           console.log("You have selected unsupported networks!");
           return;
         }
-  
+        const ccipBnMAmountInWei = ethers.parseEther(amount.toString(), "ether");
+        const ccipBnMTokenContract = new ethers.Contract(
+            token,
+            ccipbnmABI,
+            signer
+        );
+        const transactionTransfer = await ccipBnMTokenContract.transfer(
+            transferorContract,
+            ccipBnMAmountInWei
+        );
+        await transactionTransfer.wait();
+        console.log(transactionTransfer,"transactionTransfer");
         console.log(transferorContract,"contract address");
         let whitelistChain = await transferorContract.allowlistDestinationChain(destinationChain, true);
         console.log("Allowlist Chain:", whitelistChain);
@@ -364,23 +230,27 @@ const Transfer = () => {
         <div className="col">
           <Card sx={{ width: '65%' }}>
             <CardContent>
-              <Typography fontWeight="bold" m={1}>
-                {isSwapped ? 'TO' : 'FROM'}
+            <FormControl sx={{ width: '100%' }}>
+
+            <Typography fontWeight="bold" m={1}>
+                FROM
               </Typography>
               <Select
-                value={isSwapped ? toChain : fromChain}
-                onChange={(e) => {
-                  setIsSwapped(!isSwapped); // Toggle isSwapped state
-                }}
+                value={fromChain}
+                onChange={handleChangeFrom}
+
                 sx={{ width: '100%', fontSize: '16px' }}
               >
-                <Option value={10}>Ethereum</Option>
-                <Option value={20}>Sapholia testnet</Option>
-                <Option value={30}>Mumbai Testnet</Option>
-                <Option value={40}>Fuji Testnet</Option>
-                <Option value={50}>BNB Chain Testnet</Option>
-                <Option value={60}>Base goerli Testnet</Option>
-              </Select>
+      
+              <MenuItem value={10}>Sepolia testnet</MenuItem>
+          <MenuItem value={20}>Mumbai Testnet</MenuItem>
+          <MenuItem value={30}>Fuji Testnet</MenuItem>
+          <MenuItem value={40}>BNB Chain Testnet</MenuItem>
+          <MenuItem value={50}>Base goerli Testnet</MenuItem>
+
+          </Select>
+
+              </FormControl>
             </CardContent>
             <CardActions>
               {connect()}
@@ -397,24 +267,28 @@ const Transfer = () => {
   <Box sx={{ borderBottom: '1px solid #362465', flex: 1, marginLeft: 1 }} />
             </CardActions>
             <CardContent>
-              <Typography fontWeight="bold" mt={0.3} mb={1} ml={1} mr={1}>
-                {isSwapped ? 'FROM' : 'TO'}
+            <FormControl sx={{ width: '100%' }}>
+
+            <Typography fontWeight="bold" mt={0.3} mb={1} ml={1} mr={1}>
+                TO
               </Typography>
+
               <Select
-                value={isSwapped ? fromChain : toChain}
-                onChange={(e) => {
-                  setIsSwapped(!isSwapped); // Toggle isSwapped state
-                }}
+                value={toChain}
+                onChange={handleChangeTO}
+
                 sx={{ width: '100%', fontSize: '16px' }}
               >
-                <Option value={10}>Ethereum</Option>
-                <Option value={20}>Sapholia testnet</Option>
-                <Option value={30}>Mumbai Testnet</Option>
-                <Option value={40}>Fuji Testnet</Option>
-                <Option value={50}>BNB Chain Testnet</Option>
-                <Option value={60}>Base goerli Testnet</Option>
-              </Select>
-            </CardContent>
+      
+              <MenuItem value={10}>Sepolia testnet</MenuItem>
+          <MenuItem value ={20}>Mumbai Testnet</MenuItem>
+          <MenuItem value={30}>Fuji Testnet</MenuItem>
+          <MenuItem value={40}>BNB Chain Testnet</MenuItem>
+          <MenuItem value={50}>Base goerli Testnet</MenuItem>
+
+          </Select>
+          </FormControl>
+                          </CardContent>
 
             <CardActions
               sx={{

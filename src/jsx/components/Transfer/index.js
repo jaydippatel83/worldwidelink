@@ -1,12 +1,10 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { Box, Card, Typography, CardActions, CardContent, Divider } from '@mui/material';
+import React, { useContext, useState } from 'react';
+import { Box, Card, Typography, CardActions, CardContent } from '@mui/material';
 
 import MenuItem from '@mui/material/MenuItem';
-import FormHelperText from '@mui/material/FormHelperText';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { styled } from '@mui/system';
-// import { ExpandMoreIcon } from '@mui/icons-material'
 import SwapVerticalCircleIcon from '@mui/icons-material/SwapVerticalCircle';
 import { Web3Context } from '../../../context/Web3Context';
 import TokenTransferorABI from './TokenTransferor.json';
@@ -40,10 +38,9 @@ const Input = styled('input')(
     `
 );
 const Transfer = () => {
-  const { connectWallet, address, disconnectWallet } = useContext(Web3Context);
+  const { connectWallet, address, shortAddress } = useContext(Web3Context);
   const [fromChain, setFromChain] = useState(10);
   const [toChain, setToChain] = useState(20);
-  const [isSwapped, setIsSwapped] = useState(false);
   const [amount, setAmount] = useState('0');
 
   const handleChangeFrom = (event) => {
@@ -52,89 +49,13 @@ const Transfer = () => {
   const handleChangeTO = (event) => {
     setToChain(event.target.value);
   };
-  // useEffect(() => {
-  //   const allowDestinationChain = async () => {
-  //     try {
-  //       if (window.ethereum) {
-  //         const accounts = await window.ethereum.request({
-  //           method: "eth_requestAccounts",
-  //         });
-  //         const address = accounts[0];
-  //         const provider = new ethers.BrowserProvider(window.ethereum);
-  //         const signer = await provider.getSigner();
-  //         const transferorContract = new ethers.Contract(
-  //           TokenTransferorContract,
-  //           TokenTransferorABI.abi,
-  //           signer
-  //         );
-  //         let whitelistChain = await transferorContract.allowlistDestinationChain('12532609583862916517', true);
-  //         console.log(transferorContract, "contractObj");
-  //         console.log(whitelistChain, "whitelistChain");
-  //       } else {
-  //         console.error("MetaMask not detected. Please install MetaMask extension.");
-  //       }
-  //     } catch (error) {
-  //       console.error("Error during MetaMask initialization:", error.message);
-  //     }
-  //   };
-
-  //   allowDestinationChain();
-  // }, []);
 
   const handleSwap = () => {
     setFromChain(toChain);
     setToChain(fromChain);
   };
 
-  const connect = () => {
-    return (
-      <Typography
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          fontSize: '16px',
-          //backgroundColor: 'rgba(0, 0, 0, 0.2)', // Light black background
-          backgroundColor: '#362465',
-          //backdropFilter: 'blur(5px)', // Blurred effect
-          padding: '5px',
-          paddingLeft: '8px',
-          paddingRight: '8px',
-          height: '20%',
-          width: '100%',
-          //borderRadius: '8px', // You can adjust the borderRadius as needed
-          //mb: '15px',
-          color: 'white',
-          fontWeight: 'bold',
-          fontFamily: 'sans-serif',
-          letterSpacing: '1px'
-        }}
-      >
-        {!address ? (
-          <>
 
-            <Typography sx={{ fontWeight: 'bold', fontSize: '18px', fontFamily: 'sans-serif' }}>Connect wallet to continue</Typography>
-
-            <button
-              className="btn py-2 fs-5 px-5 text-uppercase"
-              onClick={connectWallet}
-              style={{ color: 'white', backgroundColor: '#362465' }}
-
-            >
-              Connect
-            </button>
-          </>
-        ) : (
-          <Typography sx={{ fontWeight: 'bold' }}>{address}</Typography>
-        )
-        }
-
-
-      </Typography>
-
-
-    )
-  }
 
   const handleTransfer = async () => {
     try {
@@ -142,8 +63,6 @@ const Transfer = () => {
         console.error('Wallet not connected. Please connect your wallet.');
         return;
       }
-
-      // Connect to Ethereum provider
       if (window.ethereum) {
         const accounts = await window.ethereum.request({
           method: "eth_requestAccounts",
@@ -211,10 +130,6 @@ const Transfer = () => {
           token,
           amountInWei.toString()
         );
-        console.log(destinationChain, "destinationChain");
-        console.log(address, "address");
-        console.log(token, "token");
-        console.log(amountInWei.toString(), "amount");
         console.log('Transfer successful. Message ID:', messageId);
       } else {
         console.error("MetaMask not detected. Please install MetaMask extension.");
@@ -244,22 +159,19 @@ const Transfer = () => {
 
                   <MenuItem value={10}>Sepolia testnet</MenuItem>
                   <MenuItem value={20}>Mumbai Testnet</MenuItem>
-                  <MenuItem value={30}>Fuji Testnet</MenuItem>
-                  <MenuItem value={40}>BNB Chain Testnet</MenuItem>
-                  <MenuItem value={50}>Base goerli Testnet</MenuItem>
-
                 </Select>
 
               </FormControl>
             </CardContent>
             <CardActions>
-              {connect()}
+              <Typography sx={{ fontWeight: 'bold' }} className='text-primary'> Wallet Address: {shortAddress(address)}</Typography>
             </CardActions>
             <CardActions
               sx={{
                 display: 'flex',
                 justifyContent: 'center',
-                marginTop: '2px'
+                marginTop: '2px',
+                cursor: 'pointer'
               }}
             >
               <Box sx={{ borderBottom: '1px solid #362465', flex: 1, marginRight: 1 }} />
@@ -282,21 +194,12 @@ const Transfer = () => {
 
                   <MenuItem value={10}>Sepolia testnet</MenuItem>
                   <MenuItem value={20}>Mumbai Testnet</MenuItem>
-                  <MenuItem value={30}>Fuji Testnet</MenuItem>
-                  <MenuItem value={40}>BNB Chain Testnet</MenuItem>
-                  <MenuItem value={50}>Base goerli Testnet</MenuItem>
-
                 </Select>
               </FormControl>
             </CardContent>
 
-            <CardActions
-              sx={{
-                display: 'flex',
-                flexDirection: 'column', // Display items vertically
-                // Center items horizontally
-              }}>
-              {connect()}
+            <CardActions>
+              <Typography sx={{ fontWeight: 'bold' }} className='text-primary'> Wallet Address: {shortAddress(address)}</Typography>
             </CardActions>
 
             {address ? (
@@ -309,18 +212,10 @@ const Transfer = () => {
 
                   <Typography sx={{
                     fontSize: '16px',
-                    //backgroundColor: 'rgba(0, 0, 0, 0.2)', // Light black background
                     backgroundColor: '#362465',
                     color: 'white',
-                    // backdropFilter: 'blur(15px)', // Blurred effect
-                    // padding: '5px',
-                    // paddingLeft : '8px',
-                    // paddingRight : '8px',
                     height: '70px',
-                    // width : '100%',
-                    //borderRadius: '8px', // You can adjust the borderRadius as needed
                     mb: '15px',
-                    // color: '#00A389',
                     fontWeight: 'bold',
                     fontFamily: 'sans-serif',
                     letterSpacing: '1px'
@@ -334,8 +229,6 @@ const Transfer = () => {
                       onChange={(e) => setAmount(e.target.value)}
                     />
                   </Typography>
-
-
                 </CardContent>
                 <CardActions
                   sx={{
@@ -345,9 +238,8 @@ const Transfer = () => {
                     alignItems: 'center'
                   }}>
                   <button
-                    className="btn py-2 fs-5 px-5 text-uppercase"
+                    className="btn py-2 fs-5 px-5 text-uppercase btn-primary"
                     onClick={handleTransfer}
-                    style={{ backgroundColor: '#362465', color: 'white' }}
                   >
                     Transfer
                   </button>

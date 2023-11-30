@@ -1,5 +1,27 @@
 import { ethers } from "ethers";
 
+export const priceFeedAddress = "0xd1B48c231eE234C89BC02E6E7C80F75115DFD04D";
+export const priceFeedABI = [
+  {
+    "inputs": [],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "inputs": [],
+    "name": "getLatestAnswers",
+    "outputs": [
+      {
+        "internalType": "int256[]",
+        "name": "",
+        "type": "int256[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  }
+]
+
 export const chain = {
   80001: "mumbai",
   11155111: "ethereumtestnet", //SEPOLIA

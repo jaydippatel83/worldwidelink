@@ -9,7 +9,6 @@ import { Badge, Button, Col, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { EscrowContext } from '../EscrowContext/EscrowContext';
 
-
 export default function Agreements() {
     const escrowContext = React.useContext(EscrowContext);
 

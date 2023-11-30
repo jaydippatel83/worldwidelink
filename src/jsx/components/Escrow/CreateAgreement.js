@@ -12,7 +12,7 @@ export default function CreateAgreement() {
     const [title, setTitle] = useState('');
     const [serviceProviderAddress, setServiceProviderAddress] = useState();
     const [arbitratorAddress, setArbitratorAddress] = useState();
-    const [clientAddress, setClientAddress] = useState(localStorage.getItem('userAddress'));
+    const [clientAddress, setClientAddress] = useState(localStorage.getItem('address'));
     const [loading, setLoading] = useState(false);
     const [everyAgreementAsClient, setEveryAgreementAsClient] = useState([]);
     const [amount, setAmount] = useState(0);

@@ -41,8 +41,8 @@ const Input = styled('input')(
 );
 const Transfer = () => {
   const { connectWallet, address, disconnectWallet } = useContext(Web3Context);
-  const [fromChain, setFromChain] = useState("20");
-  const [toChain, setToChain] = useState("30");
+  const [fromChain, setFromChain] = useState(10);
+  const [toChain, setToChain] = useState(20);
   const [isSwapped, setIsSwapped] = useState(false);
   const [amount, setAmount] = useState('0');
 
@@ -169,14 +169,14 @@ const Transfer = () => {
         let linkToken;
    console.log(fromChain, "fromChain");
    console.log(toChain, "toChain");
-        if (fromChain === '20' && toChain === '30') {
+        if (fromChain === 10 && toChain === 20) {
           // Sepolia to Mumbai 
           transferorContract = transferorContractSepoliya ;
           destinationChain = '12532609583862916517';
           token = '0xFd57b4ddBf88a4e07fF4e34C487b99af2Fe82a05';
           linkToken = '0x779877A7B0D9E8603169DdbD7836e478b4624789';
 
-        } else if (fromChain === '30' && toChain === '20') {
+        } else if (fromChain === 20 && toChain === 10) {
           // Mumbai to Sepolia 
           transferorContract = transferorContractMumbai;
           destinationChain = '16015286601757825753';

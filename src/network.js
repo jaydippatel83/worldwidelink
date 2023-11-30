@@ -30,6 +30,7 @@ export const networks = {
     //Contract Addresses
     sender: "0x53cc33bCb8f54BD041210Be871b7b3FAF3884ac2",
     protocol: "0x67179faFCB5Fbf8F106DaFFA3fb70e1369c1Fc3f",
+    sosTokenTransfer: "0x5c79ACdd2845F6478C75338d5BEC6DA85113d13E"
   },
   mumbai: {
     url: process.env.REACT_APP_MUMBAI_RPC_URL || "THIS HAS NOT BEEN SET",
@@ -49,6 +50,7 @@ export const networks = {
     //Contract Addresses
     sender: "0x3Db45de715929b76E0570d01815F20eEe576B9E7",
     protocol: "0x9c29a12d441757AcF45aa106A3905E85C008dFA2",
+    sosTokenTransfer: "0xA2682E46003c1308083B64C303208b6c11218286"
   },
 };
 

@@ -8,8 +8,13 @@ const SosAlert = () => {
     { label: "Transfer Token & Notify", value: "2" },
   ];
 
-  const [action, setAction] = useState(actions[0]);
+  const chains = [
+    { value: "sepolia", label: "Sepolia testnet", chainId: 11155111 },
+    { value: "mumbai", label: "Mumbai testnet", chainId: 80001 },
+  ];
 
+  const [action, setAction] = useState(actions[0]);
+  const [from, setFrom] = useState(chains[0]);
   return (
     <div className="container">
       <div className="row">
@@ -22,7 +27,7 @@ const SosAlert = () => {
                 <p>
                   This enables users to set up a comprehensive email alert
                   system for account activity monitoring. Users can configure
-                  alerts to be triggered when there is no login activity
+                  alerts and automatic token tranfer to be triggered when there is no login activity
                   detected for a specified period.
                 </p>
 
@@ -48,6 +53,24 @@ const SosAlert = () => {
                               setAction(value);
                             }}
                             options={actions}
+                          />
+                        </div>
+                      </div>
+                      <div className="col-lg-8">
+                        <label htmlFor="text" className="text-black font-w600">
+                          From <span className="required">*</span>
+                        </label>
+
+                        <div className="form-group  mb-3">
+                          <Select
+                            className="custom-react-select"
+                            defaultValue={chains[0]}
+                            isSearchable={false}
+                            id="to"
+                            onChange={(value) => {
+                              setFrom(value);
+                            }}
+                            options={chains}
                           />
                         </div>
                       </div>

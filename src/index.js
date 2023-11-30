@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 import ThemeContext from "./context/ThemeContext";
 import { Web3ContextProvider } from './context/Web3Context';
+import { EscrowContextProvider } from './jsx/components/EscrowContext/EscrowContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -13,7 +14,9 @@ root.render(
     <BrowserRouter basename='/'>
       <ThemeContext>
         <Web3ContextProvider>
-          <App />
+          <EscrowContextProvider>
+            <App />
+          </EscrowContextProvider>
         </Web3ContextProvider>
       </ThemeContext>
     </BrowserRouter>

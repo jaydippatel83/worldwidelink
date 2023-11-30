@@ -4,28 +4,19 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import { store } from './store/store';
 import ThemeContext from "./context/ThemeContext";
-import { EscrowContextProvider } from './jsx/components/EscrowContext/EscrowContext';
+import { Web3ContextProvider } from './context/Web3Context';
 
-
-import Web3Context from './context/Web3Context';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-
-    <Provider store={store}>
-      <BrowserRouter basename='/'>
-        <ThemeContext>
-          <Web3Context>
-            <EscrowContextProvider>
-              <App />
-            </EscrowContextProvider>
-          </Web3Context>
-        </ThemeContext>
-      </BrowserRouter>
-    </Provider>
+    <BrowserRouter basename='/'>
+      <ThemeContext>
+        <Web3ContextProvider>
+          <App />
+        </Web3ContextProvider>
+      </ThemeContext>
+    </BrowserRouter>
   </React.StrictMode>
 );
 

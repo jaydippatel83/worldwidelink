@@ -277,7 +277,6 @@
 		"../scss/components/tables/_table-datatable.scss",
 		"../scss/components/tables/_table-footable.scss",
 		"../scss/components/tables/_table-jsgrid.scss",
-		"../scss/pages/_pages.scss",
 		"../scss/pages/_page-error.scss",
 		"../scss/pages/_page-auth.scss",
 		"../scss/pages/_homepage.scss",

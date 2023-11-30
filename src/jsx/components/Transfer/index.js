@@ -11,34 +11,23 @@ import TokenTransferorABI from './TokenTransferor.json';
 import { TokenTransferorContractSepoliya } from './config';
 import { TokenTransferorContractMumbai } from './config';
 import ccipbnmABI from './CCIPBnM.json';
+import { ethers } from 'ethers';
 
-const ethers = require("ethers");
-const grey = {
-  50: '#F3F6F9',
-  100: '#E5EAF2',
-  200: '#DAE2ED',
-  300: '#C7D0DD',
-  400: '#B0B8C4',
-  500: '#9DA8B7',
-  600: '#6B7A90',
-  700: '#434D5B',
-  800: '#303740',
-  900: '#1C2025',
-};
+
 const Input = styled('input')(
   ({ theme }) => `
-      background-color: transparent; // or use the same color as the Typography
-      border: none; // Remove the border
-      height: 100%;
-      width: 30%; // Adjust the width as needed
+      background-color: #eee; 
+      width:100%;
+      border: none; 
+      height: 100%; 
+      border-radius:12px;
       font-size: 16px;
-      padding-left: 8px;
-      // color: ${theme.palette.mode === 'dark' ? grey[300] : grey[900]}; // Match the text color
-      color: white;
+      padding : 10px 20px; 
+      color: #3d3d3d;
     `
 );
 const Transfer = () => {
-  const { connectWallet, address, shortAddress } = useContext(Web3Context);
+  const { address, shortAddress } = useContext(Web3Context);
   const [fromChain, setFromChain] = useState(10);
   const [toChain, setToChain] = useState(20);
   const [amount, setAmount] = useState('0');
@@ -140,117 +129,105 @@ const Transfer = () => {
   };
 
   return (
-    <div className='container'>
-      <div className="row">
-        <div className="col">
-          <Card sx={{ width: '65%' }}>
-            <CardContent>
-              <FormControl sx={{ width: '100%' }}>
+    <div className="row">
+      <div className="col-lg-10 col-12 mx-auto ">
+        <Card >
+          <CardContent>
+            <FormControl sx={{ width: '100%' }}>
 
-                <Typography fontWeight="bold" m={1}>
-                  FROM
+              <Typography fontWeight="bold" m={1}>
+                FROM
+              </Typography>
+              <Select
+                value={fromChain}
+                onChange={handleChangeFrom}
+
+                sx={{ width: '100%', fontSize: '16px' }}
+              >
+
+                <MenuItem value={10}>Sepolia testnet</MenuItem>
+                <MenuItem value={20}>Mumbai Testnet</MenuItem>
+              </Select>
+
+            </FormControl>
+          </CardContent>
+          <CardActions>
+            <Typography sx={{ fontWeight: 'bold' }} className='text-primary'> <span className='text-dark'>Wallet Address: </span> {shortAddress(address)}</Typography>
+          </CardActions>
+          <CardActions
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              marginTop: '2px',
+              cursor: 'pointer'
+            }}
+          >
+            <Box sx={{ borderBottom: '1px solid #362465', flex: 1, marginRight: 1 }} />
+            <SwapVerticalCircleIcon sx={{ fontSize: '40px', color: '#362465' }} onClick={handleSwap} />
+            <Box sx={{ borderBottom: '1px solid #362465', flex: 1, marginLeft: 1 }} />
+          </CardActions>
+          <CardContent>
+            <FormControl sx={{ width: '100%' }}>
+
+              <Typography fontWeight="bold" mt={0.3} mb={1} ml={1} mr={1}>
+                TO
+              </Typography>
+
+              <Select
+                value={toChain}
+                onChange={handleChangeTO}
+
+                sx={{ width: '100%', fontSize: '16px' }}
+              >
+
+                <MenuItem value={10}>Sepolia testnet</MenuItem>
+                <MenuItem value={20}>Mumbai Testnet</MenuItem>
+              </Select>
+            </FormControl>
+          </CardContent>
+
+          <CardActions>
+            <Typography sx={{ fontWeight: 'bold' }} className='text-primary'> <span className='text-dark'> Wallet Address:</span> {shortAddress(address)}</Typography>
+          </CardActions>
+
+          {address ? (
+            <>
+              <CardContent>
+
+                <Typography fontWeight='bold' m={1}>
+                  ENTER AMOUNT
                 </Typography>
-                <Select
-                  value={fromChain}
-                  onChange={handleChangeFrom}
 
-                  sx={{ width: '100%', fontSize: '16px' }}
+
+
+                <Input
+                  type="number"
+                  step="0.01"
+                  placeholder="0.00"
+                  value={amount}
+                  onChange={(e) => setAmount(e.target.value)}
+                />
+              </CardContent>
+              <CardActions
+                sx={{
+                  display: 'flex',
+                  flexDirection: 'column', // Display items vertically
+                  alignContent: 'center',
+                  alignItems: 'center'
+                }}>
+                <button
+                  className="btn py-2 mb-4 fs-5 px-5 text-uppercase btn-primary"
+                  onClick={handleTransfer}
                 >
+                  Transfer
+                </button>
+              </CardActions>
+            </>
 
-                  <MenuItem value={10}>Sepolia testnet</MenuItem>
-                  <MenuItem value={20}>Mumbai Testnet</MenuItem>
-                </Select>
+          ) : ''}
 
-              </FormControl>
-            </CardContent>
-            <CardActions>
-              <Typography sx={{ fontWeight: 'bold' }} className='text-primary'> Wallet Address: {shortAddress(address)}</Typography>
-            </CardActions>
-            <CardActions
-              sx={{
-                display: 'flex',
-                justifyContent: 'center',
-                marginTop: '2px',
-                cursor: 'pointer'
-              }}
-            >
-              <Box sx={{ borderBottom: '1px solid #362465', flex: 1, marginRight: 1 }} />
-              <SwapVerticalCircleIcon sx={{ fontSize: '40px', color: '#362465' }} onClick={handleSwap} />
-              <Box sx={{ borderBottom: '1px solid #362465', flex: 1, marginLeft: 1 }} />
-            </CardActions>
-            <CardContent>
-              <FormControl sx={{ width: '100%' }}>
+        </Card>
 
-                <Typography fontWeight="bold" mt={0.3} mb={1} ml={1} mr={1}>
-                  TO
-                </Typography>
-
-                <Select
-                  value={toChain}
-                  onChange={handleChangeTO}
-
-                  sx={{ width: '100%', fontSize: '16px' }}
-                >
-
-                  <MenuItem value={10}>Sepolia testnet</MenuItem>
-                  <MenuItem value={20}>Mumbai Testnet</MenuItem>
-                </Select>
-              </FormControl>
-            </CardContent>
-
-            <CardActions>
-              <Typography sx={{ fontWeight: 'bold' }} className='text-primary'> Wallet Address: {shortAddress(address)}</Typography>
-            </CardActions>
-
-            {address ? (
-              <>
-                <CardContent>
-
-                  <Typography fontWeight='bold' m={1}>
-                    ENTER AMOUNT
-                  </Typography>
-
-                  <Typography sx={{
-                    fontSize: '16px',
-                    backgroundColor: '#362465',
-                    color: 'white',
-                    height: '70px',
-                    mb: '15px',
-                    fontWeight: 'bold',
-                    fontFamily: 'sans-serif',
-                    letterSpacing: '1px'
-                  }}>
-
-                    <Input
-                      type="number"
-                      step="0.01"
-                      placeholder="0.00"
-                      value={amount}
-                      onChange={(e) => setAmount(e.target.value)}
-                    />
-                  </Typography>
-                </CardContent>
-                <CardActions
-                  sx={{
-                    display: 'flex',
-                    flexDirection: 'column', // Display items vertically
-                    alignContent: 'center',
-                    alignItems: 'center'
-                  }}>
-                  <button
-                    className="btn py-2 fs-5 px-5 text-uppercase btn-primary"
-                    onClick={handleTransfer}
-                  >
-                    Transfer
-                  </button>
-                </CardActions>
-              </>
-
-            ) : ''}
-
-          </Card>
-
-        </div>
       </div>
     </div>
   );

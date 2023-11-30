@@ -13,7 +13,7 @@ import { EscrowContext } from '../EscrowContext/EscrowContext';
 export default function Agreements() {
     const escrowContext = React.useContext(EscrowContext);
 
-    const { everyAgreementProvider, everyAgreementClient, stakeCcipProvider, submitWork, releaseFund, raiseDispute } = escrowContext;
+    const { everyAgreementProvider, everyAgreementClient, stakeCcipProvider, submitWork, releaseFund, raiseDispute, cancel } = escrowContext;
     const [providerStaked, setProviderStaked] = useState(false);
     const [workStatus, setWorkStatus] = useState('pending');
     const [fundsReleased, setFundsReleased] = useState(false);
@@ -310,6 +310,7 @@ export default function Agreements() {
                                                                     <div className="row text-center mt-4">
                                                                         <div className='col-6'>
                                                                             <button type="button" class="btn btn-primary btn-sm"
+                                                                            onClick={() => cancel(Agreement?.agreeId)}
                                                                             >Cancle</button>
                                                                         </div>
                                                                         <div className='col-6'>

@@ -212,7 +212,20 @@ export const EscrowContextProvider = (props) => {
         }
     }
 
+    const cancel = async (_agreementId) => {
+        try {
+            const signer = await getProviderOrSigner(true);
 
+            const escroContract = getEscrowContractInstance(ESCROW_SENDER_CONTRACT_ADDRESS, signer);
+
+            const txx = await escroContract.cancel(_agreementId);
+            await txx.wait();
+        } catch (error) {
+            console.log(error);
+        }
+        fetchAllAgreements();
+        alert('Cancel Agreement successfully.');
+    }
 
 
     return (
@@ -230,7 +243,8 @@ export const EscrowContextProvider = (props) => {
                 releaseFund,
                 raiseDispute,
                 getNumOfAgreements,
-                everyAgreementProvider
+                everyAgreementProvider,
+                cancel
 
             }}
 

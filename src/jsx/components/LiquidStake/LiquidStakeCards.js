@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 const LiquidStakeCards = () => {
     return (
         <>
-            <Liquidstake />
+
             <div className='container-fluid d-flex justify-content-center align-items-center mt-5'>
                 <div className="col-xl-8">
                     <div className="card">

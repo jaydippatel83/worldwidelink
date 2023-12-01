@@ -24265,14 +24265,14 @@ ul a.rsswidget:hover {
 }
 
 .main-bnr {
-  height: 920px;
+  /* height: 920px; */
   position: relative;
   background-image: url(../images/home-banner/bg.jpg);
   background-color: #261355;
   display: flex;
   background-size: cover;
   overflow: hidden;
-  padding-top: 250px;
+  padding-top: 150px;
   padding-bottom: 165px;
   background-position: center;
 }
@@ -24378,8 +24378,8 @@ ul a.rsswidget:hover {
 
 @media only screen and (max-width: 1280px) {
   .main-bnr {
-    height: 680px;
-    padding-top: 200px;
+    height: 600px;
+    padding-top: 120px;
     padding-bottom: 100px;
   }
 

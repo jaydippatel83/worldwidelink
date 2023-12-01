@@ -56,7 +56,7 @@ function Landing() {
             <div className="main-bnr style-1">
               <div className="container">
                 <div className="row align-items-center">
-                  <div className="col-8 text-center mx-auto">
+                  <div className="col-12 col-md-9 col-lg-9 col-sm-10 col-xxl-9 text-center mx-auto">
                     <h1 className="">Cross-Chain DeFi Hub</h1>
                     <p className="text text-white ">
                       CCIP-powered DeFi platform offering cross-chain

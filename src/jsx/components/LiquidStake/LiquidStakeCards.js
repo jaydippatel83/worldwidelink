@@ -12,9 +12,9 @@ const LiquidStakeCards = () => {
     const { stake} = liquidContext;
     return (
         <>
-            <Liquidstake />
+
             <div className='container-fluid d-flex justify-content-center align-items-center mt-5'>
-                <div className="col-xl-8">
+                <div className="col-xl">
                     <div className="card">
                         <div className="card-header border-0 pb-0">
                             Available to stake

@@ -47,7 +47,7 @@ export const Web3ContextProvider = (props) => {
   }, [add]);
 
   async function switchNetwork(chainId) {
-    console.log(chainId, "chaim");
+    console.log(chainId, "chainid");
     try {
       const chainData = await window.ethereum.request({
         method: "eth_chainId",
@@ -58,10 +58,7 @@ export const Web3ContextProvider = (props) => {
         (chain) => chain.chainId === chainId
       );
 
-      console.log(selectedChain, "selectedChain");
-
       if (chainData !== chainId && selectedChain) {
-        console.log("I mmmm")
         const methodName =
           selectedChain.chainId === chainId
             ? "wallet_addEthereumChain"

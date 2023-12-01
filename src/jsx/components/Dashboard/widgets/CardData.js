@@ -6,6 +6,7 @@ import { ethers } from 'ethers';
 
 const CardData = () => {
     const escrowContext = React.useContext(EscrowContext);
+    const [netId, setNetId] = useState();
     const web3Context = React.useContext(Web3Context);
     const { everyAgreementProvider, everyAgreementClient } = escrowContext;
     const { deposits, borrowings, provider, address } = web3Context;
@@ -15,7 +16,7 @@ const CardData = () => {
         { id: 1, value: everyAgreementProvider?.length + everyAgreementClient?.length, title: 'Escrow ', bgcolor: 'bg-white' },
         { id: 2, value: `${deposits?.length} / ${borrowings?.length}`, title: 'Lend / Borrow', bgcolor: 'bg-white' },
         { id: 3, value: "Active", title: 'SOS Alert', bgcolor: 'bg-white' },
-        { id: 4, value: `${balance} ETH`, title: 'Total Balance', bgcolor: 'bg-white' },
+        { id: 4, value: `${balance} ${netId === 80001 ? 'MATIC' : 'ETH'} `, title: 'Total Balance', bgcolor: 'bg-white' },
     ];
 
     useEffect(() => {
@@ -25,6 +26,8 @@ const CardData = () => {
     const getBalance = async () => {
         const balance = await provider.getBalance(address);
         const formattedBalance = ethers.formatUnits(balance);
+        const netId = await provider.getNetwork();
+        setNetId(Number(netId.chainId));
         const bal = Number(formattedBalance).toFixed(4)
         setBalance(bal);
     }

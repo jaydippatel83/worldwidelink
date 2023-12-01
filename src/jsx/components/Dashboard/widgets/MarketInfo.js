@@ -1,24 +1,30 @@
 import React, { useEffect, useState } from 'react';
 import { ethers, Contract } from 'ethers';
-import { priceFeedABI, priceFeedAddress } from '../../../../config';
+import { multiChains, priceFeedABI, priceFeedAddress, priceFeedMatic, priceFeedMaticABI } from '../../../../config';
 import btc from '../../../../images/coins/bitcoin.png';
 import dai from '../../../../images/coins/dai.png';
 import eth from '../../../../images/coins/eth.png';
 import link from '../../../../images/coins/chainlink.png';
 import coin from '../../../../images/coins/coin.png';
+import polygon from '../../../../images/coins/polygon.png';
+import { useContext } from 'react';
+import { Web3Context } from '../../../../context/Web3Context';
 
 
 const MarketInfo = () => {
+    const web3Context = useContext(Web3Context);
+    const { provider, signer } = web3Context;
     const [dataFeed, setDataFeed] = useState();
+    const [netId, setNetId] = useState();
     const [feed, setFeed] = useState();
     const namesArray = [
         { name: 'BTC / USD', imagePath: btc },
         { name: 'DAI / USD', imagePath: dai },
         { name: 'ETH / USD', imagePath: eth },
         { name: 'LINK / USD', imagePath: link },
-        { name: 'LINK / ETH', imagePath: eth },
+        { name: netId === 80001 ? 'LINK / MATIC' : 'LINK / ETH', imagePath: netId === 80001 ? polygon : eth },
         { name: 'USDC / USD', imagePath: coin },
-        { name: 'BTC / ETH', imagePath: btc },
+        { name: netId === 80001 ? 'LINK / USD' : 'BTC / ETH', imagePath: netId === 80001 ? polygon : btc },
     ]
     useEffect(() => {
         contractCall();
@@ -26,11 +32,12 @@ const MarketInfo = () => {
 
 
     const contractCall = async () => {
-        const provider = new ethers.BrowserProvider(window.ethereum);
-        const signer = await provider.getSigner();
+        const { chainId } = await provider.getNetwork();
+        setNetId(Number(chainId));
+
         const priceFeedContract = new Contract(
-            priceFeedAddress,
-            priceFeedABI,
+            Number(chainId) === 80001 ? priceFeedMatic : priceFeedAddress,
+            Number(chainId) === 80001 ? priceFeedMaticABI : priceFeedABI,
             signer
         );
 

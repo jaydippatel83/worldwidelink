@@ -7,6 +7,7 @@ import { BrowserRouter } from 'react-router-dom';
 import ThemeContext from "./context/ThemeContext";
 import { Web3ContextProvider } from './context/Web3Context';
 import { EscrowContextProvider } from './jsx/components/EscrowContext/EscrowContext';
+import { LiquidStakeContextProvider } from './jsx/components/LiquidStake/LiquidstateContext';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
@@ -14,7 +15,9 @@ root.render(
       <ThemeContext>
         <Web3ContextProvider>
           <EscrowContextProvider>
+            <LiquidStakeContextProvider>
               <App />
+            </LiquidStakeContextProvider>
           </EscrowContextProvider>
         </Web3ContextProvider>
       </ThemeContext>

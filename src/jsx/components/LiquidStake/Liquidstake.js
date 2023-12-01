@@ -1,6 +1,7 @@
 import React from "react";
 import { Tab, Nav } from "react-bootstrap";
 import LiquidStakeCards from "./LiquidStakeCards";
+import LiquidUnstakeCards from "./LiquidUnstakeCards";
 
 export const Liquidstake = () => {
     return (
@@ -30,7 +31,7 @@ export const Liquidstake = () => {
                                     <LiquidStakeCards />
                                 </Tab.Pane>
                                 <Tab.Pane eventKey="unstake">
-
+                                    <LiquidUnstakeCards />
                                 </Tab.Pane>
                             </Tab.Content>
                         </div>

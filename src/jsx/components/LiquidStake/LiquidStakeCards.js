@@ -4,7 +4,12 @@ import React from 'react';
 import { Dropdown } from 'react-bootstrap';
 import { Liquidstake } from './Liquidstake'
 import { Link } from 'react-router-dom';
+import { LiquidStakeContext } from './LiquidstaeContext';
 const LiquidStakeCards = () => {
+
+
+    const liquidContext = React.useContext(LiquidStakeContext);
+    const { stake} = liquidContext;
     return (
         <>
             <Liquidstake />
@@ -48,7 +53,9 @@ const LiquidStakeCards = () => {
                                         <Link to={"#"} className="btn btn-primary py-2 text-uppercase">Unlock Token</Link>
                                     </div>
                                     <div className="col-xl-6 d-flex justify-content-center">
-                                        <Link to={"#"} className="btn btn-primary py-2 text-uppercase">Stake Now</Link>
+                                        <Link
+                                        onClick={stake}
+                                        to={"#"} className="btn btn-primary py-2 text-uppercase">Stake Now</Link>
                                     </div>
                                 </div>
 

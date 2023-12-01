@@ -7,7 +7,7 @@ import { ethers } from 'ethers';
 export default function CreateAgreement() {
 
     const escrowContext = React.useContext(EscrowContext);
-    const { getProviderOrSigner, getCCIPTokenContractInstance, getEscrowContractInstance,stakeCcipProvider, fetchAgreementById, fetchAllAgreements } = escrowContext;
+    const { getProviderOrSigner, getCCIPTokenContractInstance, getEscrowContractInstance, fetchAgreementById, fetchAllAgreements } = escrowContext;
 
     const [title, setTitle] = useState('');
     const [serviceProviderAddress, setServiceProviderAddress] = useState();
@@ -155,10 +155,10 @@ export default function CreateAgreement() {
                                     </div>
                                     <div class="text-center mt-4">
                                         <button type="button" class="btn btn-primary"
-                                            onClick={stakeCcipProvider}
+                                            // onClick={stakeCcipProvider}
                                             // onClick={submitWork}
                                             // onClick={releaseFund}
-                                            // onClick={createAgreement}
+                                            onClick={createAgreement}
                                             // onClick={fetchAllAgreements}
 
                                         >Create escrow</button>

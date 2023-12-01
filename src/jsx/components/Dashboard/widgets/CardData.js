@@ -24,8 +24,9 @@ const CardData = () => {
 
     const getBalance = async () => {
         const balance = await provider.getBalance(address);
-        const formattedBalance = ethers.formatEther(balance);
-        setBalance(formattedBalance);
+        const formattedBalance = ethers.formatUnits(balance);
+        const bal = Number(formattedBalance).toFixed(4)
+        setBalance(bal);
     }
 
     return (
@@ -35,7 +36,7 @@ const CardData = () => {
                     <div className={`card card-box ${item.bgcolor} pb-4`}>
                         <div className="card-header d-block border-0 pb-0 text-center">
                             <div className="chart-num-days">
-                                <h2 className="count-num text-primary">{item.title}</h2>
+                                <h2 className={`count-num ${item.id === 3 ? 'text-danger' : 'text-primary'} `}>{item.title}</h2>
                                 <h2 className="count-num text-dark">{item.value}</h2>
                             </div>
                         </div>

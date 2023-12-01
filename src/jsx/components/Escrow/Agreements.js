@@ -79,7 +79,7 @@ export default function Agreements() {
 
             {
                 everyAgreementClient?.length == 0 ? everyAgreementProvider && everyAgreementProvider?.map((Agreement) => {
-                    
+
                     return (
                         <Accordion defaultActiveKey="0">
                             <Card>
@@ -122,7 +122,7 @@ export default function Agreements() {
                                                     backgroundColor: "#f4effe"
                                                     // backgroundColor:"#e1daee"
                                                 }}>
-                                                     <Card.Header>
+                                                    <Card.Header>
                                                         <Card.Title>Client Information</Card.Title>
                                                     </Card.Header>
                                                     <Card.Body className=" mb-0">
@@ -136,7 +136,7 @@ export default function Agreements() {
                                                             <div>
                                                                 <p className='text-black'>
                                                                     Work Status :
-                                                                    <Link to={"#"} className='badge-md light ms-1 badge badge-warning'>Pending</Link>
+                                                                    <Link to={"#"} className='badge-md  ms-1 badge badge-warning'>Pending</Link>
                                                                 </p>
                                                             </div>
 
@@ -144,12 +144,12 @@ export default function Agreements() {
                                                             <>
                                                                 <p className='text-black'>
                                                                     Work Status :
-                                                                    <Link to={"#"} className='badge-md light ms-1 badge badge-success'>Done</Link>
+                                                                    <Link to={"#"} className='badge-md   ms-1 badge '>Done</Link>
                                                                 </p>
                                                                 <div className='col'>
                                                                     {Agreement.release === true ? (
                                                                         <Card.Footer className="bg-transparent border-0 text-white">
-                                                                            <h4>Fund Release <span className="badge light badge-success">Successful</span></h4>
+                                                                            <h4>Fund Release <span className="badge  badge-primary">Successful</span></h4>
                                                                         </Card.Footer>
                                                                     ) : (
                                                                         ""
@@ -184,14 +184,14 @@ export default function Agreements() {
                                                                 {Agreement.workSubmitted === true ? (
 
                                                                     <div>
-                                                                        <h4>Work status   <span className="badge light badge-success">Done</span></h4>
+                                                                        <h4>Work status   <span className="badge badge-success">Done</span></h4>
                                                                         {
                                                                             Agreement.release === true ? (
                                                                                 <h4 className='mt-4'>  Fund Recieved {" "}
-                                                                                    <Badge bg="" className="light badge-success">Received</Badge>
+                                                                                    <Badge bg="" className=" badge-success">Received</Badge>
                                                                                 </h4>
                                                                             ) : <h4 className='mt-4'>  Fund Recieved {" "}
-                                                                                <Badge bg="" className="light badge-danger">NO</Badge>
+                                                                                <Badge bg="" className=" badge-danger">NO</Badge>
                                                                             </h4>
 
                                                                         }
@@ -208,7 +208,7 @@ export default function Agreements() {
                                                                             </div>
                                                                             <div className='col-6'>
                                                                                 <button type="button" class="btn btn-danger btn-sm"
-                                                                            onClick={() => raiseDispute(Agreement.agreeId, Agreement.clientAdd, Agreement.providerAdd)}
+                                                                                    onClick={() => raiseDispute(Agreement.agreeId, Agreement.clientAdd, Agreement.providerAdd)}
                                                                                 >Dispute</button>
                                                                             </div>
                                                                         </div>
@@ -235,7 +235,7 @@ export default function Agreements() {
                     )
                 }) :
                     everyAgreementClient && everyAgreementClient?.map((Agreement) => {
-                        
+
                         return (
                             <Accordion defaultActiveKey="0">
                                 <Card>
@@ -309,7 +309,7 @@ export default function Agreements() {
                                                                     <div className="row text-center mt-4">
                                                                         <div className='col-6'>
                                                                             <button type="button" class="btn btn-primary btn-sm"
-                                                                            onClick={() => cancel(Agreement?.agreeId)}
+                                                                                onClick={() => cancel(Agreement?.agreeId)}
                                                                             >Cancle</button>
                                                                         </div>
                                                                         <div className='col-6'>
@@ -368,22 +368,22 @@ export default function Agreements() {
                                                         <Card.Footer className=" bg-transparent border-0 text-white">
 
 
-                                                                        <div>
-                                                                            <h4>Work status   <span className="badge light badge-success">Done</span></h4>
-                                                                            {
-                                                                                Agreement.release === true ? (
-                                                                                    <h4 className='mt-4'>  Fund Recieved {" "}
-                                                                                        <Badge bg="" className="light badge-success">Received</Badge>
-                                                                                    </h4>
-                                                                                ) : <h4 className='mt-4'>  Fund Recieved {" "}
-                                                                                    <Badge bg="" className="light badge-danger">NO</Badge>
-                                                                                </h4>
+                                                            <div>
+                                                                <h4>Work status   <span className="badge light badge-success">Done</span></h4>
+                                                                {
+                                                                    Agreement.release === true ? (
+                                                                        <h4 className='mt-4'>  Fund Recieved {" "}
+                                                                            <Badge bg="" className="light badge-success">Received</Badge>
+                                                                        </h4>
+                                                                    ) : <h4 className='mt-4'>  Fund Recieved {" "}
+                                                                        <Badge bg="" className="light badge-danger">NO</Badge>
+                                                                    </h4>
 
-                                                                            }
+                                                                }
 
-                                                                        </div>
+                                                            </div>
 
-                                                                 
+
 
                                                         </Card.Footer>
                                                     </Card>

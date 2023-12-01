@@ -24,8 +24,25 @@ const LiquidStakeCards = () => {
                                 <span className="small text-muted">Avbl Balance</span>
                                 <span className="">210.800 USDT</span>
                             </div>
+
                             <form>
+                                <div className="form-group mb-3">
+                                    <label htmlFor="contractDropdown">Select Chain</label>
+                                    <select
+                                        defaultValue={"option"}
+                                        className="form-control form-control-lg"
+                                    >
+                                        <option>Sepolia Testnet</option>
+                                        <option>Mumbai Testnet</option>
+                                        <option>Fuji Testnet</option>
+                                        <option>BNB chain Testnet</option>
+                                        <option>Base Goerli Testnet</option>
+                                    </select>
+                                </div>
+                                <label htmlFor="contractDropdown">Amount</label>
+
                                 <div className="input-group" style={{ zIndex: "0" }}>
+
                                     <input
                                         id="amount"
                                         className="form-control lg"

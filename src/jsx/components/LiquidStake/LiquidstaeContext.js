@@ -7,7 +7,7 @@ export const LiquidStakeContext = createContext(undefined);
 export const LiquidStakeContextProvider = (props) => {
 
     const escrowContext = React.useContext(EscrowContext);
-    const { getCCIPTokenContractInstance, getProviderOrSigner} = escrowContext;
+    const { getCCIPTokenContractInstance, getProviderOrSigner } = escrowContext;
     const stake = async () => {
         try {
             const signer = await getProviderOrSigner(true);
@@ -45,7 +45,7 @@ export const LiquidStakeContextProvider = (props) => {
     return (
         <LiquidStakeContext.Provider
             value={{
-stake
+                stake
 
 
             }}

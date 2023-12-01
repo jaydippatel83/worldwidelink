@@ -2439,6 +2439,7 @@
    font-weight: 400;
    line-height: 1.5;
    color: #A098AE;
+   cursor: pointer;
    background-color: #fff;
    background-clip: padding-box;
    border: 1px solid #eeee;

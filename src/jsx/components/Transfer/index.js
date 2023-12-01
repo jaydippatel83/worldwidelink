@@ -5,7 +5,7 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import { styled } from '@mui/system';
-import SwapVerticalCircleIcon from '@mui/icons-material/SwapVerticalCircle';
+// import SwapVerticalCircleIcon from '@mui/icons-material/SwapVerticalCircle';
 import { Web3Context } from '../../../context/Web3Context';
 import TokenTransferorABI from './TokenTransferor.json';
 import { TokenTransferorContractSepoliya } from './config';
@@ -163,7 +163,7 @@ const Transfer = () => {
             }}
           >
             <Box sx={{ borderBottom: '1px solid #362465', flex: 1, marginRight: 1 }} />
-            <SwapVerticalCircleIcon sx={{ fontSize: '40px', color: '#362465' }} onClick={handleSwap} />
+            {/* <SwapVerticalCircleIcon sx={{ fontSize: '40px', color: '#362465' }} onClick={handleSwap} /> */}
             <Box sx={{ borderBottom: '1px solid #362465', flex: 1, marginLeft: 1 }} />
           </CardActions>
           <CardContent>

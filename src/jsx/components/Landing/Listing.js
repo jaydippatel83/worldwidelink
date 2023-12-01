@@ -14,7 +14,7 @@ export const Listing = () => {
           <div className="col-xl-12">
             <div className="card">
               <div className="card-header border-0">
-                <h4 className="heading">Land & Borrow Assets</h4>
+                <h4 className="heading">Lend & Borrow Assets</h4>
                 <nav>
                   <Nav
                     className="order nav nav-tabs"
@@ -22,7 +22,7 @@ export const Listing = () => {
                     role="tablist"
                   >
                     <Nav.Link as="button" eventKey="Land" type="button">
-                      Land
+                      Lend
                     </Nav.Link>
                     <Nav.Link as="button" eventKey="Borrow" type="button">
                       Borrow

@@ -13,7 +13,7 @@ const CardData = () => {
 
     const widgetChart = [
         { id: 1, value: everyAgreementProvider?.length + everyAgreementClient?.length, title: 'Escrow ', bgcolor: 'bg-white' },
-        { id: 2, value: `${deposits?.length} / ${borrowings?.length}`, title: 'Land / Borrow', bgcolor: 'bg-white' },
+        { id: 2, value: `${deposits?.length} / ${borrowings?.length}`, title: 'Lend / Borrow', bgcolor: 'bg-white' },
         { id: 3, value: "Active", title: 'SOS Alert', bgcolor: 'bg-white' },
         { id: 4, value: `${balance} ETH`, title: 'Total Balance', bgcolor: 'bg-white' },
     ];

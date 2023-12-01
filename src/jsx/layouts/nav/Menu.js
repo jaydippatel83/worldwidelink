@@ -12,10 +12,10 @@ export const MenuList = [
         to: 'escrow',
     },
     {
-        title: 'Land / Borrow',
+        title: 'Lend / Borrow',
         classsChange: 'mm-collapse',
         iconStyle: <i className="material-icons">account_balance</i>,
-        to: 'landing',
+        to: 'lending',
     },
     {
         title: 'Transfer',

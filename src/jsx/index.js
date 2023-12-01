@@ -26,7 +26,7 @@ const Markup = () => {
     { url: "sos", component: <SosAlert /> },
     { url: "escrow", component: <Escrow /> },
     { url: "onramp", component: <OnRamp /> },
-    { url: "landing", component: <LandingComponent /> },
+    { url: "lending", component: <LandingComponent /> },
     /// Dashboard
     { url: "", component: <Home /> },
     { url: "dashboard", component: <Home /> }

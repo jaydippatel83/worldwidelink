@@ -20,8 +20,8 @@ export const EscrowContextProvider = (props) => {
     }, [totalNumOfAgreement])
 
     // useEffect(() => {
-    //     console.log(localStorage.getItem('userAddress'));
-    //     if (localStorage.getItem('userAddress') !== null) {
+    //     console.log(localStorage.getItem('address'));
+    //     if (localStorage.getItem('address') !== null) {
     //             let num =  getNumOfAgreements();
     //     }
     // }, [])
@@ -195,11 +195,11 @@ export const EscrowContextProvider = (props) => {
     const raiseDispute = async (_agreementId, _client, _serviceProvider) => {
         const signer = await getProviderOrSigner(true);
         try {
-            if (localStorage.getItem('userAddress') == _client) {
+            if (localStorage.getItem('address') == _client) {
                 const escroContract = getEscrowContractInstance(ESCROW_SENDER_CONTRACT_ADDRESS, signer);
                 const txx = await escroContract.setDispute(_agreementId, ESCROW_RECEIVER_CONTRACT_ADDRESS);
                 await txx.wait();
-            } else if (localStorage.getItem('userAddress') == _serviceProvider) {
+            } else if (localStorage.getItem('address') == _serviceProvider) {
                 const escroContract = getEscrowContractInstance(ESCROW_RECEIVER_CONTRACT_ADDRESS, signer);
                 const txx = await escroContract.setDispute(_agreementId, ESCROW_SENDER_CONTRACT_ADDRESS);
                 await txx.wait();

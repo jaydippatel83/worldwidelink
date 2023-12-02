@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 // import { Select } from '@mui/material';
 import { Formik } from 'formik';
 import { Dropdown } from 'react-bootstrap';
@@ -12,15 +12,17 @@ const LiquidStakeCards = () => {
     const liquidContext = React.useContext(LiquidStakeContext);
     const { stake, getCcipBalance, approveToken, ccipBalance, stakedAmount } = liquidContext;
     const [fieldValue, setFieldValue] = useState('0.0');
-    getCcipBalance();
+
+    useEffect(() => {
+        getCcipBalance();
+    }, [])
 
     const handleFieldValue = (e) => {
         setFieldValue(e.target.value)
     }
     return (
         <>
-
-            <div className='container-fluid d-flex justify-content-center align-items-center mt-5'>
+            <div className='container justify-content-center align-items-center '>
                 <div className="col-xl">
                     <div className="card">
                         <div className="card-header border-0 pb-0">

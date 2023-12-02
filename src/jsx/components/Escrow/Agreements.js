@@ -311,7 +311,7 @@ export default function Agreements() {
                                                         <Card
                                                             style={{ maxWidth: '800px', backgroundColor: "#f4effe" }}>
                                                             <Card.Header>
-                                                                <Card.Title>Provider Information</Card.Title>
+                                                                <Card.Title>Freelancer Information</Card.Title>
                                                             </Card.Header>
                                                             <Card.Body className=" mb-0">
                                                                 <p className='text-black'> Address: {Agreement.providerAdd}</p>

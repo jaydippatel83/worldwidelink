@@ -36,7 +36,7 @@ export default function CreateAgreement() {
         //     return;
         // }
 
-
+console.log(title,'title--',clientAddress,'client--',serviceProviderAddress,'serviceadd--',arbitratorAddress,'arbitratorAdd---',ethers.parseEther(amount),'--amount');
         const signer = await getProviderOrSigner(true);
 
         const ccipInstance = getCCIPTokenContractInstance(CCIP_TOKEN_ADDRESS_SEPOLIA, signer);

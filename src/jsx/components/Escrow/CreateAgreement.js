@@ -67,8 +67,6 @@ export default function CreateAgreement() {
 
     };
 
-
-
     return (
         <>
             <div className='container'>

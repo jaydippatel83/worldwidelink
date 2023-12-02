@@ -11,7 +11,7 @@ export const Liquidstake = () => {
                     <div>
                         <div className="card-body">
                             <Nav
-                                className="nav nav-tabs justify-content-center"
+                                className="nav nav-tabs justify-content-center "
                                 id="nav-tab-p2p"
                                 role="tablist"
                             >

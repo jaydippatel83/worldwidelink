@@ -1,11 +1,20 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
 import { LiquidStakeContext } from './LiquidstateContext';
 export default function LiquidUnstakeCards() {
 
 
     const liquidContext = React.useContext(LiquidStakeContext);
-    const { unStake} = liquidContext;
+    const { unStake, getCcipBalance, approveToken, ccipBalance, stakedAmount} = liquidContext;
+
+    const [fieldValue, setFieldValue] = useState('0.0');
+
+
+    const handleFieldValue = (e) => {
+        setFieldValue(e.target.value)
+    }
+
+
     return (
         <>
 
@@ -13,17 +22,17 @@ export default function LiquidUnstakeCards() {
                 <div className="col-xl">
                     <div className="card">
                         <div className="card-header border-0 pb-0">
-                            Available to stake
-                            <h4>1.5 CCIP</h4>
+                            Available balance
+                            <h4>{ccipBalance} CCIP</h4>
                         </div>
                         <div className="card-header border-0 pb-0">
                             Staked Amount
-                            <h4>1.5 CCIP</h4>
+                            <h4>{stakedAmount} stCCIP</h4>
                         </div>
                         <div className="card-body pt-2 mt-0">
 
                             <form>
-                                <div className="form-group mb-3">
+                                <div className="form-group ml-2 mt-3 mb-3">
                                     <label htmlFor="contractDropdown">Select Chain</label>
                                     <select
                                         defaultValue={"option"}
@@ -44,11 +53,16 @@ export default function LiquidUnstakeCards() {
                                         id="amount"
                                         className="form-control lg"
                                         style={{ height: "3.5rem" }}
+                                        onChange={handleFieldValue}
+                                        value={fieldValue}
                                     />
                                     <button
                                         className="btn btn-outline-primary btn-outline-primary"
                                         type="button"
                                         style={{ height: "3.5rem" }}
+                                        onClick={() => {
+                                            setFieldValue(stakedAmount);
+                                        }}
                                     >
                                         Max
                                     </button>
@@ -58,7 +72,7 @@ export default function LiquidUnstakeCards() {
                                     
                                     <div className="col-xl-6 d-flex justify-content-center">
                                         <Link
-                                        onClick={unStake}
+                                        onClick={ () => unStake(fieldValue)}
                                          to={"#"} className="btn btn-primary py-2 text-uppercase">UnStake Now</Link>
                                     </div>
                                 </div>
@@ -66,11 +80,11 @@ export default function LiquidUnstakeCards() {
                             </form>
                             <div className="card-header border-0 pb-0">
                                 You will receive
-                                <h4>1.5 MATIC</h4>
+                                <h4>{fieldValue} CCIP</h4>
                             </div>
                             <div className="card-header border-0 pb-0">
                                 Exchange rate
-                                <h4>1 MATIC = 0.432 MATIC</h4>
+                                <h4>1 CCIP = 1 stCCIP</h4>
                             </div>
 
                         </div>

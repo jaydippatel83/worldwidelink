@@ -73,15 +73,15 @@ export const Web3ContextProvider = (props) => {
           params: [
             selectedChain.chainId === chainId
               ? {
-                  chainId: selectedChain.chainId,
-                  chainName: selectedChain.chainName,
-                  nativeCurrency: {
-                    name: selectedChain.chainName,
-                    symbol: selectedChain.symbol,
-                    decimals: selectedChain.decimals,
-                  },
-                  rpcUrls: [selectedChain.rpcUrl],
-                }
+                chainId: selectedChain.chainId,
+                chainName: selectedChain.chainName,
+                nativeCurrency: {
+                  name: selectedChain.chainName,
+                  symbol: selectedChain.symbol,
+                  decimals: selectedChain.decimals,
+                },
+                rpcUrls: [selectedChain.rpcUrl],
+              }
               : { chainId: `${chainId}` },
           ],
         });
@@ -337,6 +337,8 @@ export const Web3ContextProvider = (props) => {
 
     setDeposits(deposits);
   };
+
+  
 
   return (
     <Web3Context.Provider

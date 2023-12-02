@@ -1,15 +1,12 @@
-import { Select } from '@mui/material';
-import { Formik } from 'formik';
+
 import React from 'react';
-import { Dropdown } from 'react-bootstrap';
-import { Liquidstake } from './Liquidstake'
 import { Link } from 'react-router-dom';
 import { LiquidStakeContext } from './LiquidstateContext';
 const LiquidStakeCards = () => {
 
 
     const liquidContext = React.useContext(LiquidStakeContext);
-    const { stake, getCcipBalance} = liquidContext;
+    const { stake, getCcipBalance } = liquidContext;
     getCcipBalance();
     return (
         <>
@@ -72,8 +69,8 @@ const LiquidStakeCards = () => {
                                     </div>
                                     <div className="col-xl-6 d-flex justify-content-center">
                                         <Link
-                                        onClick={stake}
-                                        to={"#"} className="btn btn-primary py-2 text-uppercase">Stake Now</Link>
+                                            onClick={stake}
+                                            to={"#"} className="btn btn-primary py-2 text-uppercase">Stake Now</Link>
                                     </div>
                                 </div>
 

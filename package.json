@@ -7,12 +7,12 @@
     "@chainlink/contracts": "^0.8.0",
     "@chainlink/contracts-ccip": "^0.7.6",
     "@chainlink/env-enc": "^1.0.5",
-    "@mui/material": "^5.14.18",
     "@n8tb1t/use-scroll-position": "^2.0.3",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "@transak/transak-sdk": "^2.0.1",
+    "@vercel/analytics": "^1.1.1",
     "assert": "^2.1.0",
     "axios": "^1.2.0",
     "crypto": "^1.0.1",
@@ -46,9 +46,9 @@
     "swiper": "^8.4.5",
     "url": "^0.11.3",
     "web-vitals": "^2.1.4",
-    "yup": "^0.32.11",
+    "web3": "^1.8.2",
     "web3modal": "^1.9.12",
-    "web3": "^1.8.2"
+    "yup": "^0.32.11"
   },
   "scripts": {
     "start": "react-app-rewired start",

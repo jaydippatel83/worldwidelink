@@ -11,7 +11,6 @@ import Home from "./components/Dashboard/Home";
 import Error404 from "./pages/Error404";
 import { ThemeContext } from "../context/ThemeContext";
 import Trnasfer from "./components/Transfer";
-// import LiquidStakeCards from "./components/LiquidStake/LiquidStakeCards";
 import { Liquidstake } from "./components/LiquidStake/Liquidstake";
 import SosAlert from "./components/Sos";
 import Escrow from "./components/Escrow";

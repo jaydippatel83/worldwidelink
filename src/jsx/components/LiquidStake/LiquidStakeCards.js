@@ -1,5 +1,5 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { LiquidStakeContext } from './LiquidstateContext';
 const LiquidStakeCards = () => {
@@ -7,11 +7,14 @@ const LiquidStakeCards = () => {
 
     const liquidContext = React.useContext(LiquidStakeContext);
     const { stake, getCcipBalance } = liquidContext;
-    getCcipBalance();
+
+    // useEffect(() => {
+    //     getCcipBalance();
+    // }, [])
+
     return (
         <>
-
-            <div className='container-fluid d-flex justify-content-center align-items-center mt-5'>
+            <div className='container justify-content-center align-items-center '>
                 <div className="col-xl">
                     <div className="card">
                         <div className="card-header border-0 pb-0">

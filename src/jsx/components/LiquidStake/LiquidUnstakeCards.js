@@ -5,11 +5,11 @@ export default function LiquidUnstakeCards() {
 
 
     const liquidContext = React.useContext(LiquidStakeContext);
-    const { unStake} = liquidContext;
+    const { unStake } = liquidContext;
     return (
         <>
 
-            <div className='container-fluid d-flex justify-content-center align-items-center mt-5'>
+            <div className='container  justify-content-center align-items-center'>
                 <div className="col-xl">
                     <div className="card">
                         <div className="card-header border-0 pb-0">
@@ -55,11 +55,11 @@ export default function LiquidUnstakeCards() {
                                 </div>
 
                                 <div className='row mt-4'>
-                                    
+
                                     <div className="col-xl-6 d-flex justify-content-center">
                                         <Link
-                                        onClick={unStake}
-                                         to={"#"} className="btn btn-primary py-2 text-uppercase">UnStake Now</Link>
+                                            onClick={unStake}
+                                            to={"#"} className="btn btn-primary py-2 text-uppercase">UnStake Now</Link>
                                     </div>
                                 </div>
 

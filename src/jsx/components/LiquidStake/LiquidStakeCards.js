@@ -4,7 +4,7 @@ import React from 'react';
 import { Dropdown } from 'react-bootstrap';
 import { Liquidstake } from './Liquidstake'
 import { Link } from 'react-router-dom';
-import { LiquidStakeContext } from './LiquidstaeContext';
+import { LiquidStakeContext } from './LiquidstateContext';
 const LiquidStakeCards = () => {
 
 

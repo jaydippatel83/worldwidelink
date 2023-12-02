@@ -1,10 +1,11 @@
 import React from 'react'
-import { Select } from '@mui/material';
-import { Formik } from 'formik';
-import { Dropdown } from 'react-bootstrap';
-import { Liquidstake } from './Liquidstake'
 import { Link } from 'react-router-dom';
+import { LiquidStakeContext } from './LiquidstateContext';
 export default function LiquidUnstakeCards() {
+
+
+    const liquidContext = React.useContext(LiquidStakeContext);
+    const { unStake} = liquidContext;
     return (
         <>
 
@@ -39,7 +40,9 @@ export default function LiquidUnstakeCards() {
 
                                 <div className='row mt-4'>
                                     <div className=" d-flex justify-content-center">
-                                        <Link to={"#"} className="btn btn-primary py-2 text-uppercase"
+                                        <Link
+                                        onClick={unStake}
+                                        to={"#"} className="btn btn-primary py-2 text-uppercase"
                                         >Unstake</Link>
                                     </div>
                                 </div>

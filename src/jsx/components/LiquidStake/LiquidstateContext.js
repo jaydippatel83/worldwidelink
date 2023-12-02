@@ -3,6 +3,7 @@ import { ethers } from 'ethers';
 import { LIQUID_SENDER_CONTRACT_ADDRESS, LIQUID_RECEIVER_CONTRACT_ADDRESS, LIQUID_SENDER_ABI, LIQUID_RECEIVER_ABI, CCIP_TOKEN_ADDRESS_SEPOLIA, CCIP_TOKEN_ADDRESS_MUMBAI } from "../../../constants";
 import { EscrowContext } from "../EscrowContext/EscrowContext";
 import { Web3Context } from "../../../context/Web3Context";
+import { toast } from "react-toastify";
 export const LiquidStakeContext = createContext(undefined);
 
 export const LiquidStakeContextProvider = (props) => {
@@ -22,8 +23,9 @@ const approveToken = async (_amount) => {
 
         const tx = await ccipInstance.approve(LIQUID_SENDER_CONTRACT_ADDRESS, ethers.parseEther(_amount))
         await tx.wait();
- 
-        alert('CCIP Unlocked for stake successfully.');
+
+
+        toast.success("CCIP Unlocked for stake successfully.");
     } catch (error) {
         console.log(error);
     }
@@ -36,7 +38,8 @@ const approveToken = async (_amount) => {
 
             const txx = await liquidSender.stake(ethers.parseEther(_amount), LIQUID_RECEIVER_CONTRACT_ADDRESS, CCIP_TOKEN_ADDRESS_SEPOLIA);
             await txx.wait();
-            alert('CCIP staked successfully.');
+
+            toast.success("CCIP staked successfully.");
         } catch (error) {
             console.log(error);
         }
@@ -49,7 +52,8 @@ const approveToken = async (_amount) => {
             const liquidSender = getLiquidReceiverInstance(signer);
             const txx = await liquidSender.unstake(ethers.parseEther(_amount), LIQUID_SENDER_CONTRACT_ADDRESS, CCIP_TOKEN_ADDRESS_MUMBAI);
             await txx.wait();
-            alert('CCIP unStaked successfully.');
+
+            toast.success("CCIP UnStaked successfully.");
         } catch (error) {
             console.error(error);
         }
@@ -67,7 +71,7 @@ const approveToken = async (_amount) => {
         } else if (chainId == 80001) {
             instance = getCCIPTokenContractInstance(CCIP_TOKEN_ADDRESS_MUMBAI, provider)
         } else {
-            alert(" please switch to sepolia of mumbai testnet.")
+            toast.error("please switch to sepolia of mumbai testnet.");
         }
         const bal = await instance.balanceOf(address);
         setCcipBalance(ethers.formatEther(bal));
@@ -82,7 +86,7 @@ const approveToken = async (_amount) => {
         } else if (chainId == 80001) {
             instance = getLiquidReceiverInstance(provider)
         } else {
-            alert(" please switch to sepolia of mumbai testnet.")
+            toast.error("please switch to sepolia of mumbai testnet.");
         }
         const info = await instance.stakingInfos(address);
         setStakedAmount(ethers.formatEther(info?.stTokenBalance));

@@ -1,5 +1,6 @@
 import React, { useState, createContext, useEffect, useRef } from "react";
 import { ethers } from 'ethers';
+import { toast } from "react-toastify";
 import { CCIP_TOKEN_ABI, ESCROW_ABI, ESCROW_SENDER_CONTRACT_ADDRESS, ESCROW_RECEIVER_CONTRACT_ADDRESS, CCIP_TOKEN_ADDRESS_MUMBAI, CCIP_TOKEN_ADDRESS_SEPOLIA } from "../../../constants";
 export const EscrowContext = createContext(undefined);
 
@@ -38,7 +39,7 @@ export const EscrowContextProvider = (props) => {
             } else if (network?.chainId == 80001) {
                 escroContract = getEscrowContractInstance(ESCROW_RECEIVER_CONTRACT_ADDRESS, provider);
             } else {
-                alert('Please connect to Sepolia or Mumbai network')
+            toast.error("Please connect to Sepolia or Mumbai network");
             }
             let num = await escroContract?.numOfAgreement();
             setTotalNumOfAgreements(Number(num))
@@ -129,7 +130,7 @@ export const EscrowContextProvider = (props) => {
             } else if (network?.chainId == 80001) {
                 escroContract = getEscrowContractInstance(ESCROW_RECEIVER_CONTRACT_ADDRESS, provider);
             } else {
-                alert('Please connect to Sepolia or Mumbai network')
+            toast.error("Please connect to Sepolia or Mumbai network");
             }
             let agreement = await escroContract.agreements(id);
             // console.log(agreement);
@@ -162,7 +163,7 @@ export const EscrowContextProvider = (props) => {
             console.log(error);
         }
         fetchAllAgreements();
-        alert('CCIP staked successfully.');
+        toast.success("CCIP staked successfully.");
     }
 
     const submitWork = async (_agreementId) => {
@@ -177,7 +178,7 @@ export const EscrowContextProvider = (props) => {
             console.log(error);
         }
         fetchAllAgreements();
-        alert('Submitted work successfully.');
+        toast.success("Submitted work successfully.");
     }
     const releaseFund = async (_agreementId) => {
         try {
@@ -187,6 +188,9 @@ export const EscrowContextProvider = (props) => {
 
             const txx = await escroContract.releaseFunds(_agreementId, ESCROW_RECEIVER_CONTRACT_ADDRESS, CCIP_TOKEN_ADDRESS_SEPOLIA);
             await txx.wait();
+
+        toast.success("Funds are released successfully.");
+
         } catch (error) {
             console.log(error);
         }
@@ -204,7 +208,7 @@ export const EscrowContextProvider = (props) => {
                 const txx = await escroContract.setDispute(_agreementId, ESCROW_SENDER_CONTRACT_ADDRESS);
                 await txx.wait();
             } else {
-                alert('please connect to the sepolia or mumbai testnet network!')
+                toast.error('please connect to the sepolia or mumbai testnet network!')
             }
 
         } catch (error) {
@@ -224,7 +228,7 @@ export const EscrowContextProvider = (props) => {
             console.log(error);
         }
         fetchAllAgreements();
-        alert('Cancel Agreement successfully.');
+        toast.success('Cancel Agreement successfully.');
     }
 
 

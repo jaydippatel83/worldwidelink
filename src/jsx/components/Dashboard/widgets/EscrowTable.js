@@ -2,30 +2,19 @@ import React from 'react';
 import { Badge, Card, Col, Dropdown, Table } from 'react-bootstrap';
 import { EscrowContext } from '../../EscrowContext/EscrowContext';
 import { Web3Context } from '../../../../context/Web3Context';
-const svg1 = (
-    <svg width="20px" height="20px" viewBox="0 0 24 24" version="1.1">
-        <g stroke="none" strokeWidth="1" fill="none" fillRule="evenodd">
-            <rect x="0" y="0" width="24" height="24"></rect>
-            <circle fill="#000000" cx="5" cy="12" r="2"></circle>
-            <circle fill="#000000" cx="12" cy="12" r="2"></circle>
-            <circle fill="#000000" cx="19" cy="12" r="2"></circle>
-        </g>
-    </svg>
-);
+
 
 const EscrowTable = () => {
     const escrowContext = React.useContext(EscrowContext);
     const web3Context = React.useContext(Web3Context);
     const { everyAgreementProvider, everyAgreementClient } = escrowContext;
     const { shortAddress } = web3Context;
-    console.log('agrr', everyAgreementClient);
-    console.log('agrr', everyAgreementProvider);
 
     return (
         <Col lg={12}>
             <Card>
                 <Card.Header>
-                    <Card.Title>Recent Escrow Agreements</Card.Title>
+                    <Card.Title>Escrow Agreements</Card.Title>
                 </Card.Header>
                 <Card.Body>
                     <Table responsive>
@@ -64,7 +53,7 @@ const EscrowTable = () => {
                                             <td>{shortAddress(agrmnt?.providerAdd)}</td>
                                             <td>{agrmnt?.agreementAmount} CCIP</td>
                                             <td>
-                                                <span className={agrmnt?.release ? "badge light badge-success" : "badge badge-warning light"}>{agrmnt?.release ? "Successful" : "Pending"}</span>
+                                                <span className={agrmnt?.release ? "badge  badge-success" : "badge badge-warning "}>{agrmnt?.release ? "Successful" : "Pending"}</span>
                                             </td>
                                         </tr>
                                     )
@@ -80,7 +69,7 @@ const EscrowTable = () => {
                                                 <td>{shortAddress(agrmnt?.providerAdd)}</td>
                                                 <td>{agrmnt?.agreementAmount} CCIP</td>
                                                 <td>
-                                                    <span className={agrmnt?.release ? "badge light badge-success" : "badge badge-warning light"}>{agrmnt?.release ? "Successful" : "Pending"}</span>
+                                                    <span className={agrmnt?.release ? "badge  badge-success" : "badge badge-warning  "}>{agrmnt?.release ? "Successful" : "Pending"}</span>
                                                 </td>
                                             </tr>
                                         )

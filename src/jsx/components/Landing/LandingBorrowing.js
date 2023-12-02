@@ -515,13 +515,25 @@ const LandingComponent = () => {
                         </div>
                       </div>
                     </div>
+                    <div className="d-flex flex-wrap justify-content-between">
+                    <div>
                     <button
-                      type="submit"
-                      className="btn flex-fill btn-success py-2 fs-5 text-uppercase px-5"
-                      disabled={isSubmitting}
-                    >
-                      Borrow
-                    </button>
+                        type="submit"
+                        className="btn flex-fill btn-success py-2 fs-5 text-uppercase px-5"
+                        disabled={isSubmitting}
+                      >
+                        Borrow
+                      </button>
+                    </div>
+                     <div>
+                     <button
+                        type="submit"
+                        className="btn flex-fill btn-success py-2 fs-5 text-uppercase px-5"
+                      >
+                        Repay
+                      </button>
+                     </div>
+                    </div>
                   </form>
                 )}
               </Formik>

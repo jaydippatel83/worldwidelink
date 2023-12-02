@@ -10,9 +10,13 @@ import ScrollToTop from "./layouts/ScrollToTop";
 import Home from "./components/Dashboard/Home";
 import Error404 from "./pages/Error404";
 import { ThemeContext } from "../context/ThemeContext";
+<<<<<<< HEAD
 import Trnasfer from "./components/Transfer";
 // import LiquidStakeCards from "./components/LiquidStake/LiquidStakeCards";
 import { Liquidstake } from "./components/LiquidStake/Liquidstake";
+=======
+import Transfer from "./components/Transfer";
+>>>>>>> d34696ea2f674a874a24f113b671fb78b40b0d39
 import SosAlert from "./components/Sos";
 import Escrow from "./components/Escrow";
 import OnRamp from "./components/onRamp/OnRamp";
@@ -24,12 +28,16 @@ import Landing from "../landing/Landing";
 const Markup = () => {
   const allroutes = [
     { url: "home", component: <Landing /> },
+<<<<<<< HEAD
     { url: "transfer", component: <Trnasfer /> },
     { url: "liquidstake", component: <Liquidstake /> },
+=======
+    { url: "transfer", component: <Transfer /> },
+>>>>>>> d34696ea2f674a874a24f113b671fb78b40b0d39
     { url: "sos", component: <SosAlert /> },
     { url: "escrow", component: <Escrow /> },
     { url: "onramp", component: <OnRamp /> },
-    { url: "landing", component: <LandingComponent /> },
+    { url: "lending", component: <LandingComponent /> },
     /// Dashboard
     { url: "", component: <Home /> },
     { url: "dashboard", component: <Home /> }

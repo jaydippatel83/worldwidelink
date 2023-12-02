@@ -6,17 +6,28 @@ import { BrowserRouter } from 'react-router-dom';
 import ThemeContext from "./context/ThemeContext";
 import { Web3ContextProvider } from './context/Web3Context';
 import { EscrowContextProvider } from './jsx/components/EscrowContext/EscrowContext';
+<<<<<<< HEAD
 import { LiquidStakeContextProvider } from './jsx/components/LiquidStake/LiquidstateContext';
+=======
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+>>>>>>> d34696ea2f674a874a24f113b671fb78b40b0d39
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter basename='/'>
+      <ToastContainer />
       <ThemeContext>
         <Web3ContextProvider>
           <EscrowContextProvider>
+<<<<<<< HEAD
             <LiquidStakeContextProvider>
               <App />
             </LiquidStakeContextProvider>
+=======
+            <App />
+>>>>>>> d34696ea2f674a874a24f113b671fb78b40b0d39
           </EscrowContextProvider>
         </Web3ContextProvider>
       </ThemeContext>

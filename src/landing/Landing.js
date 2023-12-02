@@ -8,7 +8,8 @@ import Shape3 from "./../assets/images/home-banner/shape3.png";
 import wallet from "./../assets/images/icons/wallet.svg";
 import friend from "./../assets/images/icons/friend.svg";
 
-import coin4 from "./../assets/images/coins/coin4.png";
+import pitch from "../images/logo/wwl_pitch.png";
+
 
 // import '../assets/css/style.css'
 import Header from "./Header";
@@ -56,7 +57,7 @@ function Landing() {
             <div className="main-bnr style-1">
               <div className="container">
                 <div className="row align-items-center">
-                  <div className="col-8 text-center mx-auto">
+                  <div className="col-12 col-md-9 col-lg-9 col-sm-10 col-xxl-9 text-center mx-auto">
                     <h1 className="">Cross-Chain DeFi Hub</h1>
                     <p className="text text-white ">
                       CCIP-powered DeFi platform offering cross-chain
@@ -87,7 +88,7 @@ function Landing() {
                 <div className="currancy-wrapper">
                   <div className="row justify-content-center">
                     <div className="col">
-                      <img src={bannerBg} alt="" height="300" />
+                      <img src={pitch} alt="" height="300" />
                     </div>
                   </div>
                 </div>

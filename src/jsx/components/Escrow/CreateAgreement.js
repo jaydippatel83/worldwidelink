@@ -3,16 +3,21 @@ import { EscrowContext } from '../EscrowContext/EscrowContext'
 import { destinationChainContractAddress, CCIP_TOKEN_ABI, CCIP_TOKEN_ADDRESS_SEPOLIA, ESCROW_SENDER_CONTRACT_ADDRESS, ESCROW_ABI, CCIP_TOKEN_ADDRESS_MUMBAI, ESCROW_RECEIVER_CONTRACT_ADDRESS } from '../../../constants';
 import Web3Modal from "web3modal";
 import { ethers } from 'ethers';
+import { Web3Context } from "../../../context/Web3Context";
 
 export default function CreateAgreement() {
 
     const escrowContext = React.useContext(EscrowContext);
+    const web3Context = React.useContext(Web3Context);
+
     const { getProviderOrSigner, getCCIPTokenContractInstance, getEscrowContractInstance, fetchAgreementById, fetchAllAgreements } = escrowContext;
+
+    const { address } = web3Context;
 
     const [title, setTitle] = useState('');
     const [serviceProviderAddress, setServiceProviderAddress] = useState();
     const [arbitratorAddress, setArbitratorAddress] = useState();
-    const [clientAddress, setClientAddress] = useState(localStorage.getItem('address'));
+    const [clientAddress, setClientAddress] = useState(address);
     const [loading, setLoading] = useState(false);
     const [everyAgreementAsClient, setEveryAgreementAsClient] = useState([]);
     const [amount, setAmount] = useState(0);
@@ -22,6 +27,7 @@ export default function CreateAgreement() {
     const [selectChain, setSelectChain] = useState('Mumbai testnet');
     const [chainContractAddress, setChainContractAddress] = useState(destinationChainContractAddress['Mumbai testnet']);
 
+    // let clientAddress = address;
 
     const createAgreement = async () => {
         // let receiverContract = "0xf1E3A5842EeEF51F2967b3F05D45DD4f4205FF40";
@@ -29,6 +35,7 @@ export default function CreateAgreement() {
         //     alert('Please enter all required fields.');
         //     return;
         // }
+
 
         const signer = await getProviderOrSigner(true);
 

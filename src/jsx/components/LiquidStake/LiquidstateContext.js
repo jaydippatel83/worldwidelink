@@ -2,12 +2,15 @@ import React, { useState, createContext, useEffect, useRef } from "react";
 import { ethers } from 'ethers';
 import { LIQUID_SENDER_CONTRACT_ADDRESS, LIQUID_RECEIVER_CONTRACT_ADDRESS, LIQUID_SENDER_ABI, LIQUID_RECEIVER_ABI, CCIP_TOKEN_ADDRESS_SEPOLIA, CCIP_TOKEN_ADDRESS_MUMBAI } from "../../../constants";
 import { EscrowContext } from "../EscrowContext/EscrowContext";
+import { Web3Context } from "../../../context/Web3Context";
 export const LiquidStakeContext = createContext(undefined);
 
 export const LiquidStakeContextProvider = (props) => {
 
     const escrowContext = React.useContext(EscrowContext);
+    const web3context = React.useContext(EscrowContext);
     const { getCCIPTokenContractInstance, getProviderOrSigner } = escrowContext;
+    const { address } = web3context;
     const stake = async () => {
         try {
             const signer = await getProviderOrSigner(true);
@@ -25,17 +28,12 @@ export const LiquidStakeContextProvider = (props) => {
         } catch (error) {
             console.log(error);
         }
-       
+
     }
 
     const unStake = async () => {
         try {
             const signer = await getProviderOrSigner(true);
-
-            // const ccipInstance = getCCIPTokenContractInstance(CCIP_TOKEN_ADDRESS_SEPOLIA, signer);
-
-            // const tx = await ccipInstance.approve(LIQUID_SENDER_CONTRACT_ADDRESS, ethers.parseEther("0.1"))
-            // await tx.wait();
             const liquidSender = getLiquidReceiverInstance(signer);
             const txx = await liquidSender.unstake(ethers.parseEther("0.1"), LIQUID_SENDER_CONTRACT_ADDRESS, CCIP_TOKEN_ADDRESS_MUMBAI);
             await txx.wait();
@@ -43,9 +41,28 @@ export const LiquidStakeContextProvider = (props) => {
         } catch (error) {
             console.error(error);
         }
-       
+
     }
-    
+
+    const getCcipBalance = async () => {
+        console.log('addr--',address)
+        console.log('local--',localStorage.getItem('address'))
+        const provider = await getProviderOrSigner();
+        const network = await provider.getNetwork();
+        let chainId = network?.chainId
+        let instance;
+        if (chainId == 11155111) {
+            instance = getCCIPTokenContractInstance(CCIP_TOKEN_ADDRESS_SEPOLIA, provider)
+        }else if (chainId == 80001){
+            instance = getCCIPTokenContractInstance(CCIP_TOKEN_ADDRESS_MUMBAI, provider)
+        }else{
+            alert(" please switch to sepolia of mumbai testnet.")
+        }
+        console.log(localStorage.getItem('address'));
+        const bal = await instance.balanceOf(localStorage.getItem("address"));
+        console.log(bal);
+    }
+
     const getLiquidSenderInstance = (providerOrSigner) => {
         return new ethers.Contract(
             LIQUID_SENDER_CONTRACT_ADDRESS,
@@ -66,7 +83,8 @@ export const LiquidStakeContextProvider = (props) => {
         <LiquidStakeContext.Provider
             value={{
                 stake,
-                unStake
+                unStake,
+                getCcipBalance
 
 
             }}

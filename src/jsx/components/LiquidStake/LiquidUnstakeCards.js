@@ -14,11 +14,11 @@ export default function LiquidUnstakeCards() {
                     <div className="card">
                         <div className="card-header border-0 pb-0">
                             Available to stake
-                            <h4>1.5 MATIC</h4>
+                            <h4>1.5 CCIP</h4>
                         </div>
                         <div className="card-header border-0 pb-0">
                             Staked Amount
-                            <h4>1.5 stMATIC</h4>
+                            <h4>1.5 CCIP</h4>
                         </div>
                         <div className="card-body pt-2 mt-0">
 
@@ -29,8 +29,8 @@ export default function LiquidUnstakeCards() {
                                         defaultValue={"option"}
                                         className="form-control form-control-lg"
                                     >
-                                        <option>Sepolia Testnet</option>
                                         <option>Mumbai Testnet</option>
+                                        <option>Sepolia Testnet</option>
                                         <option>Fuji Testnet</option>
                                         <option>BNB chain Testnet</option>
                                         <option>Base Goerli Testnet</option>
@@ -55,11 +55,11 @@ export default function LiquidUnstakeCards() {
                                 </div>
 
                                 <div className='row mt-4'>
+                                    
                                     <div className="col-xl-6 d-flex justify-content-center">
-                                        <Link to={"#"} className="btn btn-primary py-2 text-uppercase p-5">Unlock Token</Link>
-                                    </div>
-                                    <div className="col-xl-6 d-flex justify-content-center">
-                                        <Link to={"#"} className="btn btn-primary py-2 text-uppercase">Stake Now</Link>
+                                        <Link
+                                        onClick={unStake}
+                                         to={"#"} className="btn btn-primary py-2 text-uppercase">UnStake Now</Link>
                                     </div>
                                 </div>
 

@@ -9,7 +9,8 @@ const LiquidStakeCards = () => {
 
 
     const liquidContext = React.useContext(LiquidStakeContext);
-    const { stake} = liquidContext;
+    const { stake, getCcipBalance} = liquidContext;
+    getCcipBalance();
     return (
         <>
 

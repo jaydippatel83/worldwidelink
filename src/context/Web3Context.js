@@ -334,6 +334,8 @@ export const Web3ContextProvider = (props) => {
     setDeposits(deposits);
   };
 
+  
+
   return (
     <Web3Context.Provider
       value={{

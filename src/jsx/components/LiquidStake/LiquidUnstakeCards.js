@@ -70,7 +70,7 @@ export default function LiquidUnstakeCards() {
 
                                 <div className='row mt-4'>
                                     
-                                    <div className="col-xl-6 d-flex justify-content-center">
+                                    <div className=" d-flex justify-content-center">
                                         <Link
                                         onClick={ () => unStake(fieldValue)}
                                          to={"#"} className="btn btn-primary py-2 text-uppercase">UnStake Now</Link>

@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-// import { Select } from '@mui/material';
 import { Formik } from 'formik';
 import { Dropdown } from 'react-bootstrap';
 import { Liquidstake } from './Liquidstake'
@@ -20,7 +19,7 @@ const LiquidStakeCards = () => {
     return (
         <>
 
-            <div className='container d-flex justify-content-center align-items-center mt-5'>
+            <div className='container col-xl-8 d-flex justify-content-center align-items-center mt-5'>
                 <div className="col-xl">
                     <div className="card">
                         <div className="card-header border-0 pb-0">
@@ -57,13 +56,17 @@ const LiquidStakeCards = () => {
 
                                     <input
                                         id="amount"
-                                        className="form-control"
+                                        className="form-control lg"
+                                        style={{ height: "3.5rem" }}
+
                                         onChange={handleFieldValue}
                                         value={fieldValue}
                                     />
                                     <button
                                         className="btn btn-outline-primary btn-outline-primary "
                                         type="button"
+                                        style={{ height: "3.5rem" }}
+
                                         onClick={() => {
                                             setFieldValue(ccipBalance);
                                         }}

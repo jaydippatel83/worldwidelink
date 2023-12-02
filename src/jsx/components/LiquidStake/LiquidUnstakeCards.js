@@ -18,7 +18,7 @@ export default function LiquidUnstakeCards() {
     return (
         <>
 
-            <div className='container  justify-content-center align-items-center'>
+            <div className='container col-xl-8 d-flex justify-content-center align-items-center mt-5'>
                 <div className="col-xl">
                     <div className="card">
                         <div className="card-header border-0 pb-0">

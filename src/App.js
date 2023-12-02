@@ -23,7 +23,7 @@ function App(props) {
           console.error('Error loading CSS:', error);
         }
       } else {
-        console.log("home");
+        // console.log("home");
       }
     };
 

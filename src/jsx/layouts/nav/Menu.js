@@ -30,6 +30,12 @@ export const MenuList = [
         to: 'onramp',
     },
     {
+        title: 'Liquid Stake',
+        classsChange: 'mm-collapse',
+        iconStyle: <i className="material-icons">water_drop</i>,
+        to: 'liquidstake',
+    },
+    {
         title: 'SOS Alert',
         classsChange: 'mm-collapse',
         iconStyle: <i className="material-icons">warning</i>,

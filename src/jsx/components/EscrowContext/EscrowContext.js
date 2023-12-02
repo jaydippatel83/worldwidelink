@@ -13,7 +13,7 @@ export const EscrowContextProvider = (props) => {
 
     useEffect(() => {
         getNumOfAgreements()
-        console.log(totalNumOfAgreement);
+        // console.log(totalNumOfAgreement);
         if (totalNumOfAgreement > 0) {
             fetchAllAgreements();
         }
@@ -103,7 +103,7 @@ export const EscrowContextProvider = (props) => {
             const allAgrmnt = [];
             for (let i = 1; i <= totalNumOfAgreement; i++) {
                 const agreement = await fetchAgreementById(i);
-                console.log(agreement);
+                // console.log(agreement);
                 allAgrmnt.push(agreement);
 
             }

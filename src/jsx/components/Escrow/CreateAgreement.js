@@ -67,106 +67,106 @@ export default function CreateAgreement() {
 
     };
 
-
-
     return (
-        <div className="row mt-3">
-            <div className="col-xl-12 col-lg-12">
-                <div className="card">
-                    <div className="card-body">
-                        <div className="basic-form">
-                            <form onSubmit={(e) => e.preventDefault()}>
-                                <div className="form-group mb-3">
-                                    <label>Agreement Title</label>
+        <>
+            <div className='container'>
+                <div className="container col-xl-12 col-lg-12">
+                    <div className="card">
+                        <div className="card-body">
+                            <div className="basic-form">
+                                <form onSubmit={(e) => e.preventDefault()}>
+                                    <div className="form-group mb-3">
+                                        <label>Agreement Title</label>
 
-                                    <input
-                                        type="text"
-                                        className="form-control input-default form-control-lg "
-                                        placeholder="Agreement Title"
-                                        onChange={(e) => {
-                                            setTitle(e.target.value)
-                                        }}
-                                    />
-                                </div>
-
-                                <div className="row">
-                                    <div className="form-group mb-3 col-md-6">
-                                        <label htmlFor="contractDropdown">Destination Chain</label>
-                                        <select
-                                            id="contractDropdown"
-                                            value={selectChain}
-                                            onChange={handleChange}
-                                            defaultValue={"option"}
-                                            className="form-control form-control-lg" aria-label="label for the select"
-                                        >
-
-                                            {Object.keys(destinationChainContractAddress).map((key) => (
-                                                <option key={key} value={key}>
-                                                    {key}
-                                                </option>
-                                            ))}
-
-                                        </select>
-                                    </div>
-                                    <div className="form-group mb-3 col-md-6">
-                                        <label>Amount</label>
                                         <input
-                                            type="number"
-                                            className="form-control form-control-lg"
-                                            placeholder="0.1"
+                                            type="text"
+                                            className="form-control input-default form-control-lg "
+                                            placeholder="Agreement Title"
                                             onChange={(e) => {
-                                                setAmount(e.target.value);
-                                                setFund((Number(e.target.value) * 2).toString());
+                                                setTitle(e.target.value)
                                             }}
                                         />
                                     </div>
-                                </div>
 
-                                <div style={{ overflow: "hidden", textAlign: "center" }} >
-                                    <h5 className='note-class'>
-                                        {amount > 0 ? <div><p>Note that you have to provide    <span style={{ color: "red", fontSize: "20px" }}>{fund}</span>  CCIP-BnM  to Stake</p></div> : ""}
-                                    </h5>
-                                </div>
+                                    <div className="row">
+                                        <div className="form-group mb-3 col-md-6">
+                                            <label htmlFor="contractDropdown">Destination Chain</label>
+                                            <select
+                                                id="contractDropdown"
+                                                value={selectChain}
+                                                onChange={handleChange}
+                                                defaultValue={"option"}
+                                                className="form-control form-control-lg" aria-label="label for the select"
+                                            >
+
+                                                {Object.keys(destinationChainContractAddress).map((key) => (
+                                                    <option key={key} value={key}>
+                                                        {key}
+                                                    </option>
+                                                ))}
+
+                                            </select>
+                                        </div>
+                                        <div className="form-group mb-3 col-md-6">
+                                            <label>Amount</label>
+                                            <input
+                                                type="number"
+                                                className="form-control form-control-lg"
+                                                placeholder="0.1"
+                                                onChange={(e) => {
+                                                    setAmount(e.target.value);
+                                                    setFund((Number(e.target.value) * 2).toString());
+                                                }}
+                                            />
+                                        </div>
+                                    </div>
+
+                                    <div style={{ overflow: "hidden", textAlign: "center" }} >
+                                        <h5 className='note-class'>
+                                            {amount > 0 ? <div><p>Note that you have to provide    <span style={{ color: "red", fontSize: "20px" }}>{fund}</span>  CCIP-BnM  to Stake</p></div> : ""}
+                                        </h5>
+                                    </div>
 
 
-                                <div className="form-group mb-3">
-                                    <label>Service Provider</label>
+                                    <div className="form-group mb-3">
+                                        <label>Service Provider</label>
 
-                                    <input
-                                        type="text"
-                                        className="form-control input-default form-control-lg "
-                                        placeholder="Address of service Provider"
-                                        onChange={(e) => {
-                                            setServiceProviderAddress(e.target.value)
-                                        }}
-                                    />
-                                </div>
-                                <div className="form-group mb-3">
-                                    <label>Arbitrator</label>
-                                    <input
-                                        type="text"
-                                        className="form-control input-default form-control-lg "
-                                        placeholder="Address of Arbitrator"
-                                        onChange={(e) => {
-                                            setArbitratorAddress(e.target.value)
-                                        }}
-                                    />
-                                </div>
-                                <div class="text-center mt-4">
-                                    <button type="button" class="btn btn-primary"
-                                        // onClick={stakeCcipProvider}
-                                        // onClick={submitWork}
-                                        // onClick={releaseFund}
-                                        onClick={createAgreement}
-                                    // onClick={fetchAllAgreements}
+                                        <input
+                                            type="text"
+                                            className="form-control input-default form-control-lg "
+                                            placeholder="Address of service Provider"
+                                            onChange={(e) => {
+                                                setServiceProviderAddress(e.target.value)
+                                            }}
+                                        />
+                                    </div>
+                                    <div className="form-group mb-3">
+                                        <label>Arbitrator</label>
+                                        <input
+                                            type="text"
+                                            className="form-control input-default form-control-lg "
+                                            placeholder="Address of Arbitrator"
+                                            onChange={(e) => {
+                                                setArbitratorAddress(e.target.value)
+                                            }}
+                                        />
+                                    </div>
+                                    <div class="text-center mt-4">
+                                        <button type="button" class="btn btn-primary"
+                                            // onClick={stakeCcipProvider}
+                                            // onClick={submitWork}
+                                            // onClick={releaseFund}
+                                            onClick={createAgreement}
+                                            // onClick={fetchAllAgreements}
 
-                                    >Create escrow</button>
-                                </div>
-                            </form>
+                                        >Create escrow</button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div >
-        </div>
+                </div >
+            </div>
+        </>
     )
 }

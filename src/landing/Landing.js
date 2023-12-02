@@ -8,7 +8,8 @@ import Shape3 from "./../assets/images/home-banner/shape3.png";
 import wallet from "./../assets/images/icons/wallet.svg";
 import friend from "./../assets/images/icons/friend.svg";
 
-import coin4 from "./../assets/images/coins/coin4.png";
+import pitch from "../images/logo/wwl_pitch.png";
+
 
 // import '../assets/css/style.css'
 import Header from "./Header";
@@ -87,7 +88,7 @@ function Landing() {
                 <div className="currancy-wrapper">
                   <div className="row justify-content-center">
                     <div className="col">
-                      <img src={bannerBg} alt="" height="300" />
+                      <img src={pitch} alt="" height="300" />
                     </div>
                   </div>
                 </div>

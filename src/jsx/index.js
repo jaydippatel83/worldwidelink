@@ -11,9 +11,7 @@ import Home from "./components/Dashboard/Home";
 import Error404 from "./pages/Error404";
 import { ThemeContext } from "../context/ThemeContext";
 import Trnasfer from "./components/Transfer";
-// import LiquidStakeCards from "./components/LiquidStake/LiquidStakeCards";
 import { Liquidstake } from "./components/LiquidStake/Liquidstake";
-import Transfer from "./components/Transfer";
 import SosAlert from "./components/Sos";
 import Escrow from "./components/Escrow";
 import OnRamp from "./components/onRamp/OnRamp";
@@ -27,7 +25,6 @@ const Markup = () => {
     { url: "home", component: <Landing /> },
     { url: "transfer", component: <Trnasfer /> },
     { url: "liquidstake", component: <Liquidstake /> },
-    { url: "transfer", component: <Transfer /> },
     { url: "sos", component: <SosAlert /> },
     { url: "escrow", component: <Escrow /> },
     { url: "onramp", component: <OnRamp /> },

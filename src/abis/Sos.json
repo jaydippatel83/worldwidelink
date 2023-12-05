@@ -10,6 +10,11 @@
 				"internalType": "address",
 				"name": "_tokenAddress",
 				"type": "address"
+			},
+			{
+				"internalType": "address",
+				"name": "_externalRequest",
+				"type": "address"
 			}
 		],
 		"stateMutability": "nonpayable",
@@ -44,6 +49,11 @@
 				"internalType": "string",
 				"name": "message",
 				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "triggerVal",
+				"type": "uint256"
 			}
 		],
 		"stateMutability": "view",
@@ -81,6 +91,19 @@
 				"internalType": "uint256",
 				"name": "",
 				"type": "uint256"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "externalRequest",
+		"outputs": [
+			{
+				"internalType": "contract ExternalRequestContract",
+				"name": "",
+				"type": "address"
 			}
 		],
 		"stateMutability": "view",
@@ -198,6 +221,11 @@
 				"internalType": "string",
 				"name": "message",
 				"type": "string"
+			},
+			{
+				"internalType": "uint256",
+				"name": "triggerVal",
+				"type": "uint256"
 			}
 		],
 		"name": "setAlert",

@@ -16,6 +16,7 @@ import { networks, chainsIds } from "../../../network";
 const chains = [
   { value: "sepolia", label: "Sepolia testnet", chainId: 11155111 },
   { value: "mumbai", label: "Mumbai testnet", chainId: 80001 },
+  { value: "fuji", label: "Avalanche Fuji Testnet", chainId: 43113 },
 ];
 
 const protocols = [
@@ -197,7 +198,6 @@ const LandingComponent = () => {
                             onChange={(value) => {
                               setFieldValue("to", value);
                               setTo(value);
-                              switchNetwork(ethers.toQuantity(value.chainId));
                             }}
                             options={chains}
                             onBlur={handleBlur}

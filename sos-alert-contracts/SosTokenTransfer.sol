@@ -1,10 +1,11 @@
 // SPDX-License-Identifier: MIT
-pragma solidity ^0.8.19;
+pragma solidity ^0.8.20;
 
 // AutomationCompatible.sol imports the functions from both ./AutomationBase.sol and
 // ./interfaces/AutomationCompatibleInterface.sol
 import "@chainlink/contracts/src/v0.8/automation/AutomationCompatible.sol";
 import "@openzeppelin/contracts/token/ERC20/IERC20.sol";
+import "./ExternalRequestContract.sol";
 
 /**
  * @dev Example contract, use the Forwarder as needed for additional security.
@@ -30,6 +31,7 @@ contract SosTokenTransfer is AutomationCompatibleInterface {
         address walletAddress;
         uint256 inactivityThreshold;
         string message;
+        uint256 triggerVal;
     }
 
     /**
@@ -42,11 +44,13 @@ contract SosTokenTransfer is AutomationCompatibleInterface {
     mapping(address => alert) public alerts;
     address[] public users;
 
-    constructor(uint256 updateInterval, address _tokenAddress) {
+     ExternalRequestContract public externalRequest;
+
+    constructor(uint256 updateInterval, address _tokenAddress, address _externalRequest) {
         interval = updateInterval;
         lastTimeStamp = block.timestamp;
         tokenAddress = _tokenAddress;
-
+        externalRequest = ExternalRequestContract(_externalRequest);
         counter = 0;
     }
 
@@ -67,8 +71,8 @@ contract SosTokenTransfer is AutomationCompatibleInterface {
        
     }
 
-    function setAlert(address user, string memory email, uint256 inactivityThreshold, string memory message) external {
-         alert memory newAlert = alert(email, user, inactivityThreshold, message);
+    function setAlert(address user, string memory email, uint256 inactivityThreshold, string memory message, uint256 triggerVal) external {
+         alert memory newAlert = alert(email, user, inactivityThreshold, message, triggerVal);
          alerts[user] = newAlert;
     }
 
@@ -84,23 +88,32 @@ contract SosTokenTransfer is AutomationCompatibleInterface {
         // We don't use the checkData in this example. The checkData is defined when the Upkeep was registered.
     }
 
-     function tokenTranfer(address user) internal {
+     function tokenTranfer(address user) internal returns(bool) {
         uint256 balance = IERC20(tokenAddress).balanceOf(address(this));
-        require(balance >= 0, "Insufficient balance");
+        require(balance > 0, "Insufficient balance");
         IERC20 token = IERC20(tokenAddress);
-        token.transfer(user, balance);
+        bool transferSuccess = token.transfer(user, balance);
+        return transferSuccess;
     }
 
-    function performUpkeep(bytes calldata /* performData */) external override {
+    function performUpkeep(bytes calldata /* performData    */) external override {
         if ((block.timestamp - lastTimeStamp) > interval) {
             lastTimeStamp = block.timestamp;
            
              for(uint256 i = 0; i < users.length; i++){
                
                 uint256 lastLogin = lastLoginTime[users[i]];
+            
                 if(block.timestamp - lastLogin > alerts[users[i]].inactivityThreshold){
                    counter = counter + 1;
-                   tokenTranfer(users[i]);
+                   if(alerts[users[i]].triggerVal == 2){
+                    bool transferResult = tokenTranfer(users[i]);
+                    if (transferResult) {
+                        externalRequest.requestInfo(alerts[users[i]].message, alerts[users[i]].email);
+                     }
+                   }else{
+                     externalRequest.requestInfo(alerts[users[i]].message, alerts[users[i]].email);
+                   }
                 }
              }
            

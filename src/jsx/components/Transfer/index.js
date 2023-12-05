@@ -15,11 +15,9 @@ const Transfer = () => {
 
   const handleChangeFrom = (event) => {
     setFromChain(event.target.value);
-    console.log(event.target.value, "from");
   };
   const handleChangeTO = (event) => {
     setToChain(event.target.value);
-    console.log(event.target.value, "To");
   };
 
   const handleSwap = () => {
@@ -91,10 +89,8 @@ const Transfer = () => {
           ccipBnMAmountInWei
         );
         await transactionTransfer.wait();
-        console.log(transactionTransfer, "transactionTransfer");
-        console.log(transferorContract, "contract address");
         let whitelistChain = await transferorContract.allowlistDestinationChain(destinationChain, true);
-        console.log("Allowlist Chain:", whitelistChain);
+
 
         const amountInWei = ethers.parseEther(amount.toString());
 
@@ -104,10 +100,6 @@ const Transfer = () => {
           token,
           amountInWei.toString()
         );
-        console.log(destinationChain, "destinationChain");
-        console.log(address, "address");
-        console.log(token, "token");
-        console.log(amountInWei.toString(), "amount");
         console.log('Transfer successful. Message ID:', messageId);
       } else {
         console.error("MetaMask not detected. Please install MetaMask extension.");

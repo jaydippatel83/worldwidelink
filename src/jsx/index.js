@@ -17,6 +17,7 @@ import Escrow from "./components/Escrow";
 import OnRamp from "./components/onRamp/OnRamp";
 import LandingComponent from "./components/Landing/LandingBorrowing";
 import Landing from "../landing/Landing";
+import Airdrop from "./components/Dashboard/widgets/Airdrop";
 
 
 
@@ -31,8 +32,9 @@ const Markup = () => {
     { url: "lending", component: <LandingComponent /> },
     /// Dashboard
     { url: "", component: <Home /> },
-    { url: "dashboard", component: <Home /> }
+    { url: "dashboard", component: <Home /> },
   ];
+
 
 
   return (

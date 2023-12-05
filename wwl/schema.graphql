@@ -1,0 +1,44 @@
+type MessageReceived @entity(immutable: true) {
+  id: Bytes!
+  messageId: Bytes! # bytes32
+  sourceChainSelector: BigInt! # uint64
+  sender: Bytes! # address
+  borrower: Bytes! # address
+  tokenAmount_token: Bytes! # address
+  tokenAmount_amount: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type MessageSent @entity(immutable: true) {
+  id: Bytes!
+  messageId: Bytes! # bytes32
+  destinationChainSelector: BigInt! # uint64
+  receiver: Bytes! # address
+  depositor: Bytes! # address
+  tokenAmount_token: Bytes! # address
+  tokenAmount_amount: BigInt! # uint256
+  fees: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type OwnershipTransferRequested @entity(immutable: true) {
+  id: Bytes!
+  from: Bytes! # address
+  to: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type OwnershipTransferred @entity(immutable: true) {
+  id: Bytes!
+  from: Bytes! # address
+  to: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}

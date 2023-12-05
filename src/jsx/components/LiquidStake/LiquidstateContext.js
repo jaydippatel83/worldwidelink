@@ -88,7 +88,7 @@ export const LiquidStakeContextProvider = (props) => {
         const info = await instance.stakingInfos(address);
         setStakedAmount(ethers.formatEther(info?.stTokenBalance));
     }
-    getStakedAmount();
+
 
     const getLiquidSenderInstance = (providerOrSigner) => {
         return new ethers.Contract(
@@ -114,7 +114,8 @@ export const LiquidStakeContextProvider = (props) => {
                 getCcipBalance,
                 ccipBalance,
                 stakedAmount,
-                approveToken
+                approveToken,
+                getStakedAmount
 
 
             }}

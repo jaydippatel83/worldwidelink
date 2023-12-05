@@ -10,11 +10,12 @@ const LiquidStakeCards = () => {
 
 
     const liquidContext = React.useContext(LiquidStakeContext);
-    const { stake, getCcipBalance, approveToken, ccipBalance, stakedAmount } = liquidContext;
+    const { stake, getCcipBalance, approveToken, ccipBalance, stakedAmount, getStakedAmount } = liquidContext;
     const [fieldValue, setFieldValue] = useState('0.0');
 
     useEffect(() => {
         getCcipBalance();
+        getStakedAmount();
     }, [])
 
     const handleFieldValue = (e) => {

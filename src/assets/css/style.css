@@ -24964,7 +24964,7 @@ ul a.rsswidget:hover {
 .currancy-wrapper {
   position: relative;
   padding: 0 75px;
-  margin-top: -116px;
+  margin-top: -130px;
   z-index: 3;
 }
 
@@ -24982,7 +24982,7 @@ ul a.rsswidget:hover {
 
 @media only screen and (max-width: 1280px) {
   .currancy-wrapper {
-    margin-top: -113px;
+    margin-top: -150px;
   }
 }
 

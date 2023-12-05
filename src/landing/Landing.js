@@ -5,7 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import bannerBg from "../images/background/bg.png";
 import Shape1 from "./../assets/images/home-banner/shape1.png";
 import Shape3 from "./../assets/images/home-banner/shape3.png";
-import pitch from "../images/logo/wwl_pitch.png";
+import pitch from "../images/logo/banner.png";
 import Header from "./Header";
 import Footer from "./Footer";
 import { Web3Context } from "../context/Web3Context";
@@ -79,9 +79,11 @@ function Landing() {
             </div>
             <div className="clearfix bg-primary-light pb-5 pt-5">
               <div className="container">
-                <div className="row justify-content-center">
-                  <div className="col-12 col-lg-10 col-md-10 col-sm-10">
-                    <img src={pitch} alt="" height="300" />
+                <div className="currancy-wrapper">
+                  <div className="row justify-content-center">
+                    <div className="col-12 col-lg-10 col-md-10 col-sm-10">
+                      <img src={pitch} alt="" height="300" />
+                    </div>
                   </div>
                 </div>
               </div>

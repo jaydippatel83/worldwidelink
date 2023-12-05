@@ -16,6 +16,7 @@ const LiquidStakeCards = () => {
     useEffect(() => {
         getStakedAmount();
         getCcipBalance();
+        getStakedAmount();
     }, [])
 
     const handleFieldValue = (e) => {

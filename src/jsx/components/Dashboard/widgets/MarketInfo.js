@@ -40,7 +40,7 @@ const MarketInfo = () => {
             Number(chainId) === 80001 ? priceFeedMaticABI : priceFeedABI,
             signer
         );
-
+        console.log(priceFeedContract, "priceFeedContract");
         const dataFeedResult = await priceFeedContract.getLatestAnswers();
         setDataFeed([...dataFeedResult]);
     }
@@ -51,6 +51,7 @@ const MarketInfo = () => {
     }, [dataFeed])
 
     const formateValue = () => {
+        console.log(dataFeed, "dataFeed");
         const formattedData = dataFeed && dataFeed.map((value, index) => ({
             name: namesArray[index].name,
             image: namesArray[index].imagePath,

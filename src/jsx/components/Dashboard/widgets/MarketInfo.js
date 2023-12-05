@@ -26,9 +26,9 @@ const MarketInfo = () => {
         { name: 'USDC / USD', imagePath: coin },
         { name: netId === 80001 ? 'LINK / USD' : 'BTC / ETH', imagePath: netId === 80001 ? polygon : btc },
     ]
-    useEffect(() => {
-        contractCall();
-    }, []);
+    // useEffect(() => {
+    //     contractCall();
+    // }, []);
 
 
     const contractCall = async () => {

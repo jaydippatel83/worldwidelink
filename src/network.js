@@ -1,13 +1,3 @@
-// All supported networks and related contract addresses are defined here.
-//
-// LINK token addresses: https://docs.chain.link/resources/link-token-contracts/
-// Price feeds addresses: https://docs.chain.link/data-feeds/price-feeds/addresses
-// Chain IDs: https://chainlist.org/?testnets=true
-
-// const { config } = require("dotenv");
-
-// config();
-
 const DEFAULT_VERIFICATION_BLOCK_CONFIRMATIONS = 2;
 
 const PRIVATE_KEY = process.env.REACT_APP_PRIVATE_KEY;
@@ -30,6 +20,7 @@ export const networks = {
     //Contract Addresses
     sender: "0x53cc33bCb8f54BD041210Be871b7b3FAF3884ac2",
     protocol: "0x67179faFCB5Fbf8F106DaFFA3fb70e1369c1Fc3f",
+    sosTokenTransfer: "0x5c79ACdd2845F6478C75338d5BEC6DA85113d13E",
   },
   mumbai: {
     url: process.env.REACT_APP_MUMBAI_RPC_URL || "THIS HAS NOT BEEN SET",
@@ -49,12 +40,36 @@ export const networks = {
     //Contract Addresses
     sender: "0x3Db45de715929b76E0570d01815F20eEe576B9E7",
     protocol: "0x9c29a12d441757AcF45aa106A3905E85C008dFA2",
+    sosTokenTransfer: "0x9C43B1696e8ef98f2D9eb5e084f0e41Da41dE32e",
+    externalRequest: "0x403227Ba96250eaD0f12ba77951d7f65F9E5962d",
+    consumer: "0x6Cf0473b429fE9919a6443D9fFF2c6A1aC897A5e",
+  },
+  fuji: {
+    url: process.env.AVALANCHE_FUJI_RPC_URL || "THIS HAS NOT BEEN SET",
+    router: "0x554472a2720e5e7d5d3c817529aba05eed5f82d8",
+    chainSelector: "14767482510784806043",
+    gasPrice: undefined,
+    accounts: PRIVATE_KEY !== undefined ? [PRIVATE_KEY] : [],
+    verifyApiKey: "THIS HAS NOT BEEN SET",
+    chainId: 43113,
+    confirmations: 2 * DEFAULT_VERIFICATION_BLOCK_CONFIRMATIONS,
+    nativeCurrencySymbol: "AVAX",
+    linkToken: "0x0b9d5D9136855f6FEc3c0993feE6E9CE8a297846",
+    bnmToken: "0xd21341536c5cf5eb1bcb58f6723ce26e8d8e90e4",
+    lnmToken: "0x70f5c5c40b873ea597776da2c21929a8282a3b35",
+    usdcPriceFeed: "0x5498BB86BC934c8D34FDA08E81D444153d0D06aD",  // AVAX / USD
+    daiPriceFeed: "0x34C4c526902d88a3Aa98DB8a9b802603EB1E3470",  // LINK / USD
+    //Contract Addresses
+    sender: "0xD9902C09d1104f068772623F91dC9555545192dd",
+    protocol: "0x2123e642A12d6Ce9B292B9F166971DFa97319b2D",
+    por: "0xe28F1cfe684e907fdb9cC815b50a5dBF5350d007"
   },
 };
 
 export const chainsIds = {
   11155111: "sepolia",
   80001: "mumbai",
+  43113: "fuji"
 };
 
 // module.exports = {

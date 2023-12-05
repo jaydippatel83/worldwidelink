@@ -1,0 +1,33 @@
+specVersion: 0.0.5
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: Sender
+    network: sepolia
+    source:
+      address: "0x53cc33bCb8f54BD041210Be871b7b3FAF3884ac2"
+      abi: Sender
+      startBlock: 4781783
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - MessageReceived
+        - MessageSent
+        - OwnershipTransferRequested
+        - OwnershipTransferred
+      abis:
+        - name: Sender
+          file: ./abis/Sender.json
+      eventHandlers:
+        - event: MessageReceived(indexed bytes32,indexed uint64,address,address,(address,uint256))
+          handler: handleMessageReceived
+        - event: MessageSent(indexed bytes32,indexed uint64,address,address,(address,uint256),uint256)
+          handler: handleMessageSent
+        - event: OwnershipTransferRequested(indexed address,indexed address)
+          handler: handleOwnershipTransferRequested
+        - event: OwnershipTransferred(indexed address,indexed address)
+          handler: handleOwnershipTransferred
+      file: ./src/sender.ts

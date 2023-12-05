@@ -52,7 +52,6 @@ export const Web3ContextProvider = (props) => {
   }, [add]);
 
   async function switchNetwork(chainId) {
-    console.log(chainId, "chainid");
     try {
       const chainData = await window.ethereum.request({
         method: "eth_chainId",
@@ -189,7 +188,6 @@ export const Web3ContextProvider = (props) => {
       price = priceFeed.price;
       decimal = priceFeed.decimal;
     } else {
-      console.log(data.network);
       let priceFeed = await protocolContract.getPriceAndDecimal(
         data.network.daiPriceFeed
       );
@@ -197,7 +195,6 @@ export const Web3ContextProvider = (props) => {
       decimal = priceFeed.decimal;
     }
 
-    console.log(price, decimal);
 
     // Calculate the deposited amount required for the given borrowable amount
     var depositedIn8decimals =
@@ -253,7 +250,6 @@ export const Web3ContextProvider = (props) => {
             tokenAmount,
             fees
           ) => {
-            console.log(messageId, "messageId");
             let txd = await txdepositCCIP.wait();
             setLatestMessageId(messageId);
             toast.success("Congratulation! You supplied asset successfully!");

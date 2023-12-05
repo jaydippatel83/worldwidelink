@@ -54,7 +54,6 @@ export default function CreateAgreement() {
 
             setLoading(false);
             alert('Funds deposited successfully.');
-            console.log('----');
         } catch (error) {
             console.error("Transaction failed:", error.message);
             setLoading(false);
@@ -157,7 +156,7 @@ export default function CreateAgreement() {
                                             // onClick={submitWork}
                                             // onClick={releaseFund}
                                             onClick={createAgreement}
-                                            // onClick={fetchAllAgreements}
+                                        // onClick={fetchAllAgreements}
 
                                         >Create escrow</button>
                                     </div>

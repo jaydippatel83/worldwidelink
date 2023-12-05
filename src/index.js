@@ -10,21 +10,33 @@ import { LiquidStakeContextProvider } from './jsx/components/LiquidStake/Liquids
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Analytics } from '@vercel/analytics/react';
+import { ApolloProvider, ApolloClient, InMemoryCache } from '@apollo/client'
+import { GraphApolloLink } from '@graphprotocol/client-apollo';
+
+
+const client = new ApolloClient({
+  link: new GraphApolloLink(),
+  cache: new InMemoryCache(),
+})
+
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
+
 root.render(
   <React.StrictMode>
     <BrowserRouter basename='/'>
       <ToastContainer />
       <ThemeContext>
-        <Web3ContextProvider>
-          <EscrowContextProvider>
-            <LiquidStakeContextProvider>
-              <App />
-              <Analytics />
-            </LiquidStakeContextProvider>
-          </EscrowContextProvider>
-        </Web3ContextProvider>
+        <ApolloProvider client={client}>
+          <Web3ContextProvider>
+            <EscrowContextProvider>
+              <LiquidStakeContextProvider>
+                <App />
+                <Analytics />
+              </LiquidStakeContextProvider>
+            </EscrowContextProvider>
+          </Web3ContextProvider>
+        </ApolloProvider>
       </ThemeContext>
     </BrowserRouter>
   </React.StrictMode>

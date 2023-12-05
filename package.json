@@ -4,9 +4,11 @@
   "homepage": "",
   "private": true,
   "dependencies": {
+    "@apollo/client": "^3.8.8",
     "@chainlink/contracts": "^0.8.0",
     "@chainlink/contracts-ccip": "^0.7.6",
     "@chainlink/env-enc": "^1.0.5",
+    "@graphprotocol/client-apollo": "^2.0.0",
     "@n8tb1t/use-scroll-position": "^2.0.3",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
@@ -20,6 +22,7 @@
     "dotenv": "^16.3.1",
     "ethers": "^6.6.4",
     "formik": "^2.2.9",
+    "graphql": "^16.8.1",
     "https-browserify": "^1.0.0",
     "node-sass": "^8.0.0",
     "os": "^0.1.2",
@@ -45,6 +48,7 @@
     "stream-http": "^3.2.0",
     "swiper": "^8.4.5",
     "url": "^0.11.3",
+    "urql": "^3.0.3",
     "web-vitals": "^2.1.4",
     "web3": "^1.8.2",
     "web3modal": "^1.9.12",
@@ -76,6 +80,7 @@
     ]
   },
   "devDependencies": {
+    "@graphprotocol/client-cli": "^3.0.0",
     "hardhat": "^2.19.1"
   }
 }

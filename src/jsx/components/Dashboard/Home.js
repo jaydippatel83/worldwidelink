@@ -12,6 +12,7 @@ import CardData from './widgets/CardData';
 import TxTable from './widgets/TxTable';
 import Converter from './widgets/Converter';
 import EscrowTable from './widgets/EscrowTable';
+import Airdrop from './widgets/Airdrop';
 const Home = () => {
 	const [isCssLoaded, setIsCssLoaded] = useState(false);
 	const { changeBackground } = useContext(ThemeContext);
@@ -38,6 +39,7 @@ const Home = () => {
 						{/* <TxTable /> */}
 						<MarketInfo />
 						<Converter />
+						<Airdrop />
 					</div>
 			}
 		</>

@@ -1,4 +1,47 @@
-import { ethers } from "ethers";
+const ethers = require("ethers")
+
+export const priceFeedAddress = "0xd1B48c231eE234C89BC02E6E7C80F75115DFD04D";
+export const priceFeedABI = [
+  {
+    "inputs": [],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "inputs": [],
+    "name": "getLatestAnswers",
+    "outputs": [
+      {
+        "internalType": "int256[]",
+        "name": "",
+        "type": "int256[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  }
+];
+export const priceFeedMatic = "0x6e4563C4F0FE668196C8878Cb89bdEF15b66e9B2";
+export const priceFeedMaticABI = [
+  {
+    "inputs": [],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "inputs": [],
+    "name": "getLatestAnswers",
+    "outputs": [
+      {
+        "internalType": "int256[]",
+        "name": "",
+        "type": "int256[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  }
+];
 
 export const chain = {
   80001: "mumbai",

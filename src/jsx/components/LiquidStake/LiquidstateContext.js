@@ -3,6 +3,7 @@ import { ethers } from 'ethers';
 import { LIQUID_SENDER_CONTRACT_ADDRESS, LIQUID_RECEIVER_CONTRACT_ADDRESS, LIQUID_SENDER_ABI, LIQUID_RECEIVER_ABI, CCIP_TOKEN_ADDRESS_SEPOLIA, CCIP_TOKEN_ADDRESS_MUMBAI } from "../../../constants";
 import { EscrowContext } from "../EscrowContext/EscrowContext";
 import { Web3Context } from "../../../context/Web3Context";
+import { toast } from "react-toastify";
 export const LiquidStakeContext = createContext(undefined);
 
 export const LiquidStakeContextProvider = (props) => {
@@ -13,21 +14,21 @@ export const LiquidStakeContextProvider = (props) => {
     const { address } = web3context;
     const [ccipBalance, setCcipBalance] = useState(0);
     const [stakedAmount, setStakedAmount] = useState(0);
-    
-const approveToken = async (_amount) => {
-    try {
-        const signer = await getProviderOrSigner(true);
 
-        const ccipInstance = getCCIPTokenContractInstance(CCIP_TOKEN_ADDRESS_SEPOLIA, signer);
+    const approveToken = async (_amount) => {
+        try {
+            const signer = await getProviderOrSigner(true);
 
-        const tx = await ccipInstance.approve(LIQUID_SENDER_CONTRACT_ADDRESS, ethers.parseEther(_amount))
-        await tx.wait();
- 
-        alert('CCIP Unlocked for stake successfully.');
-    } catch (error) {
-        console.log(error);
+            const ccipInstance = getCCIPTokenContractInstance(CCIP_TOKEN_ADDRESS_SEPOLIA, signer);
+
+            const tx = await ccipInstance.approve(LIQUID_SENDER_CONTRACT_ADDRESS, ethers.parseEther(_amount))
+            await tx.wait();
+
+            alert('CCIP Unlocked for stake successfully.');
+        } catch (error) {
+            console.log(error);
+        }
     }
-}
     const stake = async (_amount) => {
         try {
             const signer = await getProviderOrSigner(true);
@@ -36,7 +37,7 @@ const approveToken = async (_amount) => {
 
             const txx = await liquidSender.stake(ethers.parseEther(_amount), LIQUID_RECEIVER_CONTRACT_ADDRESS, CCIP_TOKEN_ADDRESS_SEPOLIA);
             await txx.wait();
-            alert('CCIP staked successfully.');
+            toast.success('CCIP staked successfully.');
         } catch (error) {
             console.log(error);
         }
@@ -49,7 +50,7 @@ const approveToken = async (_amount) => {
             const liquidSender = getLiquidReceiverInstance(signer);
             const txx = await liquidSender.unstake(ethers.parseEther(_amount), LIQUID_SENDER_CONTRACT_ADDRESS, CCIP_TOKEN_ADDRESS_MUMBAI);
             await txx.wait();
-            alert('CCIP unStaked successfully.');
+            toast.success('CCIP unStaked successfully.');
         } catch (error) {
             console.error(error);
         }

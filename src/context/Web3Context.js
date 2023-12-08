@@ -8,7 +8,6 @@ import ccipLnMAbi from "../abis/CCIPLnM.json";
 import senderAbi from "../abis/Sender.json";
 import wwlProtocolAbi from "../abis/WorlWideLinkProtocol.json";
 import { toast } from "react-toastify";
-
 export const Web3Context = createContext(undefined);
 
 export const Web3ContextProvider = (props) => {
@@ -48,7 +47,7 @@ export const Web3ContextProvider = (props) => {
   }, [add]);
 
   async function switchNetwork(chainId) {
-    console.log(chainId, "chaim");
+    console.log(chainId, "chainid");
     try {
       const chainData = await window.ethereum.request({
         method: "eth_chainId",
@@ -59,10 +58,7 @@ export const Web3ContextProvider = (props) => {
         (chain) => chain.chainId === chainId
       );
 
-      console.log(selectedChain, "selectedChain");
-
       if (chainData !== chainId && selectedChain) {
-        console.log("I mmmm")
         const methodName =
           selectedChain.chainId === chainId
             ? "wallet_addEthereumChain"
@@ -344,16 +340,15 @@ export const Web3ContextProvider = (props) => {
     <Web3Context.Provider
       value={{
         connectWallet,
-
         signer,
         address,
         latestMessageId,
         collateralValue,
         deposits,
         borrowings,
-        address,
         update,
         aLoading,
+        provider,
         disconnectWallet,
         supplyAsset,
         borrowToken,
@@ -361,7 +356,6 @@ export const Web3ContextProvider = (props) => {
         getDepositsData,
         getBorrowData,
         shortAddress,
-        disconnectWallet,
         setUpdate,
         switchNetwork,
       }}

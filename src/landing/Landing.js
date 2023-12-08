@@ -5,12 +5,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import bannerBg from "../images/background/bg.png";
 import Shape1 from "./../assets/images/home-banner/shape1.png";
 import Shape3 from "./../assets/images/home-banner/shape3.png";
-import wallet from "./../assets/images/icons/wallet.svg";
-import friend from "./../assets/images/icons/friend.svg";
-
-import coin4 from "./../assets/images/coins/coin4.png";
-
-// import '../assets/css/style.css'
+import pitch from "../images/logo/wwl_pitch.png";
 import Header from "./Header";
 import Footer from "./Footer";
 import { Web3Context } from "../context/Web3Context";
@@ -56,7 +51,7 @@ function Landing() {
             <div className="main-bnr style-1">
               <div className="container">
                 <div className="row align-items-center">
-                  <div className="col-8 text-center mx-auto">
+                  <div className="col-12 col-md-9 col-lg-9 col-sm-10 col-xxl-9 text-center mx-auto">
                     <h1 className="">Cross-Chain DeFi Hub</h1>
                     <p className="text text-white ">
                       CCIP-powered DeFi platform offering cross-chain
@@ -82,13 +77,11 @@ function Landing() {
               <img className="bg-shape3" src={Shape3} alt="" />
               <img className="bg-shape4" src={Shape3} alt="" />
             </div>
-            <div className="clearfix bg-primary-light pb-5">
+            <div className="clearfix bg-primary-light pb-5 pt-5">
               <div className="container">
-                <div className="currancy-wrapper">
-                  <div className="row justify-content-center">
-                    <div className="col">
-                      <img src={bannerBg} alt="" height="300" />
-                    </div>
+                <div className="row justify-content-center">
+                  <div className="col-12 col-lg-10 col-md-10 col-sm-10">
+                    <img src={pitch} alt="" height="300" />
                   </div>
                 </div>
               </div>

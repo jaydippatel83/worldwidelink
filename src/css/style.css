@@ -224,7 +224,7 @@
    --bs-gray-dark: #343a40;
    --bs-primary: #9568FF;
    --bs-secondary: #362465;
-   --bs-success: #00A389;
+   --bs-success: #00a34c;
    --bs-info: #58bad7;
    --bs-warning: #f0a901;
    --bs-danger: #EB5757;
@@ -2439,6 +2439,7 @@
    font-weight: 400;
    line-height: 1.5;
    color: #A098AE;
+   cursor: pointer;
    background-color: #fff;
    background-clip: padding-box;
    border: 1px solid #eeee;
@@ -31090,7 +31091,7 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
  .photo-content {
    position: relative;
  }
- 
+
 
  .profile .profile-photo {
    max-width: 6.25rem;
@@ -50483,4 +50484,3 @@ Fixing Order => Base + Typography >> General Layout + Grid >> Page Layout + Comp
  [data-theme-version="dark"] .footer .copyright p {
    color: #fff;
  }
- 

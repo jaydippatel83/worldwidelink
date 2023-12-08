@@ -36,7 +36,6 @@ export default function CreateAgreement() {
         //     return;
         // }
 
-
         const signer = await getProviderOrSigner(true);
 
         const ccipInstance = getCCIPTokenContractInstance(CCIP_TOKEN_ADDRESS_SEPOLIA, signer);
@@ -77,7 +76,7 @@ export default function CreateAgreement() {
     return (
         <>
             <div className='container'>
-                <div className="col-xl-12 col-lg-12">
+                <div className="container col-xl-12 col-lg-12">
                     <div className="card">
                         <div className="card-body">
                             <div className="basic-form">

@@ -73,15 +73,15 @@ export const Web3ContextProvider = (props) => {
           params: [
             selectedChain.chainId === chainId
               ? {
-                chainId: selectedChain.chainId,
-                chainName: selectedChain.chainName,
-                nativeCurrency: {
-                  name: selectedChain.chainName,
-                  symbol: selectedChain.symbol,
-                  decimals: selectedChain.decimals,
-                },
-                rpcUrls: [selectedChain.rpcUrl],
-              }
+                  chainId: selectedChain.chainId,
+                  chainName: selectedChain.chainName,
+                  nativeCurrency: {
+                    name: selectedChain.chainName,
+                    symbol: selectedChain.symbol,
+                    decimals: selectedChain.decimals,
+                  },
+                  rpcUrls: [selectedChain.rpcUrl],
+                }
               : { chainId: `${chainId}` },
           ],
         });
@@ -117,7 +117,7 @@ export const Web3ContextProvider = (props) => {
     try {
       const accounts = await ethereum.request({
         method: "wallet_requestPermissions",
-        params: [{ eth_accounts: {} }]
+        params: [{ eth_accounts: {} }],
       });
       const provider = new ethers.BrowserProvider(window.ethereum);
       const signer = await provider.getSigner();
@@ -125,14 +125,22 @@ export const Web3ContextProvider = (props) => {
 
       const network = networks[chainsIds[chainId]];
 
-      const sosContract = new Contract(
-        network.sosTokenTransfer,
-        sosAbi,
-        signer
-      );
-      const loginTransaction = await sosContract.recordLogin();
-      const txl = await loginTransaction.wait();
-      if (txl) {
+      if (chainId != 43113) {
+        const sosContract = new Contract(
+          network.sosTokenTransfer,
+          sosAbi,
+          signer
+        );
+
+        const loginTransaction = await sosContract.recordLogin();
+        const txl = await loginTransaction.wait();
+        if (txl) {
+          setAddress(accounts[0]);
+          window.localStorage.setItem("address", accounts[0]);
+          setUpdate(!update);
+          setaLoading(false);
+        }
+      } else {
         setAddress(accounts[0]);
         window.localStorage.setItem("address", accounts[0]);
         setUpdate(!update);
@@ -145,7 +153,7 @@ export const Web3ContextProvider = (props) => {
           setaLoading(true);
           const accounts = await ethereum.request({
             method: "wallet_requestPermissions",
-            params: [{ eth_accounts: {} }]
+            params: [{ eth_accounts: {} }],
           });
           setAddress(accounts[0]);
           window.localStorage.setItem("address", accounts[0]);
@@ -194,7 +202,6 @@ export const Web3ContextProvider = (props) => {
       price = priceFeed.price;
       decimal = priceFeed.decimal;
     }
-
 
     // Calculate the deposited amount required for the given borrowable amount
     var depositedIn8decimals =
@@ -251,6 +258,7 @@ export const Web3ContextProvider = (props) => {
             fees
           ) => {
             let txd = await txdepositCCIP.wait();
+            console.log(txd, "txd");
             setLatestMessageId(messageId);
             toast.success("Congratulation! You supplied asset successfully!");
             setTimeout(() => {
@@ -321,7 +329,8 @@ export const Web3ContextProvider = (props) => {
       const { chainId } = await provider.getNetwork();
       const user = sosData.action.value == "1" ? address : sosData.address;
       const trigger = sosData.action.value == "1" ? 1 : 2;
-      const daysInseconds = daysToSeconds(sosData.days);
+      const daysInseconds =
+        sosData.days == 0 ? 40 : daysToSeconds(sosData.days);
       console.log(daysInseconds);
 
       const network = networks[chainsIds[chainId]];

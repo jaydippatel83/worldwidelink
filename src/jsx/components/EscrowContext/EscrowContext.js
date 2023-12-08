@@ -38,7 +38,7 @@ export const EscrowContextProvider = (props) => {
             } else if (network?.chainId == 80001) {
                 escroContract = getEscrowContractInstance(ESCROW_RECEIVER_CONTRACT_ADDRESS, provider);
             } else {
-                alert('Please connect to Sepolia or Mumbai network')
+                // alert('Please connect to Sepolia or Mumbai network')
             }
             let num = await escroContract?.numOfAgreement();
             setTotalNumOfAgreements(Number(num))
@@ -129,7 +129,7 @@ export const EscrowContextProvider = (props) => {
             } else if (network?.chainId == 80001) {
                 escroContract = getEscrowContractInstance(ESCROW_RECEIVER_CONTRACT_ADDRESS, provider);
             } else {
-                alert('Please connect to Sepolia or Mumbai network')
+                // alert('Please connect to Sepolia or Mumbai network')
             }
             let agreement = await escroContract.agreements(id);
             // console.log(agreement);

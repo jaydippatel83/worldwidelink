@@ -34,16 +34,17 @@ const MarketInfo = () => {
 
     const contractCall = async () => {
         const { chainId } = await provider.getNetwork();
+        const pro = new ethers.BrowserProvider(window.ethereum);
+        const sign = await pro.getSigner();
         setNetId(Number(chainId));
 
         if (Number(chainId) === 43113) {
             const priceFeedContract = new Contract(
                 priceFeedAvax,
                 priceFeedAvaxABI,
-                signer
+                sign
             );
             const dataFeedResult = await priceFeedContract.getLatestAnswers();
-            console.log(dataFeedResult, "dataFeedResult");
             setDataFeed([...dataFeedResult]);
         } else {
             const priceFeedContract = new Contract(

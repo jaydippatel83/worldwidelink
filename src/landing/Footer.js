@@ -8,7 +8,7 @@ function Footer() {
                 <img className="bg-shape1" src={shape1} alt="" />
                 <div className="footer-bottom text-center">
                     <div className="container">
-                        <span className="copyright-text">Copyright © 2023 <a href="https://worldwidelink.vercel.app" target="_blank">WWL</a>. All rights reserved.</span>
+                        <span className="copyright-text">Copyright © 2023 <a rel="noreferrer" href="https://worldwidelink.xyz" target="_blank" className='text-decoration-none'  >WorldWideLink</a>. All rights reserved.</span>
                     </div>
                 </div>
             </footer>

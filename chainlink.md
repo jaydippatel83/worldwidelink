@@ -66,4 +66,7 @@ Chainlink Automation in WWL involves logic-based alerts and transfers. Trigger 2
 <img width="1440" alt="Screenshot 2023-12-08 at 12 21 35 PM" src="https://github.com/jaydippatel83/worldwidelink/assets/54347081/e500d1d8-837f-4990-b854-c287962fda46">
 
 
+![WWL Pitch - Logo change](https://github.com/jaydippatel83/worldwidelink/assets/54347081/fbd27818-c36c-440c-8813-f1ba8dfc8d44)
+
+
 ![Pwered By](https://github.com/jaydippatel83/worldwidelink/assets/54347081/06814432-36f3-4ef5-b712-78fe01c94236)

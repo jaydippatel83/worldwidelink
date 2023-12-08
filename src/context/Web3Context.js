@@ -6,8 +6,13 @@ import { networks, chainsIds } from "../network";
 import ccipBnMAbi from "../abis/CCIPBnM.json";
 import ccipLnMAbi from "../abis/CCIPLnM.json";
 import senderAbi from "../abis/Sender.json";
+import functionClientAbi from "../abis/FunctionClient.json";
+import porAbi from "../abis/Por.json";
+import sosAbi from "../abis/Sos.json";
 import wwlProtocolAbi from "../abis/WorlWideLinkProtocol.json";
 import { toast } from "react-toastify";
+import axios from "axios";
+
 export const Web3Context = createContext(undefined);
 
 export const Web3ContextProvider = (props) => {
@@ -114,10 +119,25 @@ export const Web3ContextProvider = (props) => {
         method: "wallet_requestPermissions",
         params: [{ eth_accounts: {} }]
       });
-      setAddress(accounts[0]);
-      window.localStorage.setItem("address", accounts[0]);
-      setUpdate(!update);
-      setaLoading(false);
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const signer = await provider.getSigner();
+      const { chainId } = await provider.getNetwork();
+
+      const network = networks[chainsIds[chainId]];
+
+      const sosContract = new Contract(
+        network.sosTokenTransfer,
+        sosAbi,
+        signer
+      );
+      const loginTransaction = await sosContract.recordLogin();
+      const txl = await loginTransaction.wait();
+      if (txl) {
+        setAddress(accounts[0]);
+        window.localStorage.setItem("address", accounts[0]);
+        setUpdate(!update);
+        setaLoading(false);
+      }
     } catch (err) {
       setaLoading(false);
       if (err.code === 4902) {
@@ -289,6 +309,44 @@ export const Web3ContextProvider = (props) => {
     }
   };
 
+  function daysToSeconds(days) {
+    // 👇️        hour  min  sec
+    return days * 24 * 60 * 60;
+  }
+
+  const sosAlert = async (sosData) => {
+    try {
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const signer = await provider.getSigner();
+      const { chainId } = await provider.getNetwork();
+      const user = sosData.action.value == "1" ? address : sosData.address;
+      const trigger = sosData.action.value == "1" ? 1 : 2;
+      const daysInseconds = daysToSeconds(sosData.days);
+      console.log(daysInseconds);
+
+      const network = networks[chainsIds[chainId]];
+
+      const sosContract = new Contract(
+        network.sosTokenTransfer,
+        sosAbi,
+        signer
+      );
+      const setAlertTx = await sosContract.setAlert(
+        user,
+        sosData.email,
+        daysInseconds,
+        sosData.message,
+        trigger
+      );
+      const txs = await setAlertTx.wait();
+      if (txs) {
+        toast.success("SoS Alert is enabled successfully!");
+      }
+    } catch (error) {
+      toast.error("Something went wrong!");
+    }
+  };
+
   const getBorrowData = async () => {
     const provider = new ethers.BrowserProvider(window.ethereum);
     const signer = await provider.getSigner();
@@ -330,7 +388,72 @@ export const Web3ContextProvider = (props) => {
     setDeposits(deposits);
   };
 
+  const notifyFunction = async (data) => {
+    try {
+      const provider = new ethers.BrowserProvider(window.ethereum);
+      const signer = await provider.getSigner();
+      const { chainId } = await provider.getNetwork();
 
+      const network = networks[chainsIds[chainId]];
+      const subscriptionId = 1038;
+
+      const routerAddress = "0x6E2dc0F9DB014aE19888F539E59285D2Ea04244C";
+      const donId = "fun-polygon-mumbai-1";
+      const gasLimit = 3000000;
+      const args = [
+        JSON.stringify({
+          message: data.message,
+          reply_to: data.email,
+        }),
+      ];
+
+      const response = await axios.get(
+        "https://gist.githubusercontent.com/mansijoshi17/2879e0198968d0e2edd054724a0dfbed/raw"
+      );
+      const source = response.data.toString();
+
+      const functionClientContract = new Contract(
+        network.consumer,
+        functionClientAbi,
+        signer
+      );
+
+      console.log([...functionClientContract], "functionClientContract");
+
+      const sendTransaction = await functionClientContract.sendRequest(
+        source, // source
+        "0x", // user hosted secrets - encryptedSecretsUrls - empty in this example
+        0, // don hosted secrets - slot ID - empty in this example
+        0, // don hosted secrets - version - empty in this example
+        args,
+        [], // bytesArgs - arguments can be encoded off-chain to bytes.
+        subscriptionId,
+        gasLimit,
+        ethers.encodeBytes32String(donId) // jobId is bytes32 representation of donId
+      );
+
+      console.log(sendTransaction, "sendTransaction");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const por = async (percentage) => {
+    const provider = new ethers.BrowserProvider(window.ethereum);
+    const signer = await provider.getSigner();
+    const { chainId } = await provider.getNetwork();
+
+    const network = networks[chainsIds[chainId]];
+
+    const porContract = new Contract(network.por, porAbi, signer);
+
+    const transaction = await porContract.getCreditScore(percentage);
+    const tx = await transaction.wait();
+    if (tx) {
+      const creditscore = await porContract.creditScore();
+      console.log(Number(creditscore), "creditscore");
+    }
+  };
 
   return (
     <Web3Context.Provider
@@ -354,6 +477,9 @@ export const Web3ContextProvider = (props) => {
         shortAddress,
         setUpdate,
         switchNetwork,
+        sosAlert,
+        notifyFunction,
+        por,
       }}
     >
       {props.children}

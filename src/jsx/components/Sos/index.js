@@ -1,696 +1,355 @@
-import React, { useEffect } from 'react';
-import { ethers, Contract } from "ethers";
+import React, { useState, useContext } from "react";
+import { Link } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
+import Select from "react-select";
+import { Formik } from "formik";
+import * as Yup from "yup";
+import { Web3Context } from "../../../context/Web3Context";
 
-const contractAdd = "0x53cc33bCb8f54BD041210Be871b7b3FAF3884ac2";
-const contractABI = [
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "_router",
-                "type": "address"
-            },
-            {
-                "internalType": "address",
-                "name": "link",
-                "type": "address"
-            }
-        ],
-        "stateMutability": "nonpayable",
-        "type": "constructor"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "owner",
-                "type": "address"
-            },
-            {
-                "internalType": "uint256",
-                "name": "value",
-                "type": "uint256"
-            }
-        ],
-        "name": "FailedToWithdrawEth",
-        "type": "error"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "uint256",
-                "name": "providedIndex",
-                "type": "uint256"
-            },
-            {
-                "internalType": "uint256",
-                "name": "maxIndex",
-                "type": "uint256"
-            }
-        ],
-        "name": "IndexOutOfBound",
-        "type": "error"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "router",
-                "type": "address"
-            }
-        ],
-        "name": "InvalidRouter",
-        "type": "error"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "bytes32",
-                "name": "messageId",
-                "type": "bytes32"
-            }
-        ],
-        "name": "MessageIdNotExist",
-        "type": "error"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "msgSender",
-                "type": "address"
-            },
-            {
-                "internalType": "bool",
-                "name": "locked",
-                "type": "bool"
-            }
-        ],
-        "name": "NoFundsLocked",
-        "type": "error"
-    },
-    {
-        "inputs": [],
-        "name": "NoMessageReceived",
-        "type": "error"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "uint256",
-                "name": "",
-                "type": "uint256"
-            },
-            {
-                "internalType": "uint256",
-                "name": "",
-                "type": "uint256"
-            }
-        ],
-        "name": "NotEnoughBalance",
-        "type": "error"
-    },
-    {
-        "inputs": [],
-        "name": "NothingToWithdraw",
-        "type": "error"
-    },
-    {
-        "anonymous": false,
-        "inputs": [
-            {
-                "indexed": true,
-                "internalType": "bytes32",
-                "name": "messageId",
-                "type": "bytes32"
-            },
-            {
-                "indexed": true,
-                "internalType": "uint64",
-                "name": "sourceChainSelector",
-                "type": "uint64"
-            },
-            {
-                "indexed": false,
-                "internalType": "address",
-                "name": "sender",
-                "type": "address"
-            },
-            {
-                "indexed": false,
-                "internalType": "address",
-                "name": "borrower",
-                "type": "address"
-            },
-            {
-                "components": [
-                    {
-                        "internalType": "address",
-                        "name": "token",
-                        "type": "address"
-                    },
-                    {
-                        "internalType": "uint256",
-                        "name": "amount",
-                        "type": "uint256"
-                    }
-                ],
-                "indexed": false,
-                "internalType": "struct Client.EVMTokenAmount",
-                "name": "tokenAmount",
-                "type": "tuple"
-            }
-        ],
-        "name": "MessageReceived",
-        "type": "event"
-    },
-    {
-        "anonymous": false,
-        "inputs": [
-            {
-                "indexed": true,
-                "internalType": "bytes32",
-                "name": "messageId",
-                "type": "bytes32"
-            },
-            {
-                "indexed": true,
-                "internalType": "uint64",
-                "name": "destinationChainSelector",
-                "type": "uint64"
-            },
-            {
-                "indexed": false,
-                "internalType": "address",
-                "name": "receiver",
-                "type": "address"
-            },
-            {
-                "indexed": false,
-                "internalType": "address",
-                "name": "depositor",
-                "type": "address"
-            },
-            {
-                "components": [
-                    {
-                        "internalType": "address",
-                        "name": "token",
-                        "type": "address"
-                    },
-                    {
-                        "internalType": "uint256",
-                        "name": "amount",
-                        "type": "uint256"
-                    }
-                ],
-                "indexed": false,
-                "internalType": "struct Client.EVMTokenAmount",
-                "name": "tokenAmount",
-                "type": "tuple"
-            },
-            {
-                "indexed": false,
-                "internalType": "uint256",
-                "name": "fees",
-                "type": "uint256"
-            }
-        ],
-        "name": "MessageSent",
-        "type": "event"
-    },
-    {
-        "anonymous": false,
-        "inputs": [
-            {
-                "indexed": true,
-                "internalType": "address",
-                "name": "from",
-                "type": "address"
-            },
-            {
-                "indexed": true,
-                "internalType": "address",
-                "name": "to",
-                "type": "address"
-            }
-        ],
-        "name": "OwnershipTransferRequested",
-        "type": "event"
-    },
-    {
-        "anonymous": false,
-        "inputs": [
-            {
-                "indexed": true,
-                "internalType": "address",
-                "name": "from",
-                "type": "address"
-            },
-            {
-                "indexed": true,
-                "internalType": "address",
-                "name": "to",
-                "type": "address"
-            }
-        ],
-        "name": "OwnershipTransferred",
-        "type": "event"
-    },
-    {
-        "inputs": [],
-        "name": "acceptOwnership",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "components": [
-                    {
-                        "internalType": "bytes32",
-                        "name": "messageId",
-                        "type": "bytes32"
-                    },
-                    {
-                        "internalType": "uint64",
-                        "name": "sourceChainSelector",
-                        "type": "uint64"
-                    },
-                    {
-                        "internalType": "bytes",
-                        "name": "sender",
-                        "type": "bytes"
-                    },
-                    {
-                        "internalType": "bytes",
-                        "name": "data",
-                        "type": "bytes"
-                    },
-                    {
-                        "components": [
-                            {
-                                "internalType": "address",
-                                "name": "token",
-                                "type": "address"
-                            },
-                            {
-                                "internalType": "uint256",
-                                "name": "amount",
-                                "type": "uint256"
-                            }
-                        ],
-                        "internalType": "struct Client.EVMTokenAmount[]",
-                        "name": "destTokenAmounts",
-                        "type": "tuple[]"
-                    }
-                ],
-                "internalType": "struct Client.Any2EVMMessage",
-                "name": "message",
-                "type": "tuple"
-            }
-        ],
-        "name": "ccipReceive",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "deposit",
-        "outputs": [],
-        "stateMutability": "payable",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "",
-                "type": "address"
-            }
-        ],
-        "name": "deposits",
-        "outputs": [
-            {
-                "internalType": "uint256",
-                "name": "amount",
-                "type": "uint256"
-            },
-            {
-                "internalType": "bool",
-                "name": "locked",
-                "type": "bool"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "getLastReceivedMessageDetails",
-        "outputs": [
-            {
-                "internalType": "bytes32",
-                "name": "messageId",
-                "type": "bytes32"
-            },
-            {
-                "internalType": "uint64",
-                "name": "",
-                "type": "uint64"
-            },
-            {
-                "internalType": "address",
-                "name": "",
-                "type": "address"
-            },
-            {
-                "internalType": "address",
-                "name": "",
-                "type": "address"
-            },
-            {
-                "internalType": "address",
-                "name": "",
-                "type": "address"
-            },
-            {
-                "internalType": "uint256",
-                "name": "",
-                "type": "uint256"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "getNumberOfReceivedMessages",
-        "outputs": [
-            {
-                "internalType": "uint256",
-                "name": "number",
-                "type": "uint256"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "getRouter",
-        "outputs": [
-            {
-                "internalType": "address",
-                "name": "",
-                "type": "address"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "uint64",
-                "name": "destinationChainSelector",
-                "type": "uint64"
-            },
-            {
-                "internalType": "address",
-                "name": "receiver",
-                "type": "address"
-            }
-        ],
-        "name": "getSendFees",
-        "outputs": [
-            {
-                "internalType": "uint256",
-                "name": "fees",
-                "type": "uint256"
-            },
-            {
-                "components": [
-                    {
-                        "internalType": "bytes",
-                        "name": "receiver",
-                        "type": "bytes"
-                    },
-                    {
-                        "internalType": "bytes",
-                        "name": "data",
-                        "type": "bytes"
-                    },
-                    {
-                        "components": [
-                            {
-                                "internalType": "address",
-                                "name": "token",
-                                "type": "address"
-                            },
-                            {
-                                "internalType": "uint256",
-                                "name": "amount",
-                                "type": "uint256"
-                            }
-                        ],
-                        "internalType": "struct Client.EVMTokenAmount[]",
-                        "name": "tokenAmounts",
-                        "type": "tuple[]"
-                    },
-                    {
-                        "internalType": "address",
-                        "name": "feeToken",
-                        "type": "address"
-                    },
-                    {
-                        "internalType": "bytes",
-                        "name": "extraArgs",
-                        "type": "bytes"
-                    }
-                ],
-                "internalType": "struct Client.EVM2AnyMessage",
-                "name": "message",
-                "type": "tuple"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "uint64",
-                "name": "destChainSelector",
-                "type": "uint64"
-            }
-        ],
-        "name": "isChainSupported",
-        "outputs": [
-            {
-                "internalType": "bool",
-                "name": "supported",
-                "type": "bool"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "bytes32",
-                "name": "",
-                "type": "bytes32"
-            }
-        ],
-        "name": "messageDetail",
-        "outputs": [
-            {
-                "internalType": "uint64",
-                "name": "sourceChainSelector",
-                "type": "uint64"
-            },
-            {
-                "internalType": "address",
-                "name": "sender",
-                "type": "address"
-            },
-            {
-                "internalType": "address",
-                "name": "borrower",
-                "type": "address"
-            },
-            {
-                "internalType": "address",
-                "name": "token",
-                "type": "address"
-            },
-            {
-                "internalType": "uint256",
-                "name": "amount",
-                "type": "uint256"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "owner",
-        "outputs": [
-            {
-                "internalType": "address",
-                "name": "",
-                "type": "address"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "uint256",
-                "name": "",
-                "type": "uint256"
-            }
-        ],
-        "name": "receivedMessages",
-        "outputs": [
-            {
-                "internalType": "bytes32",
-                "name": "",
-                "type": "bytes32"
-            }
-        ],
-        "stateMutability": "view",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "uint64",
-                "name": "destinationChainSelector",
-                "type": "uint64"
-            },
-            {
-                "internalType": "address",
-                "name": "receiver",
-                "type": "address"
-            },
-            {
-                "internalType": "address",
-                "name": "tokenToTransfer",
-                "type": "address"
-            },
-            {
-                "internalType": "uint256",
-                "name": "transferAmount",
-                "type": "uint256"
-            }
-        ],
-        "name": "sendMessage",
-        "outputs": [
-            {
-                "internalType": "bytes32",
-                "name": "messageId",
-                "type": "bytes32"
-            }
-        ],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "bytes4",
-                "name": "interfaceId",
-                "type": "bytes4"
-            }
-        ],
-        "name": "supportsInterface",
-        "outputs": [
-            {
-                "internalType": "bool",
-                "name": "",
-                "type": "bool"
-            }
-        ],
-        "stateMutability": "pure",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "to",
-                "type": "address"
-            }
-        ],
-        "name": "transferOwnership",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [],
-        "name": "withdraw",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "inputs": [
-            {
-                "internalType": "address",
-                "name": "token",
-                "type": "address"
-            }
-        ],
-        "name": "withdrawToken",
-        "outputs": [],
-        "stateMutability": "nonpayable",
-        "type": "function"
-    },
-    {
-        "stateMutability": "payable",
-        "type": "receive"
-    }
-];
+const SosAlertComponent = () => {
+  const actions = [
+    { label: "Notify", value: "0" },
+    { label: "Set Reminder", value: "1" },
+    { label: "Transfer Token & Notify", value: "2" },
+    { label: "Proof of Reserve", value: "3" },
+  ];
 
+  const { sosAlert, notifyFunction, por } = useContext(Web3Context);
 
-const SosAlert = () => {
+  const sosSchema = Yup.object().shape({
+    email: Yup.string().required("Please enter email!"),
+    days: Yup.number().required("Please enter days!"),
+    address: Yup.string().required("Please enter wallet address!"),
+    message: Yup.string().required("Please enter message!"),
+  });
 
-    const getEvent = async () => {
-        const provider = new ethers.BrowserProvider(window.ethereum);
-        const signer = await provider.getSigner();
+  const [action, setAction] = useState(actions[0]);
 
-        const contract = new Contract(
-            contractAdd,
-            contractABI,
-            signer
-        );
-        contract.on("MessageSent", (depositor, receiver, messageId) => {
-            console.log(depositor, receiver, messageId, "depositor, receiver, messageId");
-        });
-    }
+  return (
+    <div className="container">
+      <ToastContainer />
+      <div className="row">
+        <div className="col-xl-8">
+          <div className="card">
+            <div className="card-body">
+              <div className="post-details">
+                <h3 className="mb-2 text-black">SoS Alert</h3>
 
-    useEffect(() => {
-        getEvent()
+                <p>
+                  This enables users to set up a comprehensive email alert
+                  system for account activity monitoring. Users can configure
+                  alerts and automatic token tranfer to be triggered when there
+                  is no login activity detected for a specified period.
+                </p>
 
-    }, [])
-    return (
-        <div className='container'>
-            <div className="row">
-                <div className="col">
-                    <h1>This is SOS Alert Component</h1>
+                <div className="comment-respond" id="respond">
+                  <Formik
+                    initialValues={{
+                      email: "",
+                      days: 0,
+                      address: "",
+                      message: "",
+                      percentage: 0,
+                    }}
+                    // validationSchema={sosSchema}
+                    onSubmit={async (values, { setSubmitting }) => {
+                      console.log(values, "values");
+                      setSubmitting(true);
+                      const formValues = {
+                        action: action,
+                        email: values.email,
+                        days: values.days,
+                        address: values.address,
+                        message: values.message,
+                        percentage: values.percentage,
+                      };
+
+                      if (action.value == "0") {
+                        await notifyFunction(formValues);
+                      } else if (action.value == "3") {
+                        await por(formValues.percentage);
+                      } else {
+                        await sosAlert(formValues);
+                      }
+
+                      setSubmitting(false);
+                    }}
+                  >
+                    {({
+                      values,
+                      errors,
+                      handleChange,
+                      handleBlur,
+                      handleSubmit,
+                      isSubmitting,
+                      setFieldValue,
+                    }) => (
+                      <form
+                        className="comment-form"
+                        id="commentform"
+                        onSubmit={handleSubmit}
+                      >
+                        <div className="row">
+                          <div className="col-lg-8">
+                            <label
+                              htmlFor="text"
+                              className="text-black font-w600"
+                            >
+                              Actions <span className="required">*</span>
+                            </label>
+
+                            <div className="form-group  mb-3">
+                              <Select
+                                className="custom-react-select"
+                                defaultValue={actions[0]}
+                                isSearchable={false}
+                                id="to"
+                                onChange={(value) => {
+                                  setAction(value);
+                                }}
+                                options={actions}
+                              />
+                            </div>
+                          </div>
+
+                          <div className="row">
+                            {action.value == "0" ? (
+                              <div className="col-lg-6">
+                                <div className="form-group mb-3">
+                                  <label
+                                    htmlFor="email"
+                                    className="text-black font-w600"
+                                  >
+                                    Email <span className="required">*</span>
+                                  </label>
+                                  <input
+                                    type="text"
+                                    className="form-control"
+                                    name="email"
+                                    id="email"
+                                    onChange={handleChange}
+                                    onBlur={handleBlur}
+                                    value={values.email}
+                                  />
+                                </div>
+                                <div
+                                  id="val-username1-error"
+                                  className="invalid-feedback animated fadeInUp"
+                                  style={{ display: "block" }}
+                                >
+                                  {errors.email && errors.email}
+                                </div>
+                              </div>
+                            ) : action.value == "1" ? (
+                              <>
+                                <div className="col-lg-6">
+                                  <div className="form-group mb-3">
+                                    <label
+                                      htmlFor="email"
+                                      className="text-black font-w600"
+                                    >
+                                      Email <span className="required">*</span>
+                                    </label>
+                                    <input
+                                      type="text"
+                                      className="form-control"
+                                      name="email"
+                                      id="email"
+                                      onChange={handleChange}
+                                      onBlur={handleBlur}
+                                      value={values.email}
+                                    />
+                                  </div>
+                                  <div
+                                    id="val-username1-error"
+                                    className="invalid-feedback animated fadeInUp"
+                                    style={{ display: "block" }}
+                                  >
+                                    {errors.email && errors.email}
+                                  </div>
+                                </div>
+                                <div className="col-lg-6">
+                                  <div className="form-group mb-3">
+                                    <label
+                                      htmlFor="days"
+                                      className="text-black font-w600"
+                                    >
+                                      Days <span className="required">*</span>
+                                    </label>
+                                    <input
+                                      type="number"
+                                      className="form-control"
+                                      name="days"
+                                      id="days"
+                                      onChange={handleChange}
+                                      onBlur={handleBlur}
+                                      value={values.days}
+                                    />
+                                  </div>
+                                  <div
+                                    id="val-username1-error"
+                                    className="invalid-feedback animated fadeInUp"
+                                    style={{ display: "block" }}
+                                  >
+                                    {errors.days && errors.days}
+                                  </div>
+                                </div>
+                              </>
+                            ) : action.value == "3" ? (
+                              <div className="form-group mb-3">
+                                <label
+                                  htmlFor="Percentage"
+                                  className="text-black font-w600"
+                                >
+                                  Percentage <span className="required">*</span>
+                                </label>
+                                <input
+                                  type="number"
+                                  className="form-control"
+                                  name="percentage"
+                                  id="percentage"
+                                  onChange={handleChange}
+                                  onBlur={handleBlur}
+                                  value={values.percentage}
+                                />
+                              </div>
+                            ) : (
+                              <>
+                                <div className="col-lg-4">
+                                  <div className="form-group mb-3">
+                                    <label
+                                      htmlFor="email"
+                                      className="text-black font-w600"
+                                    >
+                                      Email <span className="required">*</span>
+                                    </label>
+                                    <input
+                                      type="text"
+                                      className="form-control"
+                                      name="email"
+                                      id="email"
+                                      onChange={handleChange}
+                                      onBlur={handleBlur}
+                                      value={values.email}
+                                    />
+                                  </div>
+                                  <div
+                                    id="val-username1-error"
+                                    className="invalid-feedback animated fadeInUp"
+                                    style={{ display: "block" }}
+                                  >
+                                    {errors.email && errors.email}
+                                  </div>
+                                </div>
+                                <div className="col-lg-4">
+                                  <div className="form-group mb-3">
+                                    <label
+                                      htmlFor="email"
+                                      className="text-black font-w600"
+                                    >
+                                      Wallet Address{" "}
+                                      <span className="required">*</span>
+                                    </label>
+                                    <input
+                                      type="text"
+                                      className="form-control"
+                                      placeholder="Address"
+                                      name="address"
+                                      id="address"
+                                      onChange={handleChange}
+                                      onBlur={handleBlur}
+                                      value={values.address}
+                                    />
+                                  </div>
+                                  <div
+                                    id="val-username1-error"
+                                    className="invalid-feedback animated fadeInUp"
+                                    style={{ display: "block" }}
+                                  >
+                                    {errors.address && errors.address}
+                                  </div>
+                                </div>
+                                <div className="col-lg-4">
+                                  <div className="form-group mb-3">
+                                    <label
+                                      htmlFor="days"
+                                      className="text-black font-w600"
+                                    >
+                                      Days <span className="required">*</span>
+                                    </label>
+                                    <input
+                                      type="number"
+                                      className="form-control"
+                                      name="days"
+                                      id="days"
+                                      onChange={handleChange}
+                                      onBlur={handleBlur}
+                                      value={values.days}
+                                    />
+                                  </div>
+                                  <div
+                                    id="val-username1-error"
+                                    className="invalid-feedback animated fadeInUp"
+                                    style={{ display: "block" }}
+                                  >
+                                    {errors.days && errors.days}
+                                  </div>
+                                </div>
+                              </>
+                            )}
+                          </div>
+
+                          <div className="col-lg-12">
+                            <div className="form-group mb-3">
+                              <label
+                                htmlFor="comment"
+                                className="text-black font-w600"
+                              >
+                                Message
+                              </label>
+                              <textarea
+                                rows={8}
+                                className="form-control h-100"
+                                name="message"
+                                placeholder="Add message here...."
+                                id="message"
+                                onChange={handleChange}
+                                onBlur={handleBlur}
+                                value={values.message}
+                              />
+                            </div>
+                            <div
+                              id="val-username1-error"
+                              className="invalid-feedback animated fadeInUp"
+                              style={{ display: "block" }}
+                            >
+                              {errors.message && errors.message}
+                            </div>
+                          </div>
+                          <div className="col-lg-12">
+                            <div className="form-group">
+                              <input
+                                type="submit"
+                                value="Add Alert"
+                                className="submit btn btn-primary"
+                                id="submit"
+                                name="submit"
+                                disabled={isSubmitting}
+                              />
+                            </div>
+                          </div>
+                        </div>
+                      </form>
+                    )}
+                  </Formik>
                 </div>
+              </div>
             </div>
+          </div>
         </div>
-    );
+      </div>
+    </div>
+  );
 };
 
-export default SosAlert;
+export default SosAlertComponent;

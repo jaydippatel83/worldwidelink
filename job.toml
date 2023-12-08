@@ -1,0 +1,50 @@
+Mumbai ---------
+type = "directrequest"
+schemaVersion = 1
+name = "demo-sos-bridge"
+maxTaskDuration = "0s"
+contractAddress = "0xcD7d2d73b510EEC305cb2949f194c423Ab449117"
+minContractPaymentLinkJuels = "0"
+observationSource = """
+    decode_log   [type=ethabidecodelog
+                  abi="OracleRequest(bytes32 indexed specId, address requester, bytes32 requestId, uint256 payment, address callbackAddr, bytes4 callbackFunctionId, uint256 cancelExpiration, uint256 dataVersion, bytes data)"
+                  data="$(jobRun.logData)"
+                  topics="$(jobRun.logTopics)"]
+
+    decode_cbor  [type=cborparse data="$(decode_log.data)"]
+    fetch        [type=bridge name="sosalertbridge" requestData="{\\"id\\": $(jobSpec.externalJobID), \\"data\\": { \\"message\\": $(decode_cbor.message) , \\"reply_to\\": $(decode_cbor.reply_to)}}"]
+    parse        [type=jsonparse path="data,message" data="$(fetch)"]
+    encode_data  [type=ethabiencode abi="(bytes32 requestId, string message)" data="{\\"requestId\\": $(decode_log.requestId),\\"message\\": $(parse) }"]
+    encode_tx    [type=ethabiencode
+                  abi="fulfillOracleRequest2(bytes32 requestId, uint256 payment, address callbackAddress, bytes4 callbackFunctionId, uint256 expiration, bytes calldata data)"
+                  data="{\\"requestId\\": $(decode_log.requestId), \\"payment\\": $(decode_log.payment), \\"callbackAddress\\": $(decode_log.callbackAddr), \\"callbackFunctionId\\": $(decode_log.callbackFunctionId), \\"expiration\\": $(decode_log.cancelExpiration), \\"data\\": $(encode_data)}"]
+    submit_tx    [type=ethtx to="0xcD7d2d73b510EEC305cb2949f194c423Ab449117" data="$(encode_tx)"]
+
+    decode_log -> decode_cbor -> fetch -> parse -> encode_data -> encode_tx -> submit_tx
+"""
+
+
+Fujii ---------
+type = "directrequest"
+schemaVersion = 1
+name = "fuji-sos-bridge"
+maxTaskDuration = "0s"
+contractAddress = "0xc84F47154fb9ea2afC4faa061fe1D15F85746523"
+minContractPaymentLinkJuels = "0"
+observationSource = """
+    decode_log   [type=ethabidecodelog
+                  abi="OracleRequest(bytes32 indexed specId, address requester, bytes32 requestId, uint256 payment, address callbackAddr, bytes4 callbackFunctionId, uint256 cancelExpiration, uint256 dataVersion, bytes data)"
+                  data="$(jobRun.logData)"
+                  topics="$(jobRun.logTopics)"]
+
+    decode_cbor  [type=cborparse data="$(decode_log.data)"]
+    fetch        [type=bridge name="sosalertfuji" requestData="{\\"id\\": $(jobSpec.externalJobID), \\"data\\": { \\"message\\": $(decode_cbor.message) , \\"reply_to\\": $(decode_cbor.reply_to)}}"]
+    parse        [type=jsonparse path="data,message" data="$(fetch)"]
+    encode_data  [type=ethabiencode abi="(bytes32 requestId, string message)" data="{\\"requestId\\": $(decode_log.requestId),\\"message\\": $(parse) }"]
+    encode_tx    [type=ethabiencode
+                  abi="fulfillOracleRequest2(bytes32 requestId, uint256 payment, address callbackAddress, bytes4 callbackFunctionId, uint256 expiration, bytes calldata data)"
+                  data="{\\"requestId\\": $(decode_log.requestId), \\"payment\\": $(decode_log.payment), \\"callbackAddress\\": $(decode_log.callbackAddr), \\"callbackFunctionId\\": $(decode_log.callbackFunctionId), \\"expiration\\": $(decode_log.cancelExpiration), \\"data\\": $(encode_data)}"]
+    submit_tx    [type=ethtx to="0xc84F47154fb9ea2afC4faa061fe1D15F85746523" data="$(encode_tx)"]
+
+    decode_log -> decode_cbor -> fetch -> parse -> encode_data -> encode_tx -> submit_tx
+"""

@@ -8,6 +8,19 @@
     "@chainlink/contracts": "^0.8.0",
     "@chainlink/contracts-ccip": "^0.7.6",
     "@chainlink/env-enc": "^1.0.5",
+    "@chainlink/functions-toolkit": "^0.2.7",
+    "@ckeditor/ckeditor5-build-classic": "^35.3.2",
+    "@ckeditor/ckeditor5-react": "^5.0.3",
+    "@emotion/styled": "^11.11.0",
+    "@fullcalendar/daygrid": "^5.11.3",
+    "@fullcalendar/interaction": "^5.11.3",
+    "@fullcalendar/react": "^5.11.3",
+    "@fullcalendar/timegrid": "^5.11.3",
+    "@loadable/component": "^5.15.2",
+    "@mui/base": "^5.0.0-beta.24",
+    "@mui/icons-material": "^5.14.18",
+    "@mui/material": "^5.14.18",
+    "@mui/styled-engine-sc": "^6.0.0-alpha.6",
     "@graphprotocol/client-apollo": "^2.0.0",
     "@n8tb1t/use-scroll-position": "^2.0.3",
     "@testing-library/jest-dom": "^5.16.5",
@@ -16,12 +29,18 @@
     "@transak/transak-sdk": "^2.0.1",
     "@vercel/analytics": "^1.1.1",
     "assert": "^2.1.0",
-    "axios": "^1.2.0",
+    "axios": "^1.6.2",
+    "browserify-fs": "^1.0.0",
+    "child_process": "^1.0.2",
     "crypto": "^1.0.1",
     "crypto-browserify": "^3.12.0",
     "dotenv": "^16.3.1",
     "ethers": "^6.6.4",
     "formik": "^2.2.9",
+    "framer-motion": "^8.0.2",
+    "fs": "^0.0.1-security",
+    "hardhat": "^2.19.1",
+    "hardhat-contract-sizer": "^2.10.0",
     "graphql": "^16.8.1",
     "https-browserify": "^1.0.0",
     "node-sass": "^8.0.0",
@@ -82,5 +101,8 @@
   "devDependencies": {
     "@graphprotocol/client-cli": "^3.0.0",
     "hardhat": "^2.19.1"
+  },
+  "browser": {
+    "child_process": false
   }
 }

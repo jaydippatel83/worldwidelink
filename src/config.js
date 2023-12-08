@@ -62,8 +62,8 @@ export const priceFeedAvaxABI = [
     "stateMutability": "view",
     "type": "function"
   }
-];
-export const priceFeedAvax = "0x9259A317c3c350780dF78509CC402F5c86F20876";
+]
+export const priceFeedAvax = "0x040Dd256A46e8fFdD5Ffeb6F95FE9b5c02828D88";
 
 export const airdropAddress = "0x13C96121e17a20C5F506d367EB8408A7b6F13F52";
 export const airdropTokenAddress = "0x2998C45406341386a5c25d523c7A500841b3E307";

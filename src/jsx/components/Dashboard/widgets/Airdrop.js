@@ -2,11 +2,16 @@ import React, { useContext, useEffect, useState } from 'react';
 import { createClient } from 'urql'
 import { Web3Context } from '../../../../context/Web3Context';
 import Select from "react-select";
+import { airdropAddress, airdropABI, airdropTokenAddress, airdropFujiAddress, airdropFujiToken } from "../../../../config"
+import { Contract, ethers } from 'ethers';
+
+
 
 const Airdrop = () => {
     const web3Context = useContext(Web3Context);
     const { address } = web3Context;
     const [users, setUsers] = useState();
+
     const client = createClient({
         url: "https://api.studio.thegraph.com/query/44401/wwl/0.0.1",
     })
@@ -32,11 +37,36 @@ const Airdrop = () => {
     ];
 
     const getUserAddress = async () => {
+        const array = [];
         const data = await client.query(tokensQuery).toPromise()
-        setUsers(data.data)
-        console.log(data?.data?.messageSents, "data");
+        data.data?.messageSents.map((data) => {
+            array.push(data.depositor)
+        })
+
+        setUsers(array);
     }
     const [value, setValue] = useState(airdrops[0]);
+
+
+    const airdrop = async () => {
+        const provider = new ethers.BrowserProvider(window.ethereum);
+        const signer = await provider.getSigner();
+
+        const airdropContract = new Contract(
+            airdropAddress,
+            airdropABI,
+            signer
+        );
+        const reqId = await airdropContract.requestRandomAddresses(users);
+        const status = await airdropContract.getRequestStatus();
+        await status.wait();
+        let trx;
+        if (status) {
+            trx = await airdropContract.fulfillRandomWords(reqId, users);
+            trx.wait();
+        }
+
+    }
 
     return (
         <div className='container'>
@@ -59,7 +89,7 @@ const Airdrop = () => {
                             </div>
                         </div>
                         <div className="custome-equal ">
-                            <button className='btn btn-primary'>Airdrop</button>
+                            <button className='btn btn-primary' onClick={airdrop}>Airdrop</button>
                         </div>
                     </div>
                 </div>
@@ -70,9 +100,4 @@ const Airdrop = () => {
 
 export default Airdrop;
 
-// ["0x762231E298259D94a1da0eC4B6e47e6e38f261b9",
-//     "0xfB5C5f3d07ac7551c765E0dB128738755A1a7Efe",
-//     "0xE89121b5aa08AfF1803BA77Ef5202B514d0831d0"]
 
-// 0xDEA9612BC37c1f28eAc0C624f0fd09E52Be3331B main
-// 0xE16931fa0e12e3df6bFDD832Ef296ec86d64AB00 token

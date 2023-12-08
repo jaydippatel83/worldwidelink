@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { ethers, Contract } from 'ethers';
-import { multiChains, priceFeedABI, priceFeedAddress, priceFeedMatic, priceFeedMaticABI } from '../../../../config';
+import { multiChains, priceFeedABI, priceFeedAddress, priceFeedAvax, priceFeedAvaxABI, priceFeedMatic, priceFeedMaticABI } from '../../../../config';
 import btc from '../../../../images/coins/bitcoin.png';
 import dai from '../../../../images/coins/dai.png';
 import eth from '../../../../images/coins/eth.png';
@@ -26,22 +26,35 @@ const MarketInfo = () => {
         { name: 'USDC / USD', imagePath: coin },
         { name: netId === 80001 ? 'LINK / USD' : 'BTC / ETH', imagePath: netId === 80001 ? polygon : btc },
     ]
-    // useEffect(() => {
-    //     contractCall();
-    // }, []);
+
+    useEffect(() => {
+        contractCall();
+    }, []);
 
 
     const contractCall = async () => {
         const { chainId } = await provider.getNetwork();
         setNetId(Number(chainId));
 
-        const priceFeedContract = new Contract(
-            Number(chainId) === 80001 ? priceFeedMatic : priceFeedAddress,
-            Number(chainId) === 80001 ? priceFeedMaticABI : priceFeedABI,
-            signer
-        );
-        const dataFeedResult = await priceFeedContract.getLatestAnswers();
-        setDataFeed([...dataFeedResult]);
+        if (Number(chainId) === 43113) {
+            const priceFeedContract = new Contract(
+                priceFeedAvax,
+                priceFeedAvaxABI,
+                signer
+            );
+            const dataFeedResult = await priceFeedContract.getLatestAnswers();
+            console.log(dataFeedResult, "dataFeedResult");
+            setDataFeed([...dataFeedResult]);
+        } else {
+            const priceFeedContract = new Contract(
+                Number(chainId) === 80001 ? priceFeedMatic : priceFeedAddress,
+                Number(chainId) === 80001 ? priceFeedMaticABI : priceFeedABI,
+                signer
+            );
+            const dataFeedResult = await priceFeedContract.getLatestAnswers();
+            setDataFeed([...dataFeedResult]);
+        }
+
     }
 
 

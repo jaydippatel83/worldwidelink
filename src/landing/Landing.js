@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 //images
 import bannerBg from "../images/logo/wwl_pitch.png";
+import chart from "../images/logo/chart.png";
 import Shape1 from "./../assets/images/home-banner/shape1.png";
 import Shape3 from "./../assets/images/home-banner/shape3.png";
 import pitch from "../images/logo/banner.png";
@@ -88,6 +89,11 @@ function Landing() {
                   <div className="row justify-content-center mt-5">
                     <div className="col-12 col-lg-10 col-md-10 col-sm-10">
                       <img src={bannerBg} alt="" height="300" />
+                    </div>
+                  </div>
+                  <div className="row justify-content-center mt-5">
+                    <div className="col-12 col-lg-10 col-md-10 col-sm-10">
+                      <img src={chart} alt="" height="300" />
                     </div>
                   </div>
                 </div>

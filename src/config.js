@@ -43,6 +43,28 @@ export const priceFeedMaticABI = [
   }
 ];
 
+export const priceFeedAvaxABI = [
+  {
+    "inputs": [],
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "inputs": [],
+    "name": "getLatestAnswers",
+    "outputs": [
+      {
+        "internalType": "int256[]",
+        "name": "",
+        "type": "int256[]"
+      }
+    ],
+    "stateMutability": "view",
+    "type": "function"
+  }
+];
+export const priceFeedAvax = "0x9259A317c3c350780dF78509CC402F5c86F20876";
+
 export const airdropAddress = "0x13C96121e17a20C5F506d367EB8408A7b6F13F52";
 export const airdropTokenAddress = "0x2998C45406341386a5c25d523c7A500841b3E307";
 export const airdropABI = [

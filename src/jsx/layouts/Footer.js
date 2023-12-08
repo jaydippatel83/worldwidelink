@@ -6,8 +6,8 @@ const Footer = () => {
 		<div className="footer out-footer">
 			<div className="copyright">
 				<p>Copyright © Designed &amp; Developed by{" "}
-					<a href="http://worldwidelink.vercel.app/" target="_blank" rel="noreferrer">
-						world wide link
+					<a href="http://worldwidelink.xyz" target="_blank" rel="noreferrer">
+						WorldWideLink
 					</a>{" "}
 					{d.getFullYear()}
 				</p>

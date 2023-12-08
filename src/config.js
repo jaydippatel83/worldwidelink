@@ -67,6 +67,8 @@ export const priceFeedAvax = "0x040Dd256A46e8fFdD5Ffeb6F95FE9b5c02828D88";
 
 export const airdropAddress = "0x13C96121e17a20C5F506d367EB8408A7b6F13F52";
 export const airdropTokenAddress = "0x2998C45406341386a5c25d523c7A500841b3E307";
+export const airdropPolygon = "0xc959fddb28ced769a33ca38a3df0ec942eb9d384";
+export const airdropPolygonToken = "0xE6cC5dd4504A1Edf053e09Bb4cf0FBfBd0DA64d0";
 export const airdropABI = [
   {
     "inputs": [

@@ -20,6 +20,7 @@ contract EscrowSender is CCIPReceiver, OwnerIsCreator {
         uint8 fundreceiver;
         uint64 sourceChainSelector;
         uint64 destinationChainSelector;
+        string crossChains;
     }
 
     mapping(uint256 => EscrowAgreement) public agreements;
@@ -79,7 +80,9 @@ contract EscrowSender is CCIPReceiver, OwnerIsCreator {
         address payable _serviceProvider,
         address payable _arbiter,
         uint256 _amount,
-        address _receiver
+        address _receiver,
+        uint64 _destinationChainSelector,
+        string memory _crossChains
     ) public payable {
         _validateEscrowParams(_client, _serviceProvider);
 
@@ -100,7 +103,8 @@ contract EscrowSender is CCIPReceiver, OwnerIsCreator {
             false,
             0,
             16015286601757825753,
-            12532609583862916517
+            _destinationChainSelector,
+            _crossChains
         );
 
         agreements[numOfAgreement] = agreement;

@@ -1,7 +1,9 @@
-export const ESCROW_SENDER_CONTRACT_ADDRESS = "0xfBFe896dBfB0E6912718787D64F0F3C4e7420907";
-export const ESCROW_RECEIVER_CONTRACT_ADDRESS = "0xa27727Aa9F790924c3f04cc69eC6692877A7187D";
+export const ESCROW_SENDER_CONTRACT_ADDRESS = "0xbb5fd7e998526c64F8CBa3C3Cc526E510Dd6BdC4";
+export const ESCROW_MUMBAI_RECEIVER_CONTRACT_ADDRESS = "0x9519db24fE1FfB1Be531D4c66eA01Eb61B51F82a";
+export const ESCROW_FUJI_RECEIVER_CONTRACT_ADDRESS = "0x52C1da029735C798Ef0B94ba85C2C30ef378D5f4";
 export const CCIP_TOKEN_ADDRESS_SEPOLIA = "0xFd57b4ddBf88a4e07fF4e34C487b99af2Fe82a05";
 export const CCIP_TOKEN_ADDRESS_MUMBAI = "0xf1E3A5842EeEF51F2967b3F05D45DD4f4205FF40";
+export const CCIP_TOKEN_ADDRESS_FUJI = "0xD21341536c5cF5EB1bcb58f6723cE26e8D8E90e4";
 export const LIQUID_SENDER_CONTRACT_ADDRESS = "0xc99Ad7C24C21E2a09d755a4034d307B6eDd83567";
 export const LIQUID_RECEIVER_CONTRACT_ADDRESS = "0xDCA56Aecd8fb76e4a3A0d35bCefDF1291aa35424";
 
@@ -1314,11 +1316,39 @@ export const ESCROW_ABI = [
 				"internalType": "address",
 				"name": "_receiver",
 				"type": "address"
+			},
+			{
+				"internalType": "uint64",
+				"name": "_destinationChainSelector",
+				"type": "uint64"
+			},
+			{
+				"internalType": "string",
+				"name": "_crossChains",
+				"type": "string"
 			}
 		],
 		"name": "createEscrowAgreement",
 		"outputs": [],
 		"stateMutability": "payable",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "_agreementId",
+				"type": "uint256"
+			},
+			{
+				"internalType": "address",
+				"name": "_receiver",
+				"type": "address"
+			}
+		],
+		"name": "setDispute",
+		"outputs": [],
+		"stateMutability": "nonpayable",
 		"type": "function"
 	},
 	{
@@ -1453,24 +1483,6 @@ export const ESCROW_ABI = [
 				"internalType": "address",
 				"name": "_receiver",
 				"type": "address"
-			}
-		],
-		"name": "setDispute",
-		"outputs": [],
-		"stateMutability": "nonpayable",
-		"type": "function"
-	},
-	{
-		"inputs": [
-			{
-				"internalType": "uint256",
-				"name": "_agreementId",
-				"type": "uint256"
-			},
-			{
-				"internalType": "address",
-				"name": "_receiver",
-				"type": "address"
 			},
 			{
 				"internalType": "address",
@@ -1543,21 +1555,6 @@ export const ESCROW_ABI = [
 				"type": "string"
 			},
 			{
-				"internalType": "address payable",
-				"name": "client",
-				"type": "address"
-			},
-			{
-				"internalType": "address payable",
-				"name": "serviceProvider",
-				"type": "address"
-			},
-			{
-				"internalType": "address payable",
-				"name": "arbitrator",
-				"type": "address"
-			},
-			{
 				"internalType": "uint256",
 				"name": "agreementAmount",
 				"type": "uint256"
@@ -1591,6 +1588,11 @@ export const ESCROW_ABI = [
 				"internalType": "uint64",
 				"name": "destinationChainSelector",
 				"type": "uint64"
+			},
+			{
+				"internalType": "string",
+				"name": "crossChains",
+				"type": "string"
 			}
 		],
 		"stateMutability": "view",
@@ -1621,6 +1623,25 @@ export const ESCROW_ABI = [
 		"type": "function"
 	},
 	{
+		"inputs": [
+			{
+				"internalType": "uint256",
+				"name": "agreementID",
+				"type": "uint256"
+			}
+		],
+		"name": "getCSAData",
+		"outputs": [
+			{
+				"internalType": "address payable[3]",
+				"name": "",
+				"type": "address[3]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
 		"inputs": [],
 		"name": "getRouter",
 		"outputs": [
@@ -1642,6 +1663,19 @@ export const ESCROW_ABI = [
 			}
 		],
 		"name": "isDisputed",
+		"outputs": [
+			{
+				"internalType": "bool",
+				"name": "",
+				"type": "bool"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "IsPurpuse",
 		"outputs": [
 			{
 				"internalType": "bool",
@@ -1733,6 +1767,19 @@ export const ESCROW_ABI = [
 			}
 		],
 		"stateMutability": "pure",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "thisPurpose",
+		"outputs": [
+			{
+				"internalType": "string",
+				"name": "",
+				"type": "string"
+			}
+		],
+		"stateMutability": "view",
 		"type": "function"
 	}
 ]

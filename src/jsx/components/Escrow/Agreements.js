@@ -2,16 +2,17 @@ import React, { useEffect, useState } from 'react'
 import Card from 'react-bootstrap/Card';
 import Accordion from 'react-bootstrap/Accordion';
 import { useAccordionButton } from 'react-bootstrap/AccordionButton';
-import { useTable, useSortBy } from 'react-table';
 import PageTitle from '../../layouts/PageTitle';
 import Table from 'react-bootstrap/Table';
 import { Badge, Button, Col, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { EscrowContext } from '../EscrowContext/EscrowContext';
-
+import { Web3Context } from '../../../context/Web3Context';
 export default function Agreements() {
     const escrowContext = React.useContext(EscrowContext);
+    const web3context = React.useContext(Web3Context);
 
+    const { shortAddress } = web3context;
     const { everyAgreementProvider, everyAgreementClient, stakeCcipProvider, submitWork, releaseFund, raiseDispute, cancel } = escrowContext;
     const [providerStaked, setProviderStaked] = useState(false);
     const [workStatus, setWorkStatus] = useState('pending');
@@ -88,10 +89,10 @@ export default function Agreements() {
                                         <Table borderless>
                                             <tbody>
                                                 <tr>
-                                                    <><td>{Agreement.agreeId}</td>
-                                                        <td>{Agreement.title}</td>
-                                                        <td>{Agreement.clientAdd}</td>
-                                                        <td>{Agreement.agreementAmount} CCIP</td></>
+                                                    <><td>{Agreement?.agreeId}</td>
+                                                        <td>{Agreement?.title}</td>
+                                                        <td>{shortAddress(Agreement?.clientAdd)}</td>
+                                                        <td>{Agreement?.agreementAmount} CCIP</td></>
 
                                                     <td>
                                                         <span className="badge badge-success badge-lg">
@@ -111,8 +112,9 @@ export default function Agreements() {
                                             <h3>
                                                 {Agreement?.title}'s Details
                                             </h3>
+                                            <h6 style={{color:"yellowgreen"}}>Sepolia ∞ {Agreement?.crossChain}</h6>
                                             <h5>
-                                                Agreement amount: <span style={{ color: "red" }}>{Agreement.agreementAmount}</span>
+                                                Agreement amount: <span style={{ color: "red" }}>{Agreement?.agreementAmount}</span>
                                             </h5>
                                         </div>
                                         <Row className="d-flex align-items-center">
@@ -126,12 +128,12 @@ export default function Agreements() {
                                                         <Card.Title>Client Information</Card.Title>
                                                     </Card.Header>
                                                     <Card.Body className=" mb-0">
-                                                        <p className='text-black'> Address: {Agreement.clientAdd}</p>
+                                                        <p className='text-black'> Address: {shortAddress(Agreement?.clientAdd)}</p>
                                                         <p className='text-black'>
-                                                            Staked Amount : {Agreement.clientStake} CCIP
+                                                            Staked Amount : {Agreement?.clientStake} CCIP
                                                         </p>
 
-                                                        {Agreement.workSubmitted === false ? (
+                                                        {Agreement?.workSubmitted === false ? (
 
                                                             <div>
                                                                 <p className='text-black'>
@@ -147,7 +149,7 @@ export default function Agreements() {
                                                                     <Link to={"#"} className='badge-md light ms-1 badge badge-success'>Done</Link>
                                                                 </p>
                                                                 <div className='col'>
-                                                                    {Agreement.release === true ? (
+                                                                    {Agreement?.release === true ? (
                                                                         <Card.Footer className="bg-transparent border-0 text-white">
                                                                             <h4>Fund Release <span className="badge light badge-success">Successful</span></h4>
                                                                         </Card.Footer>
@@ -172,21 +174,21 @@ export default function Agreements() {
                                                         <Card.Title>Provider Information</Card.Title>
                                                     </Card.Header>
                                                     <Card.Body className=" mb-0">
-                                                        <p className='text-black'> Address: {Agreement.providerAdd}</p>
+                                                        <p className='text-black'> Address: {shortAddress(Agreement?.providerAdd)}</p>
                                                         <p className='text-black'>
-                                                            Staked Amount : {Agreement.providerStake} CCIP
+                                                            Staked Amount : {Agreement?.providerStake} CCIP
                                                         </p>
                                                     </Card.Body>
                                                     <Card.Footer className=" bg-transparent border-0 text-white">
-                                                        {Agreement.providerStake !== "0.0" ? (
+                                                        {Agreement?.providerStake !== "0.0" ? (
 
                                                             <div>
-                                                                {Agreement.workSubmitted === true ? (
+                                                                {Agreement?.workSubmitted === true ? (
 
                                                                     <div>
                                                                         <h4>Work status   <span className="badge light badge-success">Done</span></h4>
                                                                         {
-                                                                            Agreement.release === true ? (
+                                                                            Agreement?.release === true ? (
                                                                                 <h4 className='mt-4'>  Fund Recieved {" "}
                                                                                     <Badge bg="" className="light badge-success">Received</Badge>
                                                                                 </h4>
@@ -208,7 +210,7 @@ export default function Agreements() {
                                                                             </div>
                                                                             <div className='col-6'>
                                                                                 <button type="button" class="btn btn-danger btn-sm"
-                                                                            onClick={() => raiseDispute(Agreement.agreeId, Agreement.clientAdd, Agreement.providerAdd)}
+                                                                            onClick={() => raiseDispute(Agreement?.agreeId, Agreement?.clientAdd, Agreement?.providerAdd)}
                                                                                 >Dispute</button>
                                                                             </div>
                                                                         </div>
@@ -218,7 +220,7 @@ export default function Agreements() {
                                                             </div>
                                                         ) : (
                                                             <button type="button" class="btn btn-primary"
-                                                                onClick={() => stakeCcipProvider(Agreement.agreeId, Agreement.agreementAmount)}>Stake Token</button>
+                                                                onClick={() => stakeCcipProvider(Agreement?.agreeId, Agreement?.agreementAmount)}>Stake Token</button>
 
                                                         )}
 
@@ -244,10 +246,10 @@ export default function Agreements() {
                                             <Table borderless>
                                                 <tbody>
                                                     <tr>
-                                                        <><td>{Agreement.agreeId}</td>
-                                                            <td>{Agreement.title}</td>
-                                                            <td>{Agreement.clientAdd}</td>
-                                                            <td>{Agreement.agreementAmount} CCIP</td></>
+                                                        <><td>{Agreement?.agreeId}</td>
+                                                            <td>{Agreement?.title}</td>
+                                                            <td>{shortAddress(Agreement?.clientAdd)}</td>
+                                                            <td>{Agreement?.agreementAmount} CCIP</td></>
 
                                                         <td>
                                                             <span className="badge badge-success badge-lg">
@@ -268,7 +270,7 @@ export default function Agreements() {
                                                     {Agreement?.title}'s Details
                                                 </h3>
                                                 <h5>
-                                                    Agreement amount: <span style={{ color: "red" }}>{Agreement.agreementAmount}</span>
+                                                    Agreement amount: <span style={{ color: "red" }}>{Agreement?.agreementAmount}</span>
                                                 </h5>
                                             </div>
                                             <Row className="d-flex align-items-center">
@@ -282,9 +284,9 @@ export default function Agreements() {
                                                             <Card.Title>Client Information</Card.Title>
                                                         </Card.Header>
                                                         <Card.Body className=" mb-0">
-                                                            <p className='text-black'> Address: {Agreement.clientAdd}</p>
+                                                            <p className='text-black'> Address: {shortAddress(Agreement?.clientAdd)}</p>
                                                             <p className='text-black'>
-                                                                Staked Amount : {Agreement.clientStake} CCIP
+                                                                Staked Amount : {Agreement?.clientStake} CCIP
                                                             </p>
                                                             {/* {
                                                     workStatus === "pending" ? (
@@ -299,7 +301,7 @@ export default function Agreements() {
                                                     </>
                                                 } */}
 
-                                                            {Agreement.workSubmitted === false ? (
+                                                            {Agreement?.workSubmitted === false ? (
 
                                                                 <div>
                                                                     <p className='text-black'>
@@ -314,7 +316,7 @@ export default function Agreements() {
                                                                         </div>
                                                                         <div className='col-6'>
                                                                             <button type="button" class="btn btn-danger btn-sm"
-                                                                                onClick={() => raiseDispute(Agreement.agreeId, Agreement.clientAdd, Agreement.providerAdd)}
+                                                                                onClick={() => raiseDispute(Agreement?.agreeId, Agreement?.clientAdd, Agreement?.providerAdd)}
                                                                             >Dispute</button>
                                                                         </div>
                                                                     </div>
@@ -327,7 +329,7 @@ export default function Agreements() {
                                                                         <Link to={"#"} className='badge-md light ms-1 badge badge-success'>Done</Link>
                                                                     </p>
                                                                     <div className='col'>
-                                                                        {Agreement.release === true ? (
+                                                                        {Agreement?.release === true ? (
                                                                             <Card.Footer className="bg-transparent border-0 text-white">
                                                                                 <h4>Fund Release <span className="badge light badge-success">Successful</span></h4>
                                                                             </Card.Footer>
@@ -335,7 +337,7 @@ export default function Agreements() {
                                                                             <button
                                                                                 type="button"
                                                                                 className="btn btn-primary btn-md"
-                                                                                onClick={() => releaseFund(Agreement?.agreeId)}
+                                                                                onClick={() => releaseFund(Agreement?.agreeId, Agreement?.crossChain)}
                                                                             >
                                                                                 Release Fund
                                                                             </button>
@@ -360,9 +362,9 @@ export default function Agreements() {
                                                             <Card.Title>Freelancer Information</Card.Title>
                                                         </Card.Header>
                                                         <Card.Body className=" mb-0">
-                                                            <p className='text-black'> Address: {Agreement.providerAdd}</p>
+                                                            <p className='text-black'> Address: {shortAddress(Agreement?.providerAdd)}</p>
                                                             <p className='text-black'>
-                                                                Staked Amount : {Agreement.providerStake} CCIP
+                                                                Staked Amount : {Agreement?.providerStake} CCIP
                                                             </p>
                                                         </Card.Body>
                                                         <Card.Footer className=" bg-transparent border-0 text-white">
@@ -371,7 +373,7 @@ export default function Agreements() {
                                                                         <div>
                                                                             <h4>Work status   <span className="badge light badge-success">Done</span></h4>
                                                                             {
-                                                                                Agreement.release === true ? (
+                                                                                Agreement?.release === true ? (
                                                                                     <h4 className='mt-4'>  Fund Recieved {" "}
                                                                                         <Badge bg="" className="light badge-success">Received</Badge>
                                                                                     </h4>

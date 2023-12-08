@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect, useContext } from 'react'
 import { EscrowContext } from '../EscrowContext/EscrowContext'
-import { destinationChainContractAddress, CCIP_TOKEN_ABI, CCIP_TOKEN_ADDRESS_SEPOLIA, ESCROW_SENDER_CONTRACT_ADDRESS, ESCROW_ABI, CCIP_TOKEN_ADDRESS_MUMBAI, ESCROW_RECEIVER_CONTRACT_ADDRESS } from '../../../constants';
+import { destinationChainContractAddress, CCIP_TOKEN_ABI, CCIP_TOKEN_ADDRESS_SEPOLIA, ESCROW_SENDER_CONTRACT_ADDRESS, ESCROW_ABI, CCIP_TOKEN_ADDRESS_MUMBAI, ESCROW_MUMBAI_RECEIVER_CONTRACT_ADDRESS, ESCROW_FUJI_RECEIVER_CONTRACT_ADDRESS, CCIP_TOKEN_ADDRESS_FUJI } from '../../../constants';
 import Web3Modal from "web3modal";
 import { ethers } from 'ethers';
 import { Web3Context } from "../../../context/Web3Context";
@@ -23,19 +23,12 @@ export default function CreateAgreement() {
     const [amount, setAmount] = useState(0);
     const [fund, setFund] = useState(0);
     const [totalNumOfAgreement, setTotalNumOfAgreements] = useState(0);
-    const [walletConnected, setWalletConnected] = useState(false);
-    const [selectChain, setSelectChain] = useState('Mumbai testnet');
-    const [chainContractAddress, setChainContractAddress] = useState(destinationChainContractAddress['Mumbai testnet']);
-
-    // let clientAddress = address;
+    const [destinationSelector, setDestinationSelector] = useState('14767482510784806043');
+    const [ccipTokenAddress, setCcipTokenAddress] = useState(CCIP_TOKEN_ADDRESS_FUJI);
+    const [chainContractAddress, setChainContractAddress] = useState(ESCROW_FUJI_RECEIVER_CONTRACT_ADDRESS);
+    const [crossChains, setCrossChains] = useState("Fuji");
 
     const createAgreement = async () => {
-        // let receiverContract = "0xf1E3A5842EeEF51F2967b3F05D45DD4f4205FF40";
-        // if (title == null || clientAddress == null || serviceProviderAddress == null || arbitratorAddress == null || amount == null) {
-        //     alert('Please enter all required fields.');
-        //     return;
-        // }
-
         const signer = await getProviderOrSigner(true);
 
         const ccipInstance = getCCIPTokenContractInstance(CCIP_TOKEN_ADDRESS_SEPOLIA, signer);
@@ -49,7 +42,7 @@ export default function CreateAgreement() {
 
         const escroContract = getEscrowContractInstance(ESCROW_SENDER_CONTRACT_ADDRESS, signer);
         try {
-            const tx = await escroContract.createEscrowAgreement(title, clientAddress, serviceProviderAddress, arbitratorAddress, ethers.parseEther(amount), ESCROW_RECEIVER_CONTRACT_ADDRESS
+            const tx = await escroContract.createEscrowAgreement(title, clientAddress, serviceProviderAddress, arbitratorAddress, ethers.parseEther(amount), chainContractAddress, destinationSelector, crossChains
             );
 
             setLoading(true)
@@ -66,13 +59,22 @@ export default function CreateAgreement() {
             setLoading(false);
         }
     }
+    // console.log(destinationSelector);
+    // console.log(chainContractAddress);
 
     const handleChange = (event) => {
-        setSelectChain(event.target.value);
-        setChainContractAddress(destinationChainContractAddress[selectChain]);
+        // console.log(event);
+        const [selectedContractAddress, destination, crossChain, ccipTokenAdd] = JSON.parse(event.target.value);
+        setChainContractAddress(selectedContractAddress);
+        setDestinationSelector(destination);
+        setCrossChains(crossChain);
+        setCcipTokenAddress(ccipTokenAdd);
+        console.log(selectedContractAddress);
+        console.log(destination);
+        console.log(crossChain);
 
     };
-
+ 
     return (
         <>
             <div className='container'>
@@ -99,20 +101,19 @@ export default function CreateAgreement() {
                                             <label htmlFor="contractDropdown">Destination Chain</label>
                                             <select
                                                 id="contractDropdown"
-                                                value={selectChain}
                                                 onChange={handleChange}
                                                 defaultValue={"option"}
                                                 className="form-control form-control-lg" aria-label="label for the select"
                                             >
-
-                                                {Object.keys(destinationChainContractAddress).map((key) => (
-                                                    <option key={key} value={key}>
-                                                        {key}
-                                                    </option>
-                                                ))}
+                                                <option value={JSON.stringify([ESCROW_FUJI_RECEIVER_CONTRACT_ADDRESS, "14767482510784806043", "Fuji",CCIP_TOKEN_ADDRESS_FUJI])}>Fuji testnet</option>
+                                                <option value={JSON.stringify([ESCROW_MUMBAI_RECEIVER_CONTRACT_ADDRESS, "12532609583862916517", "Mumbai", CCIP_TOKEN_ADDRESS_MUMBAI])} >Mumbai testnet</option>
+                                                <option value={JSON.stringify(["0xa27727Aa9F790924c3f04cc69eC6692877A7187D", "16015286601757825753", "Sepolia", CCIP_TOKEN_ADDRESS_SEPOLIA])} >Sepolia testnet</option>
+                                                <option value={JSON.stringify(["0xa27727Aa9F790924c3f04cc69eC6692877A7187D", "13264668187771770619", "BNB"])}>BNB Chain testnet</option>
+                                                <option value={JSON.stringify(["0xa27727Aa9F790924c3f04cc69eC6692877A7187D", "5790810961207155433", "Base"])}>Base Goerli testnet</option>
 
                                             </select>
                                         </div>
+                       
                                         <div className="form-group mb-3 col-md-6">
                                             <label>Amount</label>
                                             <input
@@ -163,7 +164,7 @@ export default function CreateAgreement() {
                                             // onClick={submitWork}
                                             // onClick={releaseFund}
                                             onClick={createAgreement}
-                                            // onClick={fetchAllAgreements}
+                                        // onClick={fetchAllAgreements}
 
                                         >Create escrow</button>
                                     </div>

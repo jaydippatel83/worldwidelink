@@ -58,3 +58,12 @@ Chainlink Automation in WWL involves logic-based alerts and transfers. Trigger 2
 
 **Chainlink Node - External Adapter:**
 - We created an external adapter, bridged it with the node, and generated a job ID for the POST API of email and automated it as per Chainlink Automation - Keeper. 
+
+
+<img width="1422" alt="Screenshot 2023-12-08 at 5 42 14 PM" src="https://github.com/jaydippatel83/worldwidelink/assets/54347081/c0384693-146a-49cc-adf7-2eb769081440">
+
+
+<img width="1440" alt="Screenshot 2023-12-08 at 12 21 35 PM" src="https://github.com/jaydippatel83/worldwidelink/assets/54347081/e500d1d8-837f-4990-b854-c287962fda46">
+
+
+![Pwered By](https://github.com/jaydippatel83/worldwidelink/assets/54347081/06814432-36f3-4ef5-b712-78fe01c94236)

@@ -11,6 +11,6 @@
 | Row 4, Cell 1 | Row 4, Cell 2 |
 | Row 5, Cell 1 | Row 5, Cell 2 |
 | Row 6, Cell 1 | Row 6, Cell 2 |
-| Row 7, Cell 1 (Span 2 Columns) | |
+| <td colspan="2">Row 7, Cells 1 and 2 (Span 2 Columns)</td> |
 | Row 8, Cell 1 | Row 8, Cell 2 |
 | Row 9, Cell 1 | Row 9, Cell 2 |

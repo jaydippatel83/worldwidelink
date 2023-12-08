@@ -68,7 +68,7 @@ export const LiquidStakeContextProvider = (props) => {
         } else if (chainId == 80001) {
             instance = getCCIPTokenContractInstance(CCIP_TOKEN_ADDRESS_MUMBAI, provider)
         } else {
-            alert(" please switch to sepolia of mumbai testnet.")
+            // alert(" please switch to sepolia of mumbai testnet.")
         }
         const bal = await instance.balanceOf(address);
         setCcipBalance(ethers.formatEther(bal));
@@ -83,12 +83,12 @@ export const LiquidStakeContextProvider = (props) => {
         } else if (chainId == 80001) {
             instance = getLiquidReceiverInstance(provider)
         } else {
-            alert(" please switch to sepolia of mumbai testnet.")
+            // alert(" please switch to sepolia of mumbai testnet.")
         }
         const info = await instance.stakingInfos(address);
         setStakedAmount(ethers.formatEther(info?.stTokenBalance));
     }
-
+    // getStakedAmount();
 
     const getLiquidSenderInstance = (providerOrSigner) => {
         return new ethers.Contract(

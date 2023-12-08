@@ -291,7 +291,7 @@ export const Web3ContextProvider = (props) => {
         signer
       );
 
-      const latestDeposit = deposits[deposits.length - 1];
+      const latestDeposit = deposits[deposits?.length - 1];
 
       let messageId = latestDeposit.messageId;
       if (borrowData.token.value == "1") {

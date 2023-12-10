@@ -43,4 +43,21 @@ The cross-chain approach opens up new doors for the growth of the DeFi space. We
 
 ## Sub Graph - The Graph  : https://api.studio.thegraph.com/query/44401/wwl/0.0.1
 
+## Avalanche -
+**(Escrow)**
+https://testnet.snowtrace.io/address/0x52C1da029735C798Ef0B94ba85C2C30ef378D5f4
+
+Code:
+https://github.com/jaydippatel83/worldwidelink/blob/master/smart_contracts/escrow/Escrow.sol
+
+Line No: 1 to 726
+
+**(Data Feeds)**
+https://testnet.snowtrace.io/address/0x040Dd256A46e8fFdD5Ffeb6F95FE9b5c02828D88
+
+**(Chainlink VRF)**
+https://testnet.snowtrace.io/address/0xA7a9cB2a4b88a5C85431808F6a3292b35d3dF337
+
+For more details about Avalanche - **https://github.com/jaydippatel83/worldwidelink/blob/master/chainlink.md**
+
 ## To get more details about chainlink implementation check - https://github.com/jaydippatel83/worldwidelink/blob/master/chainlink.md

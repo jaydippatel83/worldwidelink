@@ -40,3 +40,7 @@ The cross-chain approach opens up new doors for the growth of the DeFi space. We
 
 
 🚀 We aspire to continue building worldwidelink.xyz, and it would be invaluable to receive guidance on developing a product with regulatory market fit without compromising user privacy and data protection. 🔒
+
+## Sub Graph - The Graph  : https://api.studio.thegraph.com/query/44401/wwl/0.0.1
+
+## To get more details about chainlink implementation check - https://github.com/jaydippatel83/worldwidelink/blob/master/chainlink.md

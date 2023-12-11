@@ -9,6 +9,7 @@ Chainlink: We have used different Chainlink products including 1) CCIP 2) Chain 
 Avalanche | Polygon: We built a Cross-Chain Defi hub that enables defi transactions between Avalanche, Polygon, and Ethereum for various use cases such as Escrow, Liquid Staking, Lend/Borrow 
 
 The Graph: Created a subgraph to retrieve user transactions from cross-chain lending/borrowing contracts and rewarded them with an airdrop of WWL tokens. 
+## Sub Graph - The Graph  : https://api.studio.thegraph.com/query/44401/wwl/0.0.1
 
 ![WWL Pitch - Logo change](https://github.com/jaydippatel83/worldwidelink/assets/54347081/fbd27818-c36c-440c-8813-f1ba8dfc8d44)
 
@@ -107,8 +108,7 @@ The cross-chain approach opens up new doors for the growth of the DeFi space. We
 
 
 🚀 We aspire to continue building worldwidelink.xyz, and it would be invaluable to receive guidance on developing a product with regulatory market fit without compromising user privacy and data protection. 🔒
-
-## Sub Graph - The Graph  : https://api.studio.thegraph.com/query/44401/wwl/0.0.1
+ 
 
 ## Avalanche -
 **(Escrow)**

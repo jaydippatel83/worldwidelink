@@ -3,6 +3,21 @@ World Wide Link is a Cross-Chain DeFi Hub powered by CCIP, providing access to v
 
 ** WWL Provides: 1) Multipurpose Escrow 2) Lending and Borrowing 3) SOS Alerts based automatic fund transfer 4) Cross-Chain liquid staking 5) On/Off Ramp 6) Token Transfer 
 
+## What it does
+⚖️ Multipurpose Escrow: Multipurpose Cross-Chain escrow agreement ensures ethical behavior in decentralized transactions between two parties. In WWL, both parties stake tokens, offering dispute resolution through a DAO arbitrator. 
+
+🔄 Lending and Borrowing: CCIP-powered Cross-Chain Lending and Borrowing: Seamlessly support Ethereum, Polygon, and Avalanche through the WWL, eliminating the need for bridging or native gas tokens. 
+
+🚨SOS Alerts-based automatic fund transfer: Millions locked on the chain may be inaccessible in emergencies. With WWL SOS Alerts, set triggers: if inactive, Trigger 1 sends an email via Chainlink Keeper; if still inactive, Trigger 2 alerts loved ones and transfers funds. 
+
+💼 Liquid Staking: Cross-chain liquid staking aggregator that enables users to provide liquidity across different protocols on various blockchains, all on one platform. 
+
+💸 On/Off-Ramp Integration: WWL offers integration with the Transak SDK to simplify the process for users to on and off-ramp crypto to WWL. 
+
+🔄 Token Transfer: Users can seamlessly transfer tokens across different blockchains within the Dapp, eliminating the need for bridging, managing native tokens for gas fees, or handling multiple wallets. 
+
+🎉 Airdrop: Created a subgraph to retrieve user transactions from cross-chain lending/borrowing contracts and rewarded them with an airdrop of WWL tokens. 
+
 ## Chainlink, Avalanche, Polygon, and The Graph integration details: 
 Chainlink: We have used different Chainlink products including 1) CCIP 2) Chain Automation 3) Data Feeds 4) VRF 5) Proof of Reserves 6) Functions 7) Chainlink Node-External adapter. Below are the details of the integration:
 
@@ -82,21 +97,7 @@ Chainlink Automation in WWL involves logic-based alerts and transfers. Trigger 2
  
 ![Pwered By](https://github.com/jaydippatel83/worldwidelink/assets/54347081/06814432-36f3-4ef5-b712-78fe01c94236)
 
-## What it does
-⚖️ Multipurpose Escrow: Multipurpose Cross-Chain escrow agreement ensures ethical behavior in decentralized transactions between two parties. In WWL, both parties stake tokens, offering dispute resolution through a DAO arbitrator. 
-
-🔄 Lending and Borrowing: CCIP-powered Cross-Chain Lending and Borrowing: Seamlessly support Ethereum, Polygon, and Avalanche through the WWL, eliminating the need for bridging or native gas tokens. 
-
-🚨SOS Alerts based automatic fund transfer: Millions locked on the chain may be inaccessible in emergencies. With WWL SOS Alerts, set triggers: if inactive, Trigger 1 sends an email via Chainlink Keeper; if still inactive, Trigger 2 alerts loved ones and transfers funds. 
-
-💼 Liquid Staking: Cross-chain liquid staking aggregator that enables users to provide liquidity across different protocols on various blockchains, all on one platform. 
-
-💸 On/Off-Ramp Integration: WWL offers integration with the Transak SDK to simplify the process for users to on and off-ramp crypto to WWL. 
-
-🔄 Token Transfer: Users can seamlessly transfer tokens across different blockchains within the Dapp, eliminating the need for bridging, managing native tokens for gas fees, or handling multiple wallets. 
-
-🎉 Airdrop: Created a subgraph to retrieve user transactions from cross-chain lending/borrowing contracts and rewarded them with an airdrop of WWL tokens. 
-
+ 
 ## Challenges we ran into
 🚧 We tried to utilize functions to implement notifications through a POST API for sending emails. However, we encountered a "custom error" when calling the function consumer contract. To address this issue, we created a Chainlink Node to implement the desired functionality 🛠️
 

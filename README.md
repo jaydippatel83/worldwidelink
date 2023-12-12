@@ -18,6 +18,9 @@ World Wide Link is a Cross-Chain DeFi Hub powered by CCIP, providing access to v
 
 🎉 Airdrop: Created a subgraph to retrieve user transactions from cross-chain lending/borrowing contracts and rewarded them with an airdrop of WWL tokens. 
 
+## Check Live
+[https://worldwidelink.xyz](https://worldwidelink.xyz)
+
 ## Chainlink, Avalanche, Polygon, and The Graph integration details: 
 Chainlink: We have used different Chainlink products including 1) CCIP 2) Chain Automation 3) Data Feeds 4) VRF 5) Proof of Reserves 6) Functions 7) Chainlink Node-External adapter. Below are the details of the integration:
 
@@ -58,6 +61,10 @@ The Graph: Created a subgraph to retrieve user transactions from cross-chain len
 ## Sub Graph - The Graph  : https://api.studio.thegraph.com/query/44401/wwl/0.0.1
 
 ![WWL Pitch - Logo change](https://github.com/jaydippatel83/worldwidelink/assets/54347081/fbd27818-c36c-440c-8813-f1ba8dfc8d44)
+
+# World Wide Link Product demo : 
+
+[![World Wide Link Product demo](https://img.youtube.com/vi/dfkB7nN-PDc/0.jpg)](https://youtu.be/dfkB7nN-PDc?si=GK_N1fuULoC2FIDL)
 
 ## Integration details for Chainlink, Avalanche | Polygon and The Graph.
 
